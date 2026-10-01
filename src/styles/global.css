@@ -1,0 +1,276 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Fonts — self-hosted, Latin subset.
+   Display: Baskervville (OFL). The guidelines name GFS Baskerville,
+   but that family ships Greek glyphs only, so it cannot set English.
+   ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Baskervville";
+  src: url("/fonts/baskervville-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Baskervville";
+  src: url("/fonts/baskervville-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/poppins-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ------------------------------------------------------------------
+   Design tokens — values from the BrandGap guidelines (p.7)
+   ------------------------------------------------------------------ */
+@theme {
+  --color-terracotta: #a8483a;
+  --color-terracotta-deep: #93392c;
+  --color-cream: #f4e9e1;
+  --color-blush: #efd6cc;
+  --color-ink: #1a1a1a;
+  --color-ink-soft: #574c47;
+  --color-ink-muted: #665953;
+  --color-white: #ffffff;
+  --color-mark-g: #1c1216;
+  --color-line: rgb(26 26 26 / 0.14);
+  --color-line-light: rgb(244 233 225 / 0.22);
+
+  --font-display: "Baskervville", "Libre Baskerville", "Baskerville", Georgia, serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  /* Type scale — one set of sizes for the whole site */
+  --text-label: 0.75rem;
+  --text-label--letter-spacing: 0.18em;
+  --text-label--line-height: 1.4;
+  --text-lead: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --text-lead--line-height: 1.65;
+  --text-h3: clamp(1.375rem, 1.05rem + 1.1vw, 2.125rem);
+  --text-h3--line-height: 1.15;
+  --text-quote: clamp(1.5rem, 1rem + 1.8vw, 2.875rem);
+  --text-quote--line-height: 1.12;
+  --text-h2: clamp(2rem, 1.3rem + 2.4vw, 3.75rem);
+  --text-h2--line-height: 1.02;
+  --text-numeral: clamp(2.75rem, 1.8rem + 3.2vw, 5.5rem);
+  --text-numeral--line-height: 0.9;
+  --text-display: clamp(2.5rem, 1.3rem + 4.6vw, 6.25rem);
+  --text-display--line-height: 0.95;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --breakpoint-xs: 375px;
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+@layer base {
+  html {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    overflow-x: clip;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--color-terracotta);
+    color: var(--color-cream);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+  /* Sections receive focus programmatically after in-page navigation — no ring around a whole section. */
+  main:focus-visible,
+  section[tabindex="-1"]:focus-visible,
+  footer[tabindex="-1"]:focus-visible {
+    outline: none;
+  }
+  [data-theme="terracotta"] :focus-visible,
+  [data-theme="dark"] :focus-visible {
+    outline-color: var(--color-cream);
+  }
+  img, svg, canvas {
+    display: block;
+  }
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+/* Paper grain — a faint, tactile texture over every surface, like uncoated
+   stock. One small generated tile (no download), tuned per ground:
+   multiply on cream/blush, overlay on terracotta/black so it still reads. */
+main > section,
+main > [data-grain],
+footer {
+  position: relative;
+}
+main > section::after,
+main > [data-grain]::after,
+footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+}
+main > section[data-theme="terracotta"]::after,
+footer::after {
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+}
+
+/* Custom cursor hides the native one only where it is active */
+html.has-custom-cursor,
+html.has-custom-cursor a,
+html.has-custom-cursor button {
+  cursor: none;
+}
+html.has-custom-cursor input,
+html.has-custom-cursor textarea {
+  cursor: text;
+}
+
+/* ------------------------------------------------------------------
+   Utilities
+   ------------------------------------------------------------------ */
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 1600px;
+  padding-inline: 1rem;
+  @media (width >= 48rem) { padding-inline: 2rem; }
+  @media (width >= 80rem) { padding-inline: 3rem; }
+}
+
+/* Vertical rhythm — the same breathing room around every section */
+@utility section-y {
+  padding-block: 3.5rem;
+  @media (width >= 48rem) { padding-block: 6rem; }
+  @media (width >= 80rem) { padding-block: 7rem; }
+}
+
+@utility label {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  letter-spacing: var(--text-label--letter-spacing);
+  line-height: var(--text-label--line-height);
+  text-transform: uppercase;
+}
+
+@utility line-mask {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+@utility skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  background: var(--color-ink);
+  color: var(--color-cream);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  &:focus { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Marquee band — runs only while on screen (see Marquee.jsx), still for reduced motion */
+.marquee-track {
+  animation: marquee 48s linear infinite;
+}
+.marquee[data-running="false"] .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+@keyframes cue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+/* BrandGap — Dark Premium Scrollbar */
+
+/* Firefox has no ::-webkit-scrollbar; it gets the standard properties.
+   (Chromium ignores the webkit rules whenever these are set, so they are scoped.)
+   No CSS smooth scrolling here — Lenis handles smooth scroll, and it would
+   otherwise fight Lenis, GSAP pinning and reduced-motion preferences. */
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #1c1216 transparent;
+  }
+}
+/* Smooth anchor scrolling */
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #a8433a rgba(244, 232, 225, 0.35);
+}
+
+/* Chrome / Edge / Safari */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(244, 232, 225, 0.35);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a8433a;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8f3831;
+}

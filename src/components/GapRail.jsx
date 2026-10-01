@@ -1,0 +1,77 @@
+import { useEffect, useRef } from 'react'
+import { ScrollTrigger } from '../animations/gsap'
+import { CHAPTERS } from '../data/navigation'
+
+/**
+ * The page's progress indicator, framed as the gap closing:
+ * a hairline that fills as you read and a readout counting 100 → 0.
+ * Desktop only; purely decorative (aria-hidden).
+ */
+export function GapRail() {
+  const fill = useRef(null)
+  const readout = useRef(null)
+  const chapter = useRef(null)
+  const rail = useRef(null)
+
+  useEffect(() => {
+    const page = ScrollTrigger.create({
+      start: 0,
+      end: 'max',
+      onUpdate: (self) => {
+        if (fill.current) fill.current.style.transform = `scaleY(${self.progress})`
+        if (readout.current)
+          readout.current.textContent = String(Math.round(100 - self.progress * 100)).padStart(2, '0')
+      },
+    })
+    const chapters = CHAPTERS.map((c) => {
+      const el = document.getElementById(c.id)
+      if (!el) return null
+      return ScrollTrigger.create({
+        trigger: el,
+        start: 'top 50%',
+        end: 'bottom 50%',
+        onToggle: (self) => {
+          if (self.isActive && chapter.current) chapter.current.textContent = `${c.numeral} — ${c.name}`
+        },
+      })
+    })
+    // The rail steps aside for the final chapter: terracotta and black grounds.
+    const exit = document.getElementById('contact')
+    const hide = exit
+      ? ScrollTrigger.create({
+          trigger: exit,
+          start: 'top 60%',
+          onToggle: (self) => {
+            if (rail.current) rail.current.style.opacity = self.isActive || self.progress === 1 ? '0' : '1'
+          },
+          end: 'max',
+        })
+      : null
+    return () => {
+      hide?.kill()
+      page.kill()
+      chapters.forEach((t) => t?.kill())
+    }
+  }, [])
+
+  return (
+    <div
+      ref={rail}
+      aria-hidden
+      className="pointer-events-none fixed top-1/2 right-5 transition-opacity duration-500 z-40 hidden -translate-y-1/2 flex-col items-center gap-4 mix-blend-multiply xl:flex"
+    >
+      <span className="label text-[0.6875rem] text-ink-muted [writing-mode:vertical-rl]" ref={chapter}>
+        I — Discovery
+      </span>
+      <span className="relative block h-40 w-px bg-line">
+        <span ref={fill} className="absolute inset-0 origin-top scale-y-0 bg-terracotta" />
+      </span>
+      <span className="flex flex-col items-center leading-none">
+        <span className="label text-[0.5625rem] text-ink-muted">Gap</span>
+        <span ref={readout} className="mt-1 font-display text-lg tabular-nums text-terracotta">
+          100
+        </span>
+      </span>
+    </div>
+  )
+}
