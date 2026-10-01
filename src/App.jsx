@@ -38,7 +38,7 @@ export default function App() {
         {desktop && <GapRail />}
         <main id="main" tabIndex={-1} className="overflow-x-clip outline-none">
           <Hero />
-          {/* <Gap /> */}
+          <Gap />
           {/* <Services />
           <Marquee words={MARQUEE_WORDS} />
           <Work />
