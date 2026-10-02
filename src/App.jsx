@@ -40,8 +40,8 @@ export default function App() {
           <Hero />
           <Gap />
           <Services />
-          {/* <Marquee words={MARQUEE_WORDS} />
-          <Work />
+          <Marquee words={MARQUEE_WORDS} />
+          {/* <Work />
           <Growth />
           <Metrics />
           <About />
