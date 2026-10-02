@@ -204,8 +204,8 @@ function SystemDiagram({ active, rotation }) {
     ry.set(0)
   }
 
-  const activeName = SERVICES[active].name
-
+  // const activeName = SERVICES[active].name
+const activeName = SERVICES[active].short
   return (
     <div
       ref={wrap}
@@ -215,7 +215,8 @@ function SystemDiagram({ active, rotation }) {
       aria-hidden
     >
       <m.div style={{ rotateX: tiltX, rotateY: tiltY }} className="[transform-style:preserve-3d]">
-        <svg viewBox="0 0 400 400" className="w-full overflow-visible">
+        {/* <svg viewBox="0 0 400 400" className="w-full overflow-visible"> */}
+        <svg viewBox="-30 0 460 400" className="w-full overflow-visible">
           {/* Ring */}
           <circle cx={C} cy={C} r={R} fill="none" stroke="var(--color-line)" />
           <circle cx={C} cy={C} r={R - 36} fill="none" stroke="var(--color-line)" strokeDasharray="2 6" />
@@ -265,9 +266,9 @@ function SystemDiagram({ active, rotation }) {
                     animate={{ rotate: -rotation }}
                     transition={{ duration: 1.1, ease: EASE }}
                     style={{ transformBox: 'fill-box', originX: 0.5, originY: 0.5 }}
-                    className={`font-sans text-[11px] tracking-[0.18em] uppercase ${on ? 'fill-terracotta' : 'fill-ink-muted'}`}
+                    className={`font-sans text-[13px] tracking-[0.15em] uppercase ${on ? 'fill-terracotta' : 'fill-ink-muted'}`}
                   >
-                    {s.name}
+                    {s.short}
                   </m.text>
                 </g>
               )

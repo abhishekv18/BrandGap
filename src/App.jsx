@@ -39,14 +39,14 @@ export default function App() {
         <main id="main" tabIndex={-1} className="overflow-x-clip outline-none">
           <Hero />
           <Gap />
-          {/* <Services />
-          <Marquee words={MARQUEE_WORDS} />
+          <Services />
+          {/* <Marquee words={MARQUEE_WORDS} />
           <Work />
           <Growth />
           <Metrics />
-          <About /> */}
-          {/* <Testimonials /> */}
-          {/* <Contact />   */}
+          <About />
+          <Testimonials />
+          <Contact />   */}
         </main>
         {/* <Footer /> */}
       </SmoothScroll>
@@ -54,3 +54,7 @@ export default function App() {
     </LazyMotion>
   )
 }
+
+
+
+
