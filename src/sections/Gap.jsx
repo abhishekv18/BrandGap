@@ -7,12 +7,12 @@ import { useCapabilities } from '../hooks/useCapabilities'
 
 // Sized so the longest word always fits: stacked below 1024px, side by side above.
 const WORD =
-  'inline-block font-display leading-[0.95] tracking-[-0.03em] whitespace-nowrap text-[clamp(2.25rem,10vw,4.25rem)] lg:text-[clamp(2.75rem,0.5rem+5vw,6.5rem)]'
+  'inline-block font-display leading-[0.95] tracking-[-0.03em] whitespace-nowrap text-[clamp(2.25rem,10vw,5rem)] desk:text-[clamp(2.75rem,0.5rem+5vw,6.5rem)]'
 
 /** The statement, set once and shared by the scroll and still versions. */
 function Statement({ className = '' }) {
   return (
-    <h2 id="gap-title" className={`mx-auto max-w-[22ch] text-h2 md:mx-0 ${className}`}>
+    <h2 id="gap-title" className={`mx-auto max-w-[22ch] text-h2 desk:mx-0 ${className}`}>
       {GAP_STATEMENT.lead} <span className="italic text-terracotta">{GAP_STATEMENT.emphasis}</span>
     </h2>
   )
@@ -21,7 +21,7 @@ function Statement({ className = '' }) {
 /** BRAND ← THE GAP → GROWTH (brief §4), drawn as a measured hairline. */
 function GapDiagram({ className = '' }) {
   return (
-    <p className={`label flex items-center justify-center gap-3 text-ink-muted md:justify-start ${className}`}>
+    <p className={`label flex items-center justify-center gap-3 text-ink-muted desk:justify-start ${className}`}>
       <span className="text-terracotta">Brand</span>
       <span aria-hidden className="relative block h-px w-10 bg-terracotta/60 md:w-16">
         <span className="absolute top-1/2 left-0 size-1.5 -translate-y-1/2 rotate-45 border-b border-l border-terracotta" />
@@ -60,7 +60,10 @@ function GapScroll() {
     // Rebuilt whenever the layout switches between stacked and side-by-side.
     const mm = gsap.matchMedia()
     mm.add(
-      { wide: '(min-width: 1024px)', narrow: '(max-width: 1023.98px)' },
+      {
+        wide: '(min-width: 1024px) and (orientation: landscape), (min-width: 1280px)',
+        narrow: '(max-width: 1023.98px), (max-width: 1279.98px) and (orientation: portrait)',
+      },
       ({ conditions }) => {
         const wide = conditions.wide
         const q = gsap.utils.selector(stage)
@@ -134,12 +137,12 @@ function GapScroll() {
   }, [])
 
   return (
-    <section id="gap" ref={section} aria-labelledby="gap-title" className="relative -mt-[12svh] h-[260svh] md:mt-0 md:h-[340svh]">
+    <section id="gap" ref={section} aria-labelledby="gap-title" className="relative -mt-[12svh] h-[260svh] md:h-[300svh] desk:mt-0 desk:h-[340svh]">
       <div ref={stage} className="sticky top-0 h-svh overflow-hidden">
-        <SectionLabel numeral="II" name="The gap" className="container-page absolute inset-x-0 top-20 md:top-28" />
+        <SectionLabel numeral="II" name="The gap" className="container-page absolute inset-x-0 top-20 md:top-28 md:!justify-center desk:!justify-start" />
 
         {/* Opening statement */}
-        <div data-statement className="container-page absolute inset-0 flex flex-col justify-start pt-32 text-center md:pt-48 md:text-left lg:justify-center lg:pt-0">
+        <div data-statement className="container-page absolute inset-0 flex flex-col justify-start pt-32 text-center md:justify-center md:pt-0 desk:text-left">
           <Statement />
           <GapDiagram className="mt-6 md:mt-8" />
         </div>
@@ -148,23 +151,23 @@ function GapScroll() {
             so centring never fights the animation. Visual only — the list below
             carries the same content for assistive tech. */}
         {GAP_PAIRS.map((pair, i) => (
-          <div key={pair.from} data-pair aria-hidden className="absolute inset-0 flex flex-col justify-center pt-24 pb-10 md:justify-start md:pt-40 md:pb-16">
-            <div data-area className="relative h-[46svh] min-h-0 flex-none md:h-auto md:flex-1">
+          <div key={pair.from} data-pair aria-hidden className="absolute inset-0 flex flex-col justify-center pt-24 pb-10 desk:justify-start desk:pt-40 desk:pb-16">
+            <div data-area className="relative h-[46svh] min-h-0 flex-none md:h-[44svh] desk:h-auto desk:flex-1">
               <span
                 data-line
-                className="absolute top-[20%] left-[calc(50%-0.5px)] block h-[60%] w-px bg-terracotta/60 lg:top-[calc(50%-0.5px)] lg:left-[26%] lg:h-px lg:w-[48%]"
+                className="absolute top-[20%] left-[calc(50%-0.5px)] block h-[60%] w-px bg-terracotta/60 desk:top-[calc(50%-0.5px)] desk:left-[26%] desk:h-px desk:w-[48%]"
               />
               <span
                 data-dot
                 className="absolute top-[calc(50%-5px)] left-[calc(50%-5px)] block size-2.5 rounded-full bg-terracotta"
               />
-              <div className="absolute inset-x-0 bottom-1/2 flex justify-center pb-5 lg:inset-y-0 lg:right-1/2 lg:bottom-0 lg:items-center lg:justify-end lg:pb-0">
-                <span data-from className={`${WORD} text-terracotta lg:pr-[0.22em]`}>
+              <div className="absolute inset-x-0 bottom-1/2 flex justify-center pb-5 desk:inset-y-0 desk:right-1/2 desk:bottom-0 desk:items-center desk:justify-end desk:pb-0">
+                <span data-from className={`${WORD} text-terracotta desk:pr-[0.22em]`}>
                   {pair.from}
                 </span>
               </div>
-              <div className="absolute inset-x-0 top-1/2 flex justify-center pt-5 lg:inset-y-0 lg:top-0 lg:left-1/2 lg:items-center lg:justify-start lg:pt-0">
-                <span data-to className={`${WORD} text-ink lg:pl-[0.22em]`}>
+              <div className="absolute inset-x-0 top-1/2 flex justify-center pt-5 desk:inset-y-0 desk:top-0 desk:left-1/2 desk:items-center desk:justify-start desk:pt-0">
+                <span data-to className={`${WORD} text-ink desk:pl-[0.22em]`}>
                   {pair.to}
                 </span>
               </div>

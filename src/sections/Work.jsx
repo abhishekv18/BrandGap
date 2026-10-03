@@ -9,6 +9,7 @@ import { SectionLabel } from '../components/SectionLabel'
 import { PUBLISHED_PROJECTS, WORK_INTRO } from '../data/projects'
 import { useCapabilities } from '../hooks/useCapabilities'
 import { useHrefClick } from '../hooks/useHrefClick'
+import { useMediaQuery } from '../hooks/useMediaQuery'
 
 // Each card gets its own crop of the mark, so the rail never repeats itself.
 const PLATES = [
@@ -31,7 +32,9 @@ export function Work() {
   const counter = useRef(null)
   const [open, setOpen] = useState(null)
   const close = useCallback(() => setOpen(null), [])
-  const horizontal = tier === 'desktop' && !reducedMotion
+  // The sideways rail needs a landscape canvas; tall portrait screens read the cases as a stack.
+  const portrait = useMediaQuery('(orientation: portrait)')
+  const horizontal = tier === 'desktop' && !reducedMotion && !portrait
   const projects = PUBLISHED_PROJECTS
 
   useLayoutEffect(() => {

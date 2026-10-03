@@ -69,6 +69,41 @@
   --breakpoint-xs: 375px;
 }
 
+/* Tablets (768–1023px): one confident step up from phone sizes, so text
+   doesn't sit at the bottom of its fluid range on a 10" screen. */
+@media (width >= 48rem) and (width < 64rem), (width >= 48rem) and (width < 80rem) and (orientation: portrait) {
+  :root {
+    --text-lead: 1.0625rem;
+    --text-h3: 1.5rem;
+    --text-quote: 1.875rem;
+    --text-h2: 2.5rem;
+    --text-numeral: 3.5rem;
+    --text-display: 3.75rem;
+  }
+}
+
+/* "wide": landscape tablets and up — side-by-side layouts only where there
+   is width to spare. Portrait tablets (iPad, iPad Air, iPad Pro) stack. */
+@custom-variant wide {
+  @media (width >= 48rem) and (orientation: landscape) {
+    @slot;
+  }
+  @media (width >= 80rem) {
+    @slot;
+  }
+}
+
+/* "desk": a real desktop canvas — 1024px+ landscape, or 1280px+ any way up.
+   Homepage storytelling layouts switch to their desktop form here. */
+@custom-variant desk {
+  @media (width >= 64rem) and (orientation: landscape) {
+    @slot;
+  }
+  @media (width >= 80rem) {
+    @slot;
+  }
+}
+
 /* ------------------------------------------------------------------
    Base
    ------------------------------------------------------------------ */

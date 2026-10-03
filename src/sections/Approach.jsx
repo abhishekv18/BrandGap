@@ -49,11 +49,11 @@ export function Approach({ numeral = 'V', headingLevel = 'h2', className = '' })
         </Reveal>
       </div>
 
-      <div className="mt-8 grid md:mt-12 md:grid-cols-12 md:gap-8">
+      <div className="mt-8 md:mt-10 desk:mt-12 desk:grid desk:grid-cols-12 desk:gap-8">
         {/* The rolling numeral and the closing gap — tablet and up */}
-        <div aria-hidden className="hidden md:sticky md:top-[22svh] md:col-span-5 md:block md:self-start">
+        <div aria-hidden className="hidden desk:sticky desk:top-[22svh] desk:col-span-5 desk:block desk:self-start">
           <div className="line-mask font-display text-[clamp(6rem,2.5rem+8vw,11rem)] leading-[0.85] text-terracotta">
-            <div className="h-[0.85em]">
+            <div className="h-[0.85em] overflow-hidden">
               <div
                 className="transition-transform duration-[900ms] ease-(--ease-out-expo)"
                 style={{ transform: `translateY(${-active * 0.85}em)` }}
@@ -90,30 +90,30 @@ export function Approach({ numeral = 'V', headingLevel = 'h2', className = '' })
           </div>
         </div>
 
-        <ol className="md:col-span-6 md:col-start-7">
+        <ol className="md:grid md:grid-cols-2 md:gap-x-8 desk:col-span-6 desk:col-start-7 desk:block">
           {APPROACH_STEPS.map((step, i) => {
             const on = reducedMotion || i === active
             return (
               <li
                 key={step.id}
                 data-step
-                className="flex flex-col items-center border-t border-line py-8 text-center last:border-b md:items-start md:justify-center md:py-10 md:text-left lg:min-h-[34svh] lg:py-12"
+                className="flex flex-col items-center border-t border-line py-8 text-center last:border-b md:items-start md:justify-start md:py-8 md:text-left md:last:border-b-0 desk:min-h-[34svh] desk:justify-center desk:py-12 desk:last:border-b"
               >
-                <span className="font-display text-numeral text-terracotta md:hidden">
+                <span className="font-display text-numeral text-terracotta desk:hidden">
                   <MaskReveal>{step.index}</MaskReveal>
                 </span>
                 <h3
-                  className={`mt-2 font-display text-h3 transition-colors duration-700 md:mt-0 ${
-                    on ? 'text-ink' : 'md:text-ink/35'
+                  className={`mt-2 font-display text-h3 transition-colors duration-700 desk:mt-0 ${
+                    on ? 'text-ink' : 'desk:text-ink/35'
                   }`}
                 >
-                  <span className="label mr-4 hidden align-middle text-ink-muted md:inline">{step.index}</span>
+                  <span className="label mr-4 hidden align-middle text-ink-muted desk:inline">{step.index}</span>
                   {step.name}
                   {i === LAST && <span className="text-terracotta">.</span>}
                 </h3>
                 <p
                   className={`mt-4 max-w-sm text-lead transition-colors duration-700 ${
-                    on ? 'text-ink-soft' : 'md:text-ink/35'
+                    on ? 'text-ink-soft' : 'desk:text-ink/35'
                   }`}
                 >
                   {step.text}

@@ -28,7 +28,7 @@ export const CONTACT = {
  * e.g. '91XXXXXXXXXX'. While null the button explains that it is not connected.
  */
 export const WHATSAPP = {
-  number: null,
+  number: 919625802011,
   placeholder: '[WhatsApp number]',
   message: "Hi BrandGap, I'd like to talk about growing my brand.",
 }

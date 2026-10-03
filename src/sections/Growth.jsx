@@ -158,7 +158,7 @@ function GrowthScroll() {
   }, [])
 
   return (
-    <section id="growth" ref={section} aria-labelledby="growth-title" className="relative h-[300svh] md:h-[360svh]">
+    <section id="growth" ref={section} aria-labelledby="growth-title" className="relative h-[300svh] desk:h-[360svh]">
       <div ref={stage} className="sticky top-0 h-svh overflow-hidden" style={PANEL_SIZE}>
         <SectionLabel numeral="VI" name="The growth system" className="container-page absolute inset-x-0 top-24 md:top-28 [&>span:first-child]:text-terracotta-deep" />
 
@@ -198,7 +198,7 @@ function GrowthScroll() {
         {/* Final composition: one column, so nothing can collide at any height */}
         <div
           data-promise
-          className="container-page absolute inset-x-0 bottom-[20svh] flex flex-col items-center gap-6 md:bottom-[max(1.5rem,5svh)] md:gap-8"
+          className="container-page absolute inset-x-0 bottom-[20svh] flex flex-col items-center gap-6 md:bottom-[22svh] md:gap-8 desk:bottom-[max(1.5rem,5svh)]"
         >
           <Promise />
           <GapClosed />

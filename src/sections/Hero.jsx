@@ -184,7 +184,7 @@ export function Hero() {
       >
         {/* Eyebrow */}
         {!isStatic && (
-          <p ref={eyebrow} data-eyebrow className="container-page absolute inset-x-0 top-24 label text-center text-ink-soft md:top-28 md:text-left">
+          <p ref={eyebrow} data-eyebrow className="container-page absolute inset-x-0 top-24 label text-center text-ink-soft md:top-28 wide:text-left">
             Brand &amp; growth partner <span className="text-terracotta">—</span> for ambitious D2C &amp;
             service brands
           </p>
@@ -201,13 +201,13 @@ export function Hero() {
             >
               <svg
                 viewBox={VB}
-                className="absolute top-[max(18%,10.5rem)] left-1/2 h-[min(56%,calc(100%-15rem))] -translate-x-[calc(50%+min(20vw,340px))]"
+                className="absolute top-[max(18%,10.5rem)] left-1/2 h-[min(56%,calc(100%-15rem))] -translate-x-[calc(50%+min(20vw,340px))] portrait:top-[17%] portrait:h-[27%] portrait:-translate-x-[calc(50%+24vw)]"
               >
                 <path d={MARK_B_D} fill={MARK_COLORS.b} />
               </svg>
               <svg
                 viewBox={VB}
-                className="absolute top-[max(26%,13rem)] left-1/2 h-[min(56%,calc(100%-15rem))] -translate-x-[calc(50%-min(20vw,340px))]"
+                className="absolute top-[max(26%,13rem)] left-1/2 h-[min(56%,calc(100%-15rem))] -translate-x-[calc(50%-min(20vw,340px))] portrait:top-[54%] portrait:h-[27%] portrait:-translate-x-[calc(50%-24vw)]"
               >
                 <path d={MARK_G_D} fill={MARK_COLORS.g} />
               </svg>
@@ -234,7 +234,7 @@ export function Hero() {
         {!isStatic && (
           <div
             ref={flat}
-            className="pointer-events-none absolute top-1/2 left-1/2 h-[30%] -translate-x-1/2 -translate-y-1/2 md:h-[56%]"
+            className={`pointer-events-none absolute top-1/2 left-1/2 h-[30%] -translate-x-1/2 -translate-y-1/2 ${mode === 'svg' ? 'md:h-[34%] wide:h-[56%]' : 'md:h-[56%]'}`}
             style={{ aspectRatio: `${MARK_VIEWBOX.w} / ${MARK_VIEWBOX.h}` }}
           >
             <BrandMark className="h-full w-full overflow-visible" bRef={bGroup} gRef={gGroup} />
@@ -288,17 +288,17 @@ export function Hero() {
 
         {/* Lockup: mark beside the wordmark, as the guidelines specify */}
         <div
-          className={`${isStatic ? 'relative pt-28 pb-16' : 'absolute inset-0'} container-page flex flex-col justify-center gap-8 md:grid md:grid-cols-12 md:items-center md:gap-10`}
+          className={`${isStatic ? 'relative pt-28 pb-16' : 'absolute inset-0'} container-page flex flex-col justify-center gap-8 md:gap-10 wide:grid wide:grid-cols-12 wide:items-center`}
         >
           <div
             ref={markTarget}
-            className="h-[20svh] self-center md:col-span-4 md:col-start-2 md:mr-4 md:h-[min(38svh,24vw)] md:self-center md:justify-self-end lg:mr-10 xl:mr-16"
+            className="h-[20svh] self-center md:h-[24svh] wide:col-span-4 wide:col-start-2 wide:mr-4 wide:h-[min(38svh,24vw)] wide:self-center wide:justify-self-end lg:mr-10 xl:mr-16"
             style={{ aspectRatio: `${MARK_VIEWBOX.w} / ${MARK_VIEWBOX.h}` }}
           >
             {isStatic && <BrandMark className="h-full w-full" />}
           </div>
-          <div className="text-center md:col-span-7 md:col-start-6 md:text-left xl:col-span-6 xl:col-start-6">
-            <h1 className="text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)] leading-[0.92]">
+          <div className="text-center wide:col-span-7 wide:col-start-6 wide:text-left xl:col-span-6 xl:col-start-6">
+            <h1 className="text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)] leading-[0.92] md:text-[4.5rem] wide:text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)]">
               <span className="line-mask">
                 <span data-hero-line className="block">
                   Brand<span className="text-terracotta">Gap</span>
@@ -310,12 +310,12 @@ export function Hero() {
                 </span>
               </span>
             </h1>
-            <p data-hero-fade className="mx-auto mt-6 max-w-md text-lead text-ink-soft md:mx-0 md:mt-8">
+            <p data-hero-fade className="mx-auto mt-6 max-w-md text-lead text-ink-soft md:mt-8 wide:mx-0">
               Brand &amp; growth, built together for ambitious brands.
             </p>
             <div
               data-hero-fade
-              className="mt-8 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-8 md:mt-10 md:justify-start"
+              className="mt-8 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-8 md:mt-10 wide:justify-start"
             >
               <MagneticButton href="/contact" cursor="start" trackAs="hero_start_project">
                 Start a project
