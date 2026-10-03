@@ -5,10 +5,10 @@ import { BrandMark } from '../components/BrandMark'
 import { MagneticButton } from '../components/MagneticButton'
 import { MARK_B_D, MARK_COLORS, MARK_G_D, MARK_VIEWBOX } from '../data/mark'
 import { FOOTER } from '../data/contact'
+import { useCapabilities } from '../hooks/useCapabilities'
 
 // Brand guidelines p.14.
 const HERO_ORIGIN = FOOTER.origin
-import { useCapabilities } from '../hooks/useCapabilities'
 
 const HeroScene = lazy(() => import('../3d/Scene'))
 
@@ -185,8 +185,8 @@ export function Hero() {
         {/* Eyebrow */}
         {!isStatic && (
           <p ref={eyebrow} data-eyebrow className="container-page absolute inset-x-0 top-24 label text-center text-ink-soft md:top-28 md:text-left">
-            Brand &amp; growth partner <span className="text-terracotta">—</span> premium beauty &amp;
-            personal care
+            Brand &amp; growth partner <span className="text-terracotta">—</span> for ambitious D2C &amp;
+            service brands
           </p>
         )}
 
@@ -201,13 +201,13 @@ export function Hero() {
             >
               <svg
                 viewBox={VB}
-                className="absolute top-[18%] left-1/2 h-[56%] -translate-x-[calc(50%+min(20vw,340px))]"
+                className="absolute top-[max(18%,10.5rem)] left-1/2 h-[min(56%,calc(100%-15rem))] -translate-x-[calc(50%+min(20vw,340px))]"
               >
                 <path d={MARK_B_D} fill={MARK_COLORS.b} />
               </svg>
               <svg
                 viewBox={VB}
-                className="absolute top-[26%] left-1/2 h-[56%] -translate-x-[calc(50%-min(20vw,340px))]"
+                className="absolute top-[max(26%,13rem)] left-1/2 h-[min(56%,calc(100%-15rem))] -translate-x-[calc(50%-min(20vw,340px))]"
               >
                 <path d={MARK_G_D} fill={MARK_COLORS.g} />
               </svg>
@@ -292,35 +292,35 @@ export function Hero() {
         >
           <div
             ref={markTarget}
-            className="h-[20svh] self-center md:col-span-4 md:col-start-2 md:mr-4 md:h-[38svh] md:self-center md:justify-self-end lg:mr-10 xl:mr-16"
+            className="h-[20svh] self-center md:col-span-4 md:col-start-2 md:mr-4 md:h-[min(38svh,24vw)] md:self-center md:justify-self-end lg:mr-10 xl:mr-16"
             style={{ aspectRatio: `${MARK_VIEWBOX.w} / ${MARK_VIEWBOX.h}` }}
           >
             {isStatic && <BrandMark className="h-full w-full" />}
           </div>
           <div className="text-center md:col-span-7 md:col-start-6 md:text-left xl:col-span-6 xl:col-start-6">
-            <h1 className="text-[clamp(3rem,1rem+6.4vw,8.5rem)] leading-[0.92]">
+            <h1 className="text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)] leading-[0.92]">
               <span className="line-mask">
                 <span data-hero-line className="block">
                   Brand<span className="text-terracotta">Gap</span>
                 </span>
               </span>
               <span className="line-mask mt-3 md:mt-5">
-                <span data-hero-line className="block text-[clamp(1.5rem,1.1rem+1.6vw,2.5rem)] leading-[1.1] italic text-ink-soft">
+                <span data-hero-line className="block text-[clamp(1.375rem,1.05rem+1.2vw,2.125rem)] leading-[1.1] italic text-ink-soft">
                   Where brand becomes growth.
                 </span>
               </span>
             </h1>
             <p data-hero-fade className="mx-auto mt-6 max-w-md text-lead text-ink-soft md:mx-0 md:mt-8">
-              Brand and growth, built together for ambitious beauty and personal-care brands.
+              Brand &amp; growth, built together for ambitious brands.
             </p>
             <div
               data-hero-fade
               className="mt-8 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-8 md:mt-10 md:justify-start"
             >
-              <MagneticButton href="#contact" cursor="start">
+              <MagneticButton href="/contact" cursor="start" trackAs="hero_start_project">
                 Start a project
               </MagneticButton>
-              <MagneticButton href="#work" variant="text">
+              <MagneticButton href="#work" variant="text" trackAs="hero_explore_work">
                 Explore our work
               </MagneticButton>
             </div>

@@ -2,6 +2,7 @@ import { AnimatePresence, m, useMotionValue, useSpring } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { Copy } from '../components/Copy'
 import { HoverPreview } from '../components/HoverPreview'
+import { MagneticButton } from '../components/MagneticButton'
 import { MaskReveal, Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
 import { SERVICES, SERVICES_CENTER, SERVICES_INTRO } from '../data/services'
@@ -12,7 +13,7 @@ const EASE = [0.16, 1, 0.3, 1]
 const STEP = 360 / SERVICES.length
 
 /**
- * Chapter III — Transformation.
+ * Chapter III — What we do.
  * An editorial index of services beside a live diagram of the system:
  * Brand at the centre, each service a node on the ring. Choosing a service
  * turns the ring to bring it to the top and draws its line to the centre.
@@ -38,10 +39,10 @@ export function Services() {
 
   return (
     <section id="services" aria-labelledby="services-title" className="container-page section-y text-center md:text-left">
-      <div className="grid gap-10 md:grid-cols-12">
+      <div className="grid gap-6 md:grid-cols-12 md:gap-10">
         <div className="md:col-span-8">
-          <SectionLabel numeral="III" name="Transformation" />
-          <h2 id="services-title" className="mt-8 text-h2 md:mt-10">
+          <SectionLabel numeral="III" name="What we do" />
+          <h2 id="services-title" className="mt-5 text-h2 md:mt-7">
             <MaskReveal>Brand and growth,</MaskReveal>
             <MaskReveal delay={0.08} className="italic text-terracotta">
               under one roof.
@@ -53,31 +54,38 @@ export function Services() {
         </Reveal>
       </div>
 
-      <div className="mt-12 grid gap-12 md:mt-20 md:grid-cols-12 md:gap-6">
+      <div className="mt-10 grid gap-10 md:mt-14 md:grid-cols-12 md:gap-6">
         <div className="md:sticky md:top-[18vh] md:col-span-5 md:self-start">
           <SystemDiagram active={active} rotation={rotation} />
           <ServiceDetail service={SERVICES[active]} index={active} />
         </div>
 
-        <ol
-          className="border-t border-line md:col-span-6 md:col-start-7"
-          aria-label="Services"
-          {...(withPreview && {
-            onMouseEnter: () => setHovering(true),
-            onMouseLeave: () => setHovering(false),
-            onMouseMove: (e) => preview.current?.move(e),
-          })}
-        >
-          {SERVICES.map((service, i) => (
-            <ServiceRow
-              key={service.id}
-              service={service}
-              index={i}
-              active={i === active}
-              onSelect={() => select(i)}
-            />
-          ))}
-        </ol>
+        <div className="md:col-span-6 md:col-start-7">
+          <ol
+            className="border-t border-line"
+            aria-label="Services"
+            {...(withPreview && {
+              onMouseEnter: () => setHovering(true),
+              onMouseLeave: () => setHovering(false),
+              onMouseMove: (e) => preview.current?.move(e),
+            })}
+          >
+            {SERVICES.map((service, i) => (
+              <ServiceRow
+                key={service.id}
+                service={service}
+                index={i}
+                active={i === active}
+                onSelect={() => select(i)}
+              />
+            ))}
+          </ol>
+          <div className="mt-8 flex justify-center md:justify-start">
+            <MagneticButton href="/services" variant="text" trackAs="home_all_services">
+              All services in detail
+            </MagneticButton>
+          </div>
+        </div>
       </div>
 
       {withPreview && <HoverPreview ref={preview} items={SERVICES} active={active} visible={hovering} />}
@@ -97,7 +105,7 @@ function ServiceRow({ service, index, active, onSelect }) {
           onClick={onSelect}
           onMouseEnter={onSelect}
           onFocus={onSelect}
-          className="group flex min-h-11 w-full items-baseline justify-center gap-4 py-4 text-center md:justify-start md:gap-8 md:py-6 md:text-left"
+          className="group flex min-h-11 w-full items-baseline justify-center gap-4 py-4 text-center md:justify-start md:gap-8 md:py-5 md:text-left"
         >
           <span className={`label tabular-nums transition-colors duration-500 ${active ? 'text-terracotta' : 'text-ink-muted'}`}>
             0{index + 1}
@@ -109,12 +117,7 @@ function ServiceRow({ service, index, active, onSelect }) {
           >
             {service.name}
           </span>
-          <span
-            aria-hidden
-            className={`ml-auto hidden h-px w-8 self-center bg-terracotta transition-transform md:block duration-700 ease-(--ease-out-expo) ${
-              active ? 'scale-x-100' : 'scale-x-0'
-            } origin-right`}
-          />
+          <GapGlyph active={active} />
         </button>
       </h3>
       <AnimatePresence initial={false}>
@@ -148,10 +151,29 @@ function ServiceRow({ service, index, active, onSelect }) {
   )
 }
 
+/**
+ * The small moving graphic on each card (brief §4): a b-dot and a g-dot either
+ * side of a hairline, which close the gap when the service is chosen.
+ */
+function GapGlyph({ active }) {
+  const dot = 'absolute top-1/2 size-2 -translate-y-1/2 rounded-full transition-transform duration-700 ease-(--ease-out-expo)'
+  return (
+    <span aria-hidden className="relative ml-auto hidden h-3 w-12 shrink-0 self-center md:block">
+      <span
+        className={`absolute top-1/2 left-2 h-px w-8 -translate-y-1/2 bg-ink/25 transition-transform duration-700 ease-(--ease-out-expo) ${
+          active ? 'scale-x-0' : 'scale-x-100 group-hover:scale-x-50'
+        }`}
+      />
+      <span className={`${dot} left-0 bg-terracotta ${active ? 'translate-x-4' : 'group-hover:translate-x-2'}`} />
+      <span className={`${dot} right-0 bg-ink ${active ? '-translate-x-4' : 'group-hover:-translate-x-2'}`} />
+    </span>
+  )
+}
+
 /** Desktop: the chosen service's detail sits under the diagram, so the list never shifts under the pointer. */
 function ServiceDetail({ service, index }) {
   return (
-    <div className="mt-10 hidden min-h-40 border-t border-line pt-6 md:block" aria-live="polite">
+    <div className="mt-8 hidden min-h-36 border-t border-line pt-5 md:block" aria-live="polite">
       <AnimatePresence mode="wait">
         <m.div
           key={service.id}
@@ -211,7 +233,7 @@ const activeName = SERVICES[active].short
       ref={wrap}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
-      className="mx-auto w-full max-w-[20rem] [perspective:900px] md:max-w-[30rem]"
+      className="mx-auto w-full max-w-[19rem] [perspective:900px] sm:max-w-[21rem] md:max-w-[26rem] xl:max-w-[28rem]"
       aria-hidden
     >
       <m.div style={{ rotateX: tiltX, rotateY: tiltY }} className="[transform-style:preserve-3d]">

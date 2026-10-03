@@ -10,7 +10,8 @@ import { useSmoothScroll } from './SmoothScroll'
  * reduced-motion users. A safety timer always releases the page.
  */
 export function IntroLoader({ enabled }) {
-  const [show, setShow] = useState(enabled)
+  // A deep link to a section (/page#id) goes straight there — no curtain to wait behind.
+  const [show, setShow] = useState(() => enabled && !window.location.hash)
   const root = useRef(null)
   const bRef = useRef(null)
   const gRef = useRef(null)

@@ -2,12 +2,38 @@ import { useLayoutEffect, useRef } from 'react'
 import { easeInOutCubic, gsap, range } from '../animations/gsap'
 import { Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
-import { GAP_PAIRS, GAP_STATEMENT, GAP_STORY } from '../data/gap'
+import { GAP_PAIRS, GAP_STATEMENT } from '../data/gap'
 import { useCapabilities } from '../hooks/useCapabilities'
 
 // Sized so the longest word always fits: stacked below 1024px, side by side above.
 const WORD =
-  'inline-block font-display leading-[0.95] tracking-[-0.03em] whitespace-nowrap text-[clamp(2.25rem,11vw,5rem)] lg:text-[clamp(3rem,0.5rem+6vw,8.5rem)]'
+  'inline-block font-display leading-[0.95] tracking-[-0.03em] whitespace-nowrap text-[clamp(2.25rem,10vw,4.25rem)] lg:text-[clamp(2.75rem,0.5rem+5vw,6.5rem)]'
+
+/** The statement, set once and shared by the scroll and still versions. */
+function Statement({ className = '' }) {
+  return (
+    <h2 id="gap-title" className={`mx-auto max-w-[22ch] text-h2 md:mx-0 ${className}`}>
+      {GAP_STATEMENT.lead} <span className="italic text-terracotta">{GAP_STATEMENT.emphasis}</span>
+    </h2>
+  )
+}
+
+/** BRAND ← THE GAP → GROWTH (brief §4), drawn as a measured hairline. */
+function GapDiagram({ className = '' }) {
+  return (
+    <p className={`label flex items-center justify-center gap-3 text-ink-muted md:justify-start ${className}`}>
+      <span className="text-terracotta">Brand</span>
+      <span aria-hidden className="relative block h-px w-10 bg-terracotta/60 md:w-16">
+        <span className="absolute top-1/2 left-0 size-1.5 -translate-y-1/2 rotate-45 border-b border-l border-terracotta" />
+      </span>
+      <span>The gap</span>
+      <span aria-hidden className="relative block h-px w-10 bg-ink/40 md:w-16">
+        <span className="absolute top-1/2 right-0 size-1.5 -translate-y-1/2 rotate-45 border-t border-r border-ink" />
+      </span>
+      <span className="text-ink">Growth</span>
+    </p>
+  )
+}
 
 // Timeline layout (0–1 across the pinned section)
 const STATEMENT_OUT = 0.12
@@ -16,7 +42,7 @@ const STEP = (1 - FIRST - 0.06) / GAP_PAIRS.length
 const CLOSE = STEP * 0.62
 
 /**
- * Chapter II — Tension.
+ * Chapter II — The gap.
  * The hero's gap, generalised: each pair starts apart across a measured
  * hairline and closes as you scroll, ending on brand → growth.
  */
@@ -108,24 +134,22 @@ function GapScroll() {
   }, [])
 
   return (
-    <section id="gap" ref={section} aria-labelledby="gap-title" className="relative h-[340svh] md:h-[420svh]">
+    <section id="gap" ref={section} aria-labelledby="gap-title" className="relative -mt-[12svh] h-[260svh] md:mt-0 md:h-[340svh]">
       <div ref={stage} className="sticky top-0 h-svh overflow-hidden">
-        <SectionLabel numeral="II" name="Tension" className="container-page absolute inset-x-0 top-20 md:top-28" />
+        <SectionLabel numeral="II" name="The gap" className="container-page absolute inset-x-0 top-20 md:top-28" />
 
         {/* Opening statement */}
         <div data-statement className="container-page absolute inset-0 flex flex-col justify-start pt-32 text-center md:pt-48 md:text-left lg:justify-center lg:pt-0">
-          <h2 id="gap-title" className="mx-auto max-w-[12ch] text-display md:mx-0">
-            {GAP_STATEMENT}
-          </h2>
-          <p className="mx-auto mt-6 max-w-md text-lead text-ink-soft md:mt-12 md:ml-[42%]">{GAP_STORY}</p>
+          <Statement />
+          <GapDiagram className="mt-6 md:mt-8" />
         </div>
 
         {/* The pairs. Layout lives on wrappers; GSAP only moves the inner words,
             so centring never fights the animation. Visual only — the list below
             carries the same content for assistive tech. */}
         {GAP_PAIRS.map((pair, i) => (
-          <div key={pair.from} data-pair aria-hidden className="absolute inset-0 flex flex-col pt-36 pb-14 md:pt-40 md:pb-16">
-            <div data-area className="relative min-h-0 flex-1">
+          <div key={pair.from} data-pair aria-hidden className="absolute inset-0 flex flex-col justify-center pt-24 pb-10 md:justify-start md:pt-40 md:pb-16">
+            <div data-area className="relative h-[46svh] min-h-0 flex-none md:h-auto md:flex-1">
               <span
                 data-line
                 className="absolute top-[20%] left-[calc(50%-0.5px)] block h-[60%] w-px bg-terracotta/60 lg:top-[calc(50%-0.5px)] lg:left-[26%] lg:h-px lg:w-[48%]"
@@ -184,11 +208,9 @@ function GapScroll() {
 function GapStatic() {
   return (
     <section id="gap" aria-labelledby="gap-title" className="container-page section-y text-center md:text-left">
-      <SectionLabel numeral="II" name="Tension" />
-      <h2 id="gap-title" className="mx-auto mt-8 max-w-[12ch] text-display md:mx-0 md:mt-10">
-        {GAP_STATEMENT}
-      </h2>
-      <p className="mx-auto mt-8 max-w-md text-lead text-ink-soft md:ml-[42%]">{GAP_STORY}</p>
+      <SectionLabel numeral="II" name="The gap" />
+      <Statement className="mt-8 md:mt-10" />
+      <GapDiagram className="mt-8" />
       <ul className="mt-14 border-t border-line md:mt-16">
         {GAP_PAIRS.map((p) => (
           <Reveal as="li" key={p.from} className="grid gap-3 border-b border-line py-8 md:grid-cols-12 md:items-baseline">

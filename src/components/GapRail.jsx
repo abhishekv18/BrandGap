@@ -36,7 +36,7 @@ export function GapRail() {
       })
     })
     // The rail steps aside for the final chapter: terracotta and black grounds.
-    const exit = document.getElementById('contact')
+    const exit = document.getElementById('cta')
     const hide = exit
       ? ScrollTrigger.create({
           trigger: exit,
@@ -61,7 +61,7 @@ export function GapRail() {
       className="pointer-events-none fixed top-1/2 right-5 transition-opacity duration-500 z-40 hidden -translate-y-1/2 flex-col items-center gap-4 mix-blend-multiply xl:flex"
     >
       <span className="label text-[0.6875rem] text-ink-muted [writing-mode:vertical-rl]" ref={chapter}>
-        I — Discovery
+        I — Hero
       </span>
       <span className="relative block h-40 w-px bg-line">
         <span ref={fill} className="absolute inset-0 origin-top scale-y-0 bg-terracotta" />

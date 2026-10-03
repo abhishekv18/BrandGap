@@ -1,6 +1,6 @@
 import { useFrame, useThree } from '@react-three/fiber'
 import { memo, useEffect, useMemo, useRef } from 'react'
-import { ExtrudeGeometry, MathUtils, Shape, Vector2 } from 'three'
+import { Box3, ExtrudeGeometry, MathUtils, Shape, Vector2, Vector3 } from 'three'
 import { easeInOutCubic, range, smoothstep } from '../animations/gsap'
 import { MARK_B, MARK_G, MARK_VIEWBOX } from '../data/mark'
 import { JOIN_AT, MARK_WORLD_HEIGHT } from './constants'
@@ -49,6 +49,8 @@ export const BrandMark3D = memo(function BrandMark3D({ progress, pointer, safeTo
   const tilt = useRef({ x: 0, y: 0 })
   const viewport = useThree((s) => s.viewport)
   const size = useThree((s) => s.size)
+  const box = useMemo(() => new Box3(), [])
+  const probe = useMemo(() => new Vector3(), [])
 
   useEffect(
     () => () => {
@@ -103,19 +105,25 @@ export const BrandMark3D = memo(function BrandMark3D({ progress, pointer, safeTo
         s.rz * turn + Math.sin(t * 0.5 + phase) * 0.015 * turn,
       )
     }
-    // The b starts high and nearer the camera; on short, wide screens that can
-    // reach the eyebrow line. Lower its starting height only as far as needed.
-    let poseB = startB
-    const safePx = safeTop?.current ?? 0
-    if (safePx > 0 && size.height > 0) {
-      const worldTop = viewport.height / 2 - (safePx * viewport.height) / size.height
-      const k0 = 1 - shrink
-      const persp = 10 / (10 - startB.z) // camera at z = 10
-      const maxY = worldTop / persp - (b.center.y + b.halfHeight) * k0
-      if (startB.y > maxY) poseB = { ...startB, y: maxY }
-    }
-    apply(bRef.current, b.center, poseB, 0)
+    apply(bRef.current, b.center, startB, 0)
     apply(gRef.current, g.center, startG, 1.7)
+
+    // The b starts high, tilted and nearer the camera; on wide screens its top
+    // can reach the eyebrow line. Measure where its top actually lands on
+    // screen this frame (tilt, float and perspective included) and lower it
+    // only as far as needed to stay clear.
+    const safePx = safeTop?.current ?? 0
+    const grp = bRef.current
+    if (grp && safePx > 0 && size.height > 0 && sep > 0) {
+      grp.updateMatrixWorld()
+      box.setFromObject(grp)
+      probe.set(0, box.max.y, box.max.z).project(state.camera)
+      const topPx = ((1 - probe.y) / 2) * size.height
+      if (topPx < safePx) {
+        const depth = (state.camera.position.z - box.max.z) / state.camera.position.z
+        grp.position.y -= ((safePx - topPx) * viewport.height * depth) / size.height
+      }
+    }
   })
 
   return (

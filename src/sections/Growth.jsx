@@ -2,7 +2,7 @@ import { Fragment, useLayoutEffect, useRef } from 'react'
 import { gsap } from '../animations/gsap'
 import { Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
-import { GROWTH_INPUTS, GROWTH_OUTPUT, GROWTH_PROMISE, GROWTH_PROVES } from '../data/growth'
+import { GROWTH_INPUTS, GROWTH_OUTPUT, GROWTH_PROVES, GROWTH_TITLE } from '../data/growth'
 import { useCapabilities } from '../hooks/useCapabilities'
 
 const PANEL = 'w-[var(--pw)] h-[calc(var(--pw)*1.3)]'
@@ -17,9 +17,10 @@ const SCATTER = [
 ]
 
 /**
- * Brand → Growth — the signature transition.
- * The four inputs drift in space, turn to face you, align into an equation,
- * then merge into one: growth. The promise lands with the gap at zero.
+ * Chapter VI — The growth system (brief §4, section 06).
+ * Strategy, Creative, Media and Optimization drift in space, turn to face
+ * you, align into one flow, then merge into one: growth. "One team. One
+ * growth system." lands with the gap at zero; the dashboard follows.
  */
 export function Growth() {
   const { reducedMotion } = useCapabilities()
@@ -33,18 +34,15 @@ function Panel({ label, index, className = '', ...rest }) {
       {...rest}
     >
       <span data-word className="label text-[0.6875rem] text-ink-muted">0{index + 1}</span>
-      <span data-word className="font-display text-[clamp(1rem,0.5rem+1.25vw,2.1rem)] leading-none">{label}</span>
+      <span data-word className="font-display text-[clamp(0.9375rem,0.45rem+1.1vw,1.875rem)] leading-none">{label}</span>
     </div>
   )
 }
 
 function Promise({ className = '' }) {
-  const [lead, tail] = GROWTH_PROMISE.split('a number')
   return (
-    <h2 id="growth-title" className={`mx-auto max-w-[18ch] text-center text-[clamp(2.25rem,min(1.4rem+3vw,7svh),4.5rem)] leading-[1.02] ${className}`}>
-      {lead}
-      <span className="italic text-terracotta">a number</span>
-      {tail}
+    <h2 id="growth-title" className={`mx-auto max-w-[18ch] text-center text-h2 ${className}`}>
+      {GROWTH_TITLE.lead} <span className="italic text-terracotta">{GROWTH_TITLE.emphasis}</span>
     </h2>
   )
 }
@@ -160,9 +158,9 @@ function GrowthScroll() {
   }, [])
 
   return (
-    <section id="growth" ref={section} aria-labelledby="growth-title" className="relative h-[420svh]">
+    <section id="growth" ref={section} aria-labelledby="growth-title" className="relative h-[300svh] md:h-[360svh]">
       <div ref={stage} className="sticky top-0 h-svh overflow-hidden" style={PANEL_SIZE}>
-        <SectionLabel numeral="IV" name="Brand becomes growth" className="container-page absolute inset-x-0 top-24 md:top-28 [&>span:first-child]:text-terracotta-deep" />
+        <SectionLabel numeral="VI" name="The growth system" className="container-page absolute inset-x-0 top-24 md:top-28 [&>span:first-child]:text-terracotta-deep" />
 
         <div data-group className="absolute inset-0 [perspective:1400px]">
           {GROWTH_INPUTS.map((input, i) => (
@@ -179,9 +177,9 @@ function GrowthScroll() {
               key={i}
               data-plus
               aria-hidden
-              className="absolute top-1/2 left-1/2 -mt-[0.5em] -ml-[0.3em] hidden font-display text-4xl leading-none text-terracotta md:block"
+              className="absolute top-1/2 left-1/2 -mt-[0.5em] -ml-[0.5em] hidden font-display text-3xl leading-none text-terracotta md:block"
             >
-              +
+              →
             </span>
           ))}
           <div
@@ -194,13 +192,13 @@ function GrowthScroll() {
         </div>
 
         <p data-equation aria-hidden className="container-page absolute inset-x-0 bottom-[14%] text-center label text-ink-soft">
-          {GROWTH_INPUTS.map((g) => g.label).join(' + ')} <span className="text-terracotta-deep">→ {GROWTH_OUTPUT}</span>
+          {GROWTH_INPUTS.map((g) => g.label).join(' → ')} <span className="text-terracotta-deep">→ {GROWTH_OUTPUT}</span>
         </p>
 
         {/* Final composition: one column, so nothing can collide at any height */}
         <div
           data-promise
-          className="container-page absolute inset-x-0 bottom-[max(1.5rem,5svh)] flex flex-col items-center gap-6 md:gap-8"
+          className="container-page absolute inset-x-0 bottom-[20svh] flex flex-col items-center gap-6 md:bottom-[max(1.5rem,5svh)] md:gap-8"
         >
           <Promise />
           <GapClosed />
@@ -219,13 +217,13 @@ function GrowthStatic() {
   return (
     <section id="growth" aria-labelledby="growth-title" className="bg-blush section-y" style={PANEL_SIZE}>
       <div className="container-page">
-        <SectionLabel numeral="IV" name="Brand becomes growth" className="[&>span:first-child]:text-terracotta-deep" />
+        <SectionLabel numeral="VI" name="The growth system" className="[&>span:first-child]:text-terracotta-deep" />
         <div className="mt-12 flex flex-wrap items-center justify-center gap-4 md:mt-16 md:gap-6">
           {GROWTH_INPUTS.map((input, i) => (
             <Fragment key={input.id}>
               <Panel label={input.label} index={i} />
               {i < GROWTH_INPUTS.length - 1 && (
-                <span aria-hidden className="font-display text-3xl text-terracotta">+</span>
+                <span aria-hidden className="font-display text-3xl text-terracotta">→</span>
               )}
             </Fragment>
           ))}

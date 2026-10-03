@@ -51,6 +51,15 @@ export function SmoothScroll({ enabled, children }) {
           el.focus({ preventScroll: true })
         }
       },
+      /** Jump to the top with no animation — used between pages, under the transition curtain. */
+      reset() {
+        const lenis = lenisRef.current
+        if (lenis) {
+          lenis.scrollTo(0, { immediate: true, force: true })
+          lenis.resize()
+        }
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+      },
       stop: () => lenisRef.current?.stop(),
       start: () => lenisRef.current?.start(),
     }),

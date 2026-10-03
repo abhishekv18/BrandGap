@@ -50,17 +50,17 @@
   --text-label: 0.75rem;
   --text-label--letter-spacing: 0.18em;
   --text-label--line-height: 1.4;
-  --text-lead: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --text-lead: clamp(0.9375rem, 0.9rem + 0.15vw, 1.0625rem);
   --text-lead--line-height: 1.65;
-  --text-h3: clamp(1.375rem, 1.05rem + 1.1vw, 2.125rem);
+  --text-h3: clamp(1.25rem, 1rem + 0.75vw, 1.75rem);
   --text-h3--line-height: 1.15;
-  --text-quote: clamp(1.5rem, 1rem + 1.8vw, 2.875rem);
+  --text-quote: clamp(1.375rem, 1rem + 1.25vw, 2.25rem);
   --text-quote--line-height: 1.12;
-  --text-h2: clamp(2rem, 1.3rem + 2.4vw, 3.75rem);
+  --text-h2: clamp(2rem, 1.25rem + 2.1vw, 3.5rem);
   --text-h2--line-height: 1.02;
-  --text-numeral: clamp(2.75rem, 1.8rem + 3.2vw, 5.5rem);
+  --text-numeral: clamp(2.5rem, 1.6rem + 2.6vw, 4.5rem);
   --text-numeral--line-height: 0.9;
-  --text-display: clamp(2.5rem, 1.3rem + 4.6vw, 6.25rem);
+  --text-display: clamp(2.375rem, 1.2rem + 3.6vw, 4.75rem);
   --text-display--line-height: 0.95;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -129,11 +129,17 @@ html.lenis, html.lenis body { height: auto; }
    stock. One small generated tile (no download), tuned per ground:
    multiply on cream/blush, overlay on terracotta/black so it still reads. */
 main > section,
+main > header,
+main > div > section,
+main > div > header,
 main > [data-grain],
 footer {
   position: relative;
 }
 main > section::after,
+main > header::after,
+main > div > section::after,
+main > div > header::after,
 main > [data-grain]::after,
 footer::after {
   content: "";
@@ -147,6 +153,7 @@ footer::after {
   mix-blend-mode: multiply;
 }
 main > section[data-theme="terracotta"]::after,
+main > div > section[data-theme="terracotta"]::after,
 footer::after {
   opacity: 0.12;
   mix-blend-mode: overlay;
@@ -169,17 +176,17 @@ html.has-custom-cursor textarea {
 @utility container-page {
   width: 100%;
   margin-inline: auto;
-  max-width: 1600px;
-  padding-inline: 1rem;
+  max-width: 1440px;
+  padding-inline: 1.25rem;
   @media (width >= 48rem) { padding-inline: 2rem; }
   @media (width >= 80rem) { padding-inline: 3rem; }
 }
 
-/* Vertical rhythm — the same breathing room around every section */
+/* Vertical rhythm — the default breathing room around a section (sections tune their own where needed) */
 @utility section-y {
   padding-block: 3.5rem;
-  @media (width >= 48rem) { padding-block: 6rem; }
-  @media (width >= 80rem) { padding-block: 7rem; }
+  @media (width >= 48rem) { padding-block: 4.5rem; }
+  @media (width >= 80rem) { padding-block: 6rem; }
 }
 
 @utility label {
@@ -223,7 +230,8 @@ html.has-custom-cursor textarea {
 .marquee-track {
   animation: marquee 48s linear infinite;
 }
-.marquee[data-running="false"] .marquee-track {
+.marquee[data-running="false"] .marquee-track,
+.marquee:hover .marquee-track {
   animation-play-state: paused;
 }
 @keyframes marquee {
