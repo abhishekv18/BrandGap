@@ -40,7 +40,7 @@ export function CaseCard({ project, onExpand, ratio = '4 / 3', letter = 'b', cro
                 className="flex translate-y-2 items-baseline gap-4 border-t border-line-light py-2 text-left opacity-0 transition-[opacity,translate] duration-500 ease-(--ease-out-expo) group-hover/card:translate-y-0 group-hover/card:opacity-100 group-focus-within/card:translate-y-0 group-focus-within/card:opacity-100"
                 style={{ transitionDelay: `${60 + i * 55}ms` }}
               >
-                <span className="label w-20 shrink-0 text-[0.625rem] text-blush">{step.label}</span>
+                <span className="label w-20 shrink-0 text-[0.6875rem] text-blush">{step.label}</span>
                 <span className="truncate text-sm">
                   <Copy value={project.flow[step.id]} tone="light" />
                 </span>
@@ -59,7 +59,7 @@ export function CaseCard({ project, onExpand, ratio = '4 / 3', letter = 'b', cro
             <Copy value={project.client} />
           </a>
         </H>
-        <span className="label rounded-full border border-line px-3 py-1 text-[0.625rem] text-ink-soft md:ml-auto">
+        <span className="label rounded-full border border-line px-3 py-1 text-[0.6875rem] text-ink-soft md:ml-auto">
           <Copy value={project.category} tone="inherit" />
         </span>
       </div>
@@ -67,7 +67,7 @@ export function CaseCard({ project, onExpand, ratio = '4 / 3', letter = 'b', cro
       <dl className="mt-4 grid grid-cols-3 gap-3 border-t border-line pt-4">
         {project.metrics.map((metric, i) => (
           <div key={i} className="flex flex-col-reverse justify-end gap-1">
-            <dt className="label text-[0.625rem] text-ink-muted">
+            <dt className="label text-[0.6875rem] text-ink-muted">
               <Copy value={metric.label} tone="inherit" />
             </dt>
             <dd className="font-display text-lg leading-tight md:text-xl">

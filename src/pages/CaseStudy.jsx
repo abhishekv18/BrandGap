@@ -102,11 +102,11 @@ function Case({ project }) {
         intro={<Copy value={project.summary} />}
       >
         <div className="mt-8 flex flex-wrap justify-center gap-2 md:justify-start">
-          <span className="label rounded-full border border-line px-3 py-1 text-[0.625rem] text-ink-soft">
+          <span className="label rounded-full border border-line px-3 py-1 text-[0.6875rem] text-ink-soft">
             <Copy value={project.category} tone="inherit" />
           </span>
           {project.industries.map((ind) => (
-            <span key={ind} className="label rounded-full bg-blush px-3 py-1 text-[0.625rem] text-ink-soft">
+            <span key={ind} className="label rounded-full bg-blush px-3 py-1 text-[0.6875rem] text-ink-soft">
               {ind}
             </span>
           ))}

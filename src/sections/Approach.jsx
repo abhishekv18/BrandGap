@@ -52,7 +52,7 @@ export function Approach({ numeral = 'V', headingLevel = 'h2', className = '' })
       <div className="mt-8 md:mt-10 desk:mt-12 desk:grid desk:grid-cols-12 desk:gap-8">
         {/* The rolling numeral and the closing gap — tablet and up */}
         <div aria-hidden className="hidden desk:sticky desk:top-[22svh] desk:col-span-5 desk:block desk:self-start">
-          <div className="line-mask font-display text-[clamp(6rem,2.5rem+8vw,11rem)] leading-[0.85] text-terracotta">
+          <div className="line-mask font-display text-[clamp(5rem,2rem+6vw,8.5rem)] leading-[0.85] text-terracotta">
             <div className="h-[0.85em] overflow-hidden">
               <div
                 className="transition-transform duration-[900ms] ease-(--ease-out-expo)"

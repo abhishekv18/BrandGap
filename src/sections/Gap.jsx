@@ -137,12 +137,12 @@ function GapScroll() {
   }, [])
 
   return (
-    <section id="gap" ref={section} aria-labelledby="gap-title" className="relative -mt-[12svh] h-[260svh] md:h-[300svh] desk:mt-0 desk:h-[340svh]">
+    <section id="gap" ref={section} aria-labelledby="gap-title" className="relative -mt-[12svh] h-[260svh] md:-mt-[20svh] md:h-[270svh] desk:mt-0 desk:h-[340svh]">
       <div ref={stage} className="sticky top-0 h-svh overflow-hidden">
         <SectionLabel numeral="II" name="The gap" className="container-page absolute inset-x-0 top-20 md:top-28 md:!justify-center desk:!justify-start" />
 
         {/* Opening statement */}
-        <div data-statement className="container-page absolute inset-0 flex flex-col justify-start pt-32 text-center md:justify-center md:pt-0 desk:text-left">
+        <div data-statement className="container-page absolute inset-0 flex flex-col justify-start pt-32 text-center md:pt-48 desk:justify-center desk:pt-0 desk:text-left">
           <Statement />
           <GapDiagram className="mt-6 md:mt-8" />
         </div>
@@ -152,7 +152,7 @@ function GapScroll() {
             carries the same content for assistive tech. */}
         {GAP_PAIRS.map((pair, i) => (
           <div key={pair.from} data-pair aria-hidden className="absolute inset-0 flex flex-col justify-center pt-24 pb-10 desk:justify-start desk:pt-40 desk:pb-16">
-            <div data-area className="relative h-[46svh] min-h-0 flex-none md:h-[44svh] desk:h-auto desk:flex-1">
+            <div data-area className="relative h-[46svh] min-h-0 flex-none md:h-[36svh] desk:h-auto desk:flex-1">
               <span
                 data-line
                 className="absolute top-[20%] left-[calc(50%-0.5px)] block h-[60%] w-px bg-terracotta/60 desk:top-[calc(50%-0.5px)] desk:left-[26%] desk:h-px desk:w-[48%]"

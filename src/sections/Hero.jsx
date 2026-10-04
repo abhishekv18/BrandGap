@@ -249,7 +249,7 @@ export function Hero() {
           >
             <span ref={gapLine} className="block h-px w-[min(40vw,560px)] bg-terracotta/70" />
             <span data-gap-label className="mt-3 flex items-baseline gap-2">
-              <span className="label text-[0.625rem] text-ink-muted">The gap</span>
+              <span className="label text-[0.6875rem] text-ink-muted">The gap</span>
               <span ref={gapReadout} className="font-display text-lg tabular-nums text-terracotta">
                 100
               </span>
@@ -279,7 +279,7 @@ export function Hero() {
 
         {!isStatic && (
           <div data-scroll-cue className="absolute inset-x-0 bottom-8 flex flex-col items-center gap-3">
-            <span className="label text-[0.625rem] text-ink-muted">Scroll to close the gap</span>
+            <span className="label text-[0.6875rem] text-ink-muted">Scroll to close the gap</span>
             <span aria-hidden className="relative block h-10 w-px overflow-hidden bg-line">
               <span className="absolute inset-x-0 top-0 h-1/2 animate-[cue_2.2s_cubic-bezier(0.76,0,0.24,1)_infinite] bg-terracotta" />
             </span>

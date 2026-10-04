@@ -7,6 +7,9 @@ import { useCapabilities } from '../hooks/useCapabilities'
 
 const PANEL = 'w-[var(--pw)] h-[calc(var(--pw)*1.3)]'
 const PANEL_SIZE = { '--pw': 'clamp(7.75rem, 5rem + 9vw, 14rem)' }
+// Tablets: four cards across the container width (the row spans 4.6 card widths at 1.2 spacing).
+const PANEL_TABLET = '[--pw:clamp(7.75rem,5rem+9vw,14rem)] md:[--pw:min(15rem,calc((100vw_-_4rem)/4.6))] desk:[--pw:clamp(7.75rem,5rem+9vw,14rem)]'
+const DESK = '(min-width: 1024px) and (orientation: landscape), (min-width: 1280px)'
 
 /** Scattered starting poses, as fractions of the viewport (x, y) plus depth and rotation. */
 const SCATTER = [
@@ -77,7 +80,8 @@ function GrowthScroll() {
 
       // Aligned: a row on wide screens, a 2×2 grid on phones.
       const aligned = (i) => {
-        if (wide()) return { x: (i - 1.5) * pw() * 1.38, y: 0 }
+        // Desktop spacing 1.38 card widths; tablets 1.2 so the row fills the container.
+        if (wide()) return { x: (i - 1.5) * pw() * (window.matchMedia(DESK).matches ? 1.38 : 1.2), y: 0 }
         const col = i % 2
         const row = Math.floor(i / 2)
         return { x: (col - 0.5) * pw() * 1.16, y: (row - 0.5) * ph() * 1.12 }
@@ -158,8 +162,8 @@ function GrowthScroll() {
   }, [])
 
   return (
-    <section id="growth" ref={section} aria-labelledby="growth-title" className="relative h-[300svh] desk:h-[360svh]">
-      <div ref={stage} className="sticky top-0 h-svh overflow-hidden" style={PANEL_SIZE}>
+    <section id="growth" ref={section} aria-labelledby="growth-title" className="relative h-[300svh] md:h-[270svh] desk:h-[360svh]">
+      <div ref={stage} className={`sticky top-0 h-svh overflow-hidden ${PANEL_TABLET}`}>
         <SectionLabel numeral="VI" name="The growth system" className="container-page absolute inset-x-0 top-24 md:top-28 [&>span:first-child]:text-terracotta-deep" />
 
         <div data-group className="absolute inset-0 [perspective:1400px]">

@@ -59,7 +59,7 @@ export function Clients({ numeral = 'VII' }) {
                   className="max-h-12 w-auto opacity-80 grayscale transition duration-500 hover:opacity-100 hover:grayscale-0"
                 />
               ) : (
-                <span className="label text-[0.625rem]">
+                <span className="label text-[0.6875rem]">
                   <Copy value={logo.name} />
                 </span>
               )}
@@ -110,7 +110,7 @@ function Testimonial({ t, index, open, onToggle }) {
             <Plus strokeWidth={1.5} className="size-4" />
           </span>
           <span className="flex items-baseline gap-3 md:col-span-4 md:justify-self-end">
-            <span className="label text-[0.625rem] text-ink-muted">Result</span>
+            <span className="label text-[0.6875rem] text-ink-muted">Result</span>
             <span className="font-display text-xl text-terracotta">
               <Copy value={t.result} tone="inherit" />
             </span>

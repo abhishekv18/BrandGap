@@ -221,7 +221,7 @@ html.has-custom-cursor textarea {
 @utility section-y {
   padding-block: 3.5rem;
   @media (width >= 48rem) { padding-block: 4.5rem; }
-  @media (width >= 80rem) { padding-block: 6rem; }
+  @media (width >= 80rem) { padding-block: 5.25rem; }
 }
 
 @utility label {

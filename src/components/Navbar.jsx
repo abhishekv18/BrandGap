@@ -58,7 +58,7 @@ export function Navbar() {
   }
 
   const linkClass = ({ isActive }) =>
-    `group relative flex min-h-11 items-center px-3 label transition-colors hover:text-terracotta xl:px-4 ${
+    `group relative flex min-h-11 items-center px-2 label lg:px-3 transition-colors hover:text-terracotta md:text-[0.875rem] md:tracking-[0.12em] desk:text-[0.75rem] desk:tracking-[0.18em] xl:px-4 ${
       isActive ? 'text-terracotta' : 'text-ink'
     }`
 
@@ -97,7 +97,7 @@ export function Navbar() {
                   </NavLink>
                 </li>
               ))}
-              <li className="ml-2 hidden lg:block">
+              <li className="ml-1 lg:ml-2">
                 <a
                   href={NAV_CTA.to}
                   onClick={(e) => {
@@ -105,7 +105,7 @@ export function Navbar() {
                     go(e, NAV_CTA.to)
                   }}
                   data-cursor="start"
-                  className="label flex min-h-11 items-center rounded-full bg-ink px-5 text-cream transition-colors duration-300 hover:bg-terracotta"
+                  className="label flex min-h-11 items-center rounded-full bg-ink px-4 text-[0.6875rem] whitespace-nowrap text-cream transition-colors duration-300 hover:bg-terracotta lg:px-5 lg:text-[0.75rem]"
                 >
                   {NAV_CTA.label}
                 </a>

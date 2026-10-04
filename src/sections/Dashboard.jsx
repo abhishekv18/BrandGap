@@ -42,7 +42,7 @@ export function Dashboard() {
             {DASHBOARD.title}
           </h3>
           {sample && (
-            <span className="label rounded-full border border-blush/50 px-3 py-1 text-[0.625rem] text-blush">
+            <span className="label rounded-full border border-blush/50 px-3 py-1 text-[0.6875rem] text-blush">
               {DASHBOARD.sampleLabel}
             </span>
           )}
@@ -93,7 +93,7 @@ export function Dashboard() {
             />
           </svg>
           <figcaption className="mt-4 flex flex-col gap-2 text-xs text-cream/65 sm:flex-row sm:items-center sm:justify-between">
-            <span className="label text-[0.625rem]">{sample ? 'Illustrative trend' : 'Trend'}</span>
+            <span className="label text-[0.6875rem]">{sample ? 'Illustrative trend' : 'Trend'}</span>
             {sample && <span>{DASHBOARD.sampleNote}</span>}
           </figcaption>
         </figure>

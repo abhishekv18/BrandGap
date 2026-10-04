@@ -53,7 +53,7 @@ export function RoasCalculator() {
         <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-8" aria-live="polite">
           {results.map((r) => (
             <div key={r.id} className="flex flex-col-reverse justify-end gap-2">
-              <dt className="label text-[0.625rem] text-cream/65">{r.label}</dt>
+              <dt className="label text-[0.6875rem] text-cream/65">{r.label}</dt>
               <dd className="font-display text-[clamp(1.5rem,1rem+1.6vw,2.5rem)] leading-none tabular-nums">{r.value ?? '—'}</dd>
             </div>
           ))}

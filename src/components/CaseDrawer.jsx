@@ -95,7 +95,7 @@ export function CaseDrawer({ project, onClose }) {
         </div>
 
         <div className="flex flex-1 flex-col px-5 pt-7 pb-8 md:px-10 md:pt-10">
-          <span className="label self-start rounded-full border border-line px-3 py-1 text-[0.625rem] text-ink-soft">
+          <span className="label self-start rounded-full border border-line px-3 py-1 text-[0.6875rem] text-ink-soft">
             <Copy value={project.category} tone="inherit" />
           </span>
           <h2 id={titleId} className="mt-5 text-h2">
@@ -108,7 +108,7 @@ export function CaseDrawer({ project, onClose }) {
           <dl className="mt-8 grid grid-cols-3 gap-4 border-y border-line py-5">
             {project.metrics.map((metric, i) => (
               <div key={i} className="flex flex-col-reverse justify-end gap-1">
-                <dt className="label text-[0.625rem] text-ink-muted">
+                <dt className="label text-[0.6875rem] text-ink-muted">
                   <Copy value={metric.label} tone="inherit" />
                 </dt>
                 <dd className="font-display text-xl md:text-2xl">

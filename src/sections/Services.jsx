@@ -117,7 +117,6 @@ function ServiceRow({ service, index, active, onSelect }) {
           >
             {service.name}
           </span>
-          <GapGlyph active={active} />
         </button>
       </h3>
       <AnimatePresence initial={false}>
@@ -148,25 +147,6 @@ function ServiceRow({ service, index, active, onSelect }) {
         )}
       </AnimatePresence>
     </li>
-  )
-}
-
-/**
- * The small moving graphic on each card (brief §4): a b-dot and a g-dot either
- * side of a hairline, which close the gap when the service is chosen.
- */
-function GapGlyph({ active }) {
-  const dot = 'absolute top-1/2 size-2 -translate-y-1/2 rounded-full transition-transform duration-700 ease-(--ease-out-expo)'
-  return (
-    <span aria-hidden className="relative ml-auto hidden h-3 w-12 shrink-0 self-center md:block">
-      <span
-        className={`absolute top-1/2 left-2 h-px w-8 -translate-y-1/2 bg-ink/25 transition-transform duration-700 ease-(--ease-out-expo) ${
-          active ? 'scale-x-0' : 'scale-x-100 group-hover:scale-x-50'
-        }`}
-      />
-      <span className={`${dot} left-0 bg-terracotta ${active ? 'translate-x-4' : 'group-hover:translate-x-2'}`} />
-      <span className={`${dot} right-0 bg-ink ${active ? '-translate-x-4' : 'group-hover:-translate-x-2'}`} />
-    </span>
   )
 }
 
