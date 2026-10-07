@@ -55,8 +55,8 @@ function AppRoutes() {
       <Route path="/work" element={<WorkIndex />} />
       <Route path="/work/:slug" element={<CaseStudy />} />
       <Route path="/services" element={<ServicesPage />} />
-      {/* <Route path="/about" element={<AboutPage />} />
-      <Route path="/insights" element={<Insights />} />
+     {/* <Route path="/about" element={<AboutPage />} />
+   {/*   <Route path="/insights" element={<Insights />} />
       <Route path="/insights/:slug" element={<Article />} />
       <Route path="/gap-score" element={<GapScore />} />
       <Route path="/free-audit" element={<FreeAudit />} />
