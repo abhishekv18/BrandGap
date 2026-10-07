@@ -182,7 +182,7 @@ function Case({ project }) {
           >
             <span>
               <span className="label text-ink-muted">Next case — {next.index}</span>
-              <span className="mt-3 block font-display text-h2 transition-colors group-hover:text-terracotta">
+              <span className="mt-3 block font-display text-h3 tracking-[-0.02em] transition-colors group-hover:text-terracotta">
                 <Copy value={next.client} />
               </span>
             </span>

@@ -224,6 +224,23 @@ html.has-custom-cursor textarea {
   @media (width >= 80rem) { padding-block: 5.25rem; }
 }
 
+/* Spacing roles, matching the Services page at every breakpoint. */
+@utility space-heading-content {
+  margin-top: 2rem;
+  @media (width >= 48rem) { margin-top: 2.5rem; }
+}
+@utility space-subblock {
+  margin-top: 2.5rem;
+  @media (width >= 48rem) { margin-top: 3.5rem; }
+}
+@utility gap-columns {
+  gap: 1.75rem;
+  @media (width >= 48rem) { gap: 1.5rem; }
+}
+@utility gap-heading-row {
+  gap: 1.5rem;
+}
+
 @utility label {
   font-family: var(--font-sans);
   font-size: var(--text-label);
@@ -281,39 +298,32 @@ html.has-custom-cursor textarea {
   100% { transform: translateY(200%); }
 }
 
-/* BrandGap — Dark Premium Scrollbar */
+/* BrandGap — thin dark scrollbar: #1C1216 thumb, terracotta on hover.
+   No CSS `scroll-behavior: smooth` — Lenis is the smooth-scroll system, and a
+   global smooth behaviour fights Lenis, GSAP pinning, instant page resets and
+   reduced-motion preferences. */
 
-/* Firefox has no ::-webkit-scrollbar; it gets the standard properties.
-   (Chromium ignores the webkit rules whenever these are set, so they are scoped.)
-   No CSS smooth scrolling here — Lenis handles smooth scroll, and it would
-   otherwise fight Lenis, GSAP pinning and reduced-motion preferences. */
+/* Chrome / Edge / Safari */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #1c1216;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a8483a;
+}
+
+/* Firefox (no ::-webkit-scrollbar). Scoped, because Chromium ignores the
+   webkit rules above whenever these standard properties are set. */
 @supports not selector(::-webkit-scrollbar) {
   html {
     scrollbar-width: thin;
     scrollbar-color: #1c1216 transparent;
   }
-}
-/* Smooth anchor scrolling */
-html {
-  scroll-behavior: smooth;
-  scrollbar-width: thin;
-  scrollbar-color: #a8433a rgba(244, 232, 225, 0.35);
-}
-
-/* Chrome / Edge / Safari */
-::-webkit-scrollbar {
-  width: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(244, 232, 225, 0.35);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #a8433a;
-  border-radius: 999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #8f3831;
 }

@@ -82,7 +82,7 @@ export default function GapScore() {
           <Breadcrumb items={[{ name: 'Gap Score', path: '/gap-score' }]} />
         </div>
 
-        <div className="mt-5 grid gap-8 md:mt-8 md:grid-cols-12 md:gap-6">
+        <div className="mt-5 grid gap-8 md:mt-7 md:grid-cols-12 md:gap-6">
           {/* The closing gap — progress, in the brand's own terms */}
           <aside aria-hidden className="md:sticky md:top-36 md:col-span-4 md:self-start">
             <GapMeter gap={gap} />
@@ -106,7 +106,7 @@ export default function GapScore() {
               >
                 {stage === 'intro' && (
                   <div className="text-center md:text-left">
-                    <h2 className="text-display">
+                    <h2 className="text-h2">
                       <MaskReveal>What is your</MaskReveal>
                       <MaskReveal delay={0.08} className="italic text-terracotta">
                         Gap Score?
@@ -117,7 +117,7 @@ export default function GapScore() {
                     </Reveal>
                     <ul className="mt-8 flex flex-wrap justify-center gap-2 md:justify-start">
                       {GAP_SCORE.themes.map((t) => (
-                        <li key={t} className="rounded-full border border-line px-4 py-2 text-sm">
+                        <li key={t} className="label rounded-full border border-line px-4 py-2 text-[0.6875rem]">
                           {t}
                         </li>
                       ))}
@@ -144,7 +144,7 @@ export default function GapScore() {
                 {stage === 'gate' && (
                   <form noValidate onSubmit={onGate} className="text-center md:text-left">
                     <h2 className="text-h2">{GAP_SCORE.gate}</h2>
-                    <p className="mx-auto mt-4 max-w-md text-ink-soft md:mx-0">Your score and short gap report appear as soon as you send it.</p>
+                    <p className="mx-auto mt-4 max-w-md text-lead text-ink-soft md:mx-0">Your score and short gap report appear as soon as you send it.</p>
                     <div className="mt-10 grid gap-8 sm:grid-cols-2">
                       <Field name="email" label="Email" type="email" autoComplete="email" error={lead.errors.email} />
                       <Field name="whatsapp" label="or WhatsApp number" type="tel" autoComplete="tel" inputMode="tel" />
@@ -193,7 +193,7 @@ export default function GapScore() {
 function Question({ q, value, onChange, onBack, onNext, last }) {
   return (
     <fieldset className="text-center md:text-left">
-      <legend className="w-full font-display text-h2">
+      <legend className="w-full font-display text-h3 tracking-[-0.02em]">
         <Copy value={q.text} tone="inherit" />
       </legend>
       <div className="mt-10 flex flex-col gap-2">

@@ -27,7 +27,7 @@ export default function AboutPage() {
       {/* The statement is the page's headline — lit word by word as it's read */}
       <header className="container-page pt-24 pb-8 text-center md:pt-36 md:pb-12 md:text-left">
         <Breadcrumb items={[{ name: 'About', path: '/about' }]} />
-        <AboutStatement as="h1" id="about-page-title" size="text-display max-w-[17ch]" className="mt-5 md:mt-8" />
+        <AboutStatement as="h1" id="about-page-title" size="text-h2 max-w-[22ch]" className="mt-5 md:mt-7" />
       </header>
 
       <StudioStrip />
@@ -35,7 +35,7 @@ export default function AboutPage() {
       <section aria-labelledby="who-title" className="container-page section-y text-center md:text-left">
         <SectionLabel numeral="01" name="Who we are" />
         <div className="mt-6 grid gap-6 md:mt-8 md:grid-cols-12 md:gap-6">
-          <h2 id="who-title" className="text-h2 md:col-span-6">
+          <h2 id="who-title" className="font-display text-h2 tracking-[-0.02em] md:col-span-6">
             <Reveal as="span" className="block">
               {ABOUT_BODY}
             </Reveal>
@@ -88,7 +88,7 @@ export default function AboutPage() {
                 label="[Team Photo]"
                 cursor={undefined}
               />
-              <p className="mt-4 font-display text-h3">
+              <p className="mt-4 font-display text-h3 tracking-[-0.02em]">
                 <Copy value={member.name} />
               </p>
               <p className="label mt-1 text-ink-muted">

@@ -51,7 +51,7 @@ export default function NotFound() {
         <m.path d={MARK_G_D} fill={MARK_COLORS.g} initial={false} animate={drift(1)} style={{ transformBox: 'fill-box', originX: 0.5, originY: 0.5 }} />
       </svg>
 
-      <h1 id="nf-title" className="mt-10 max-w-[16ch] text-display md:mt-12">
+      <h1 id="nf-title" className="mt-10 max-w-[22ch] text-h2 md:mt-12">
         You have found a gap. <span className="italic text-terracotta">Let us close it.</span>
       </h1>
       <div className="mt-8 flex flex-col items-center gap-2 sm:flex-row sm:gap-8">

@@ -47,13 +47,13 @@ export function Breadcrumb({ items }) {
  * emphasis), an intro set against it, and the measured hairline — a b-dot and
  * a g-dot — drawing across beneath.
  */
-export function PageHero({ crumbs, lead, emphasis, intro, children, className = '' }) {
+export function PageHero({ crumbs, lead, emphasis, line, intro, children, className = '' }) {
   const reduced = useReducedMotion()
   return (
     <header className={`container-page pt-24 pb-8 text-center md:pt-36 md:pb-12 md:text-left ${className}`}>
       <Breadcrumb items={crumbs} />
-      <div className="mt-5 grid gap-6 md:mt-8 md:grid-cols-12 md:gap-6">
-        <h1 className="text-display md:col-span-8">
+      <div className="mt-5 grid gap-6 md:mt-7 md:grid-cols-12 md:gap-6">
+        <h1 className="text-h2 md:col-span-8">
           <MaskReveal>{lead}</MaskReveal>
           {emphasis && (
             <MaskReveal delay={0.08} className="italic text-terracotta">
@@ -61,6 +61,11 @@ export function PageHero({ crumbs, lead, emphasis, intro, children, className = 
             </MaskReveal>
           )}
         </h1>
+        {line && (
+          <Reveal as="p" delay={0.15} className="mx-auto max-w-md self-end font-display text-h3 italic text-ink-soft md:col-span-4 md:mx-0">
+            {line}
+          </Reveal>
+        )}
         {intro && (
           <Reveal as="p" delay={0.2} className="mx-auto max-w-md self-end text-lead text-ink-soft md:col-span-4 md:mx-0">
             {intro}

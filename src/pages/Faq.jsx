@@ -70,7 +70,7 @@ export default function Faq() {
                     >
                       <span className="flex items-baseline gap-4 md:gap-8">
                         <span className={`label tabular-nums ${on ? 'text-terracotta' : 'text-ink-muted'}`}>0{i + 1}</span>
-                        <span className={`font-display text-h3 transition-colors ${on ? 'text-terracotta' : 'group-hover:text-terracotta'}`}>
+                        <span className={`font-display text-h3 tracking-[-0.02em] transition-colors ${on ? 'text-terracotta' : 'group-hover:text-terracotta'}`}>
                           {f.question}
                         </span>
                       </span>

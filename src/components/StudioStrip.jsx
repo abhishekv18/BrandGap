@@ -14,11 +14,13 @@ const PLATE_LAYOUT = [
 
 /** Studio imagery that drifts sideways as you scroll, each image settling in its frame. */
 export function StudioStrip({ className = '' }) {
-  const { reducedMotion } = useCapabilities()
+  const { reducedMotion, tier } = useCapabilities()
+  // Phones (and reduced motion) get a still, centred layout; the sideways drift needs a wider screen.
+  const still = reducedMotion || tier === 'mobile'
   const root = useRef(null)
 
   useLayoutEffect(() => {
-    if (reducedMotion) return
+    if (still) return
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '[data-about-strip]',
@@ -43,14 +45,14 @@ export function StudioStrip({ className = '' }) {
       })
     }, root)
     return () => ctx.revert()
-  }, [reducedMotion])
+  }, [still])
 
   return (
     <div ref={root} className={`overflow-hidden ${className}`}>
       <div
         data-about-strip
         className={`flex gap-4 px-4 md:gap-8 md:px-12 ${
-          reducedMotion ? 'flex-wrap justify-center' : 'w-max items-stretch md:min-h-[42vw]'
+          still ? 'flex-wrap items-start justify-center' : 'w-max items-stretch md:min-h-[42vw]'
         }`}
       >
         {ABOUT_IMAGES.map((img, i) => (
@@ -63,7 +65,7 @@ export function StudioStrip({ className = '' }) {
             crop={i % 2 ? 'left' : 'right'}
             label={img.label}
             cursor="explore"
-            className={`shrink-0 ${reducedMotion ? 'w-[44vw] md:w-[22vw]' : PLATE_LAYOUT[i % PLATE_LAYOUT.length]}`}
+            className={`shrink-0 ${still ? 'w-[calc(50%-0.5rem)] md:w-[22vw]' : PLATE_LAYOUT[i % PLATE_LAYOUT.length]}`}
           />
         ))}
       </div>

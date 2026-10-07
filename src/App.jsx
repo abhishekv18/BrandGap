@@ -52,7 +52,7 @@ function AppRoutes() {
   return (
     <Routes location={location}>
       <Route path="/" element={<Home />} />
-      {/* <Route path="/work" element={<WorkIndex />} />
+      <Route path="/work" element={<WorkIndex />} />
       <Route path="/work/:slug" element={<CaseStudy />} />
       <Route path="/services" element={<ServicesPage />} />
       <Route path="/about" element={<AboutPage />} />
@@ -64,7 +64,7 @@ function AppRoutes() {
       <Route path="/faq" element={<Faq />} />
       <Route path="/privacy" element={<Legal kind="privacy" />} />
       <Route path="/terms" element={<Legal kind="terms" />} />
-      <Route path="*" element={<NotFound />} /> */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

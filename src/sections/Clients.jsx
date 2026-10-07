@@ -94,7 +94,7 @@ function Testimonial({ t, index, open, onToggle }) {
             0{index + 1}
           </span>
           <span className="flex flex-col items-center gap-1 md:col-span-6 md:flex-row md:items-baseline md:gap-4">
-            <span className="font-display text-h3 transition-colors group-hover:text-terracotta">
+            <span className="font-display text-h3 tracking-[-0.02em] transition-colors group-hover:text-terracotta">
               <Copy value={t.name} />
             </span>
             <span className="label text-[0.6875rem] text-ink-muted">

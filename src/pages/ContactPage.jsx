@@ -104,7 +104,7 @@ export default function ContactPage() {
               <p className="label flex items-center gap-3 text-ink-muted">
                 <MessageCircle aria-hidden strokeWidth={1.5} className="size-4 text-terracotta" /> 03 — WhatsApp
               </p>
-              <p className="mt-4 text-ink-soft">Prefer to talk it through? Message us directly.</p>
+              <p className="mt-4 text-lead text-ink-soft">Prefer to talk it through? Message us directly.</p>
               <div className="mt-5">
                 {wa ? (
                   <MagneticButton href={wa} variant="ink" onClick={() => track('whatsapp_click', { location: 'contact' })}>

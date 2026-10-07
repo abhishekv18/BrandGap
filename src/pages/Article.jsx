@@ -51,7 +51,7 @@ function Post({ article }) {
           <div className="flex justify-center">
             <Breadcrumb items={[{ name: 'Insights', path: '/insights' }, { name: article.category, path }]} />
           </div>
-          <h1 id="article-title" className="mx-auto mt-5 max-w-[18ch] text-display md:mt-8">
+          <h1 id="article-title" className="mx-auto mt-5 max-w-[22ch] text-h2 md:mt-7">
             <MaskReveal>
               <Copy value={article.title} tone="inherit" />
             </MaskReveal>

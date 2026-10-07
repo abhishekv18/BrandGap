@@ -7,9 +7,9 @@ import { Reveal } from './Reveal'
  * "Meet the strategist" (brief §7): photo, two-line point of view, the
  * fractional CMO angle. Placeholders until BrandGap supplies the details.
  */
-export function Founder({ heading: H = 'h3', className = '' }) {
+export function Founder({ heading: H = 'h3', gap = 'gap-8 md:gap-6', className = '' }) {
   return (
-    <div className={`grid items-end gap-8 text-center md:grid-cols-12 md:gap-6 md:text-left ${className}`}>
+    <div className={`grid items-end ${gap} text-center md:grid-cols-12 md:text-left ${className}`}>
       <Reveal className="mx-auto w-1/2 max-w-[14rem] md:col-span-3 md:mx-0 md:w-full md:max-w-none">
         <ProjectPlate
           project={{ image: FOUNDER.photo, tone: 'blush' }}

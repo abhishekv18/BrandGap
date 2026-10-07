@@ -97,7 +97,7 @@ export function Work() {
 
   return (
     <section id="work" ref={root} aria-labelledby="work-title" className="section-y">
-      <header className="container-page grid gap-6 text-center md:grid-cols-12 md:gap-8 md:text-left">
+      <header className="container-page grid gap-heading-row text-center md:grid-cols-12 md:text-left">
         <div className="md:col-span-8">
           <SectionLabel numeral="IV" name="Selected work" />
           <h2 id="work-title" className="mt-5 text-h2 md:mt-7">
@@ -138,7 +138,7 @@ export function Work() {
           </div>
         </div>
       ) : (
-        <div className="container-page mt-10 grid gap-12 md:mt-12 md:grid-cols-2 md:gap-x-8 md:gap-y-14">
+        <div className="container-page space-heading-content grid gap-12 md:grid-cols-2 md:gap-x-8 md:gap-y-14">
           {projects.map((project, i) => (
             <CaseCard
               key={project.slug}

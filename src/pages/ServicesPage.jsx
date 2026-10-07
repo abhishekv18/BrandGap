@@ -104,7 +104,7 @@ export default function ServicesPage() {
             >
               <div className={`md:col-span-5 ${i % 2 ? 'md:order-2 md:col-start-5' : ''}`}>
                 <p className="font-display text-numeral text-terracotta">0{i + 1}</p>
-                <h2 id={`${s.id}-title`} className="mt-2 text-h2">
+                <h2 id={`${s.id}-title`} className="mt-2 font-display text-h3 tracking-[-0.02em]">
                   <MaskReveal>{s.name}</MaskReveal>
                 </h2>
                 <Reveal as="p" delay={0.1} className="mx-auto mt-4 max-w-md text-lead text-ink-soft md:mx-0">
@@ -114,7 +114,7 @@ export default function ServicesPage() {
                   <p className="label mt-6 text-ink-muted">Includes</p>
                   <ul className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
                     {s.includes.map((item) => (
-                      <li key={item} className="rounded-full border border-line px-4 py-2 text-sm">
+                      <li key={item} className="label rounded-full border border-line px-4 py-2 text-[0.6875rem]">
                         {item}
                       </li>
                     ))}
@@ -125,7 +125,7 @@ export default function ServicesPage() {
                 <div className="border border-line bg-cream p-2 shadow-[0_18px_36px_-22px_rgba(26,26,26,0.4)]">
                   <div className="relative overflow-hidden" style={{ filter: 'saturate(0.8) contrast(0.95) sepia(0.15)' }}>
                     <ProjectPlate
-                      project={{ image: s.image ? { ...s.image, sizes: '(min-width: 768px) 30vw, 90vw' } : null, tone: TONES[i] }}
+                      project={{ image: s.image ? { ...s.image, sizes: '(min-width: 768px) 56vw, 100vw' } : null, tone: TONES[i] }}
                       ratio="4 / 5"
                       letter={i % 2 ? 'g' : 'b'}
                       crop={i % 2 ? 'left' : 'right'}
@@ -153,7 +153,7 @@ export default function ServicesPage() {
               <Reveal as="li" key={model.id} delay={i * 0.08} className="flex flex-col bg-blush py-6 md:px-7 md:py-7 md:first:pl-0">
                 <span className="label text-terracotta-deep">0{i + 1}</span>
                 <h3 className="mt-4 font-display text-h3">{model.name}</h3>
-                <p className="mt-4 text-ink-soft">
+                <p className="mt-4 text-lead text-ink-soft">
                   <Copy value={model.note} />
                 </p>
               </Reveal>

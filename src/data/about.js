@@ -12,7 +12,7 @@ export const ABOUT_STATEMENT = {
 }
 
 // Brand guidelines p.9 — Voice & personality.
-export const ABOUT_BODY = 'Premium, but human. We have a point of view and the proof to back it — partners, not vendors.'
+export const ABOUT_BODY = 'Premium, but human. We have a point of view and the proof to back it partners, not vendors.'
 
 // Brand guidelines p.13 — Brand summary.
 export const ABOUT_SUMMARY =

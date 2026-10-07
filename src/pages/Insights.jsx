@@ -38,7 +38,7 @@ export default function Insights() {
 
   return (
     <>
-      <PageHero crumbs={[{ name: 'Insights', path: '/insights' }]} lead={INSIGHTS_INTRO.title} emphasis={INSIGHTS_INTRO.line} />
+      <PageHero crumbs={[{ name: 'Insights', path: '/insights' }]} lead={INSIGHTS_INTRO.title} line={INSIGHTS_INTRO.line} />
 
       <section aria-label="Articles" className="container-page pb-12 md:pb-16">
         <FilterChips label="Filter by topic" options={INSIGHT_CATEGORIES} value={category} onChange={setCategory} counts={counts} />
@@ -66,7 +66,7 @@ export default function Insights() {
                   </div>
                   <div className="md:col-span-5 md:pb-2">
                     <ArticleMeta article={lead} />
-                    <h2 className="mt-4 text-h2 transition-colors group-hover:text-terracotta">
+                    <h2 className="mt-4 font-display text-h3 tracking-[-0.02em] transition-colors group-hover:text-terracotta">
                       <Copy value={lead.title} />
                     </h2>
                     <p className="mt-4 text-lead text-ink-soft">
@@ -94,7 +94,7 @@ export default function Insights() {
                             <h2 className="mt-3 font-display text-h3 transition-colors group-hover:text-terracotta">
                               <Copy value={a.title} />
                             </h2>
-                            <p className="mt-3 text-ink-soft">
+                            <p className="mt-3 text-lead text-ink-soft">
                               <Copy value={a.excerpt} />
                             </p>
                             <ReadLink />

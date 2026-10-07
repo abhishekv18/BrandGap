@@ -65,7 +65,7 @@ export function About() {
       <SectionLabel numeral="VIII" name="About BrandGap" />
       <AboutStatement className="mt-5 md:mt-7" />
 
-      <div className="mt-10 grid gap-6 md:mt-12 md:grid-cols-12 md:gap-6">
+      <div className="space-heading-content grid gap-6 md:grid-cols-12">
         <Reveal as="p" className="font-display text-h3 md:col-span-6">
           {ABOUT_BODY}
         </Reveal>
@@ -74,8 +74,8 @@ export function About() {
         </Reveal>
       </div>
 
-      <Founder className="mt-12 md:mt-16" />
-      <Audience className="mt-12 md:mt-16" />
+      <Founder gap="gap-columns" className="space-subblock" />
+      <Audience className="space-subblock" />
 
       <div className="mt-8 flex justify-center md:justify-start">
         <MagneticButton href="/about" variant="text" trackAs="home_more_about">

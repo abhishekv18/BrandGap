@@ -39,7 +39,7 @@ export function Services() {
 
   return (
     <section id="services" aria-labelledby="services-title" className="container-page section-y text-center md:text-left">
-      <div className="grid gap-6 md:grid-cols-12 md:gap-10">
+      <div className="grid gap-heading-row md:grid-cols-12">
         <div className="md:col-span-8">
           <SectionLabel numeral="III" name="What we do" />
           <h2 id="services-title" className="mt-5 text-h2 md:mt-7">
@@ -54,7 +54,7 @@ export function Services() {
         </Reveal>
       </div>
 
-      <div className="mt-10 grid gap-10 md:mt-14 md:grid-cols-12 md:gap-6">
+      <div className="space-heading-content grid gap-columns md:grid-cols-12">
         <div className="md:sticky md:top-[18vh] md:col-span-5 md:self-start">
           <SystemDiagram active={active} rotation={rotation} />
           <ServiceDetail service={SERVICES[active]} index={active} />
@@ -111,7 +111,7 @@ function ServiceRow({ service, index, active, onSelect }) {
             0{index + 1}
           </span>
           <span
-            className={`font-display text-h3 transition-[color,transform,font-style] duration-700 ease-(--ease-out-expo) ${
+            className={`font-display text-h3 tracking-[-0.02em] transition-[color,transform,font-style] duration-700 ease-(--ease-out-expo) ${
               active ? 'text-terracotta italic md:translate-x-2' : 'text-ink md:group-hover:translate-x-1'
             }`}
           >

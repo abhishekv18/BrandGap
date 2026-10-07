@@ -40,7 +40,7 @@ export default function WorkIndex() {
 
   return (
     <>
-      <PageHero crumbs={[{ name: 'Work', path: '/work' }]} lead={WORK_INTRO.title.replace('.', '')} emphasis={WORK_INTRO.line} />
+      <PageHero crumbs={[{ name: 'Work', path: '/work' }]} lead={WORK_INTRO.title} line={WORK_INTRO.line} />
 
       <section aria-label="Case studies" className="container-page pb-12 md:pb-16">
         <div className="flex flex-col items-center gap-4 md:flex-row md:items-center md:justify-between">
