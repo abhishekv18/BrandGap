@@ -1,6 +1,7 @@
 import { AnimatePresence, m } from 'framer-motion'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useRef, useState } from 'react'
+import { ComingSoon } from '../components/ComingSoon'
 import { Copy } from '../components/Copy'
 import { Field, FormStatus } from '../components/Form'
 import { MagneticButton } from '../components/MagneticButton'
@@ -22,7 +23,29 @@ const Q = GAP_SCORE.questions
  * (data/tools.js, utils/gapScore.js) — until then the result is a labelled
  * placeholder, never an invented score.
  */
+/*
+ * LAUNCH SWITCH — the Gap Score is built but hidden until launch.
+ * While LAUNCHED is false the route shows a "Coming soon" page; the full
+ * tool below (GapScoreLive) is kept exactly as it was. Set to true to go live,
+ * and restore '/gap-score' in the sitemap list in vite.config.js.
+ */
+const LAUNCHED = false
+
 export default function GapScore() {
+  return LAUNCHED ? (
+    <GapScoreLive />
+  ) : (
+    <ComingSoon
+      name="Gap Score"
+      path="/gap-score"
+      line="A quick diagnostic to find where your brand is losing growth. We’re putting the finishing touches on it."
+      note="In the meantime, tell us where your brand is today — we’ll take it from there."
+    />
+  )
+}
+
+// eslint-disable-next-line no-unused-vars -- kept for launch, see LAUNCHED above
+function GapScoreLive() {
   const [stage, setStage] = useState('intro') // intro | quiz | gate | result
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState({})

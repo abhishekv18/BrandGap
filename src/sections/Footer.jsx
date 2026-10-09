@@ -7,13 +7,14 @@ import { Copy } from '../components/Copy'
 import { NewsletterForm } from '../components/NewsletterForm'
 import { useSmoothScroll } from '../components/SmoothScroll'
 import { CONTACT, FOOTER } from '../data/contact'
-import { NAV_CTA, NAV_LEGAL, NAV_LINKS, NAV_TOOLS } from '../data/navigation'
+import { NAV_LEGAL, NAV_TOOLS } from '../data/navigation'
 import { useCapabilities } from '../hooks/useCapabilities'
 import { useHrefClick } from '../hooks/useHrefClick'
 
+// Content Brief §14 — footer columns.
 const COLUMNS = [
-  { title: 'Explore', links: [{ to: '/', label: 'Home' }, ...NAV_LINKS, NAV_CTA] },
-  { title: 'Tools', links: NAV_TOOLS },
+  { title: 'Services', links: FOOTER.services },
+  { title: 'Company', links: FOOTER.company },
 ]
 
 /**
@@ -42,7 +43,7 @@ export function Footer() {
   }, [parallax])
 
   const link = (l) => (
-    <li key={l.to}>
+    <li key={l.key ?? l.label}>
       <a
         href={l.to}
         onClick={(e) => hrefClick(e, l.to)}
@@ -78,6 +79,22 @@ export function Footer() {
 
           <div className="flex w-full max-w-sm flex-col items-center gap-6 md:col-span-12 md:max-w-none md:flex-row md:items-start md:gap-8 md:border-t md:border-line-light md:pt-8 lg:col-span-4 lg:flex-col lg:items-stretch lg:gap-6 lg:border-0 lg:pt-0">
             <NewsletterForm tone="light" id="footer-newsletter" className="w-full" />
+            <div className="grid w-full grid-cols-2 gap-6 text-sm md:max-w-sm lg:max-w-none">
+              <div>
+                <p className="label mb-2 text-cream/60">Social</p>
+                <ul className="flex flex-col items-center md:items-start">
+                  {CONTACT.socials.map((s) => (
+                    <li key={s.id} className="flex min-h-11 items-center lg:min-h-8">
+                      <ContactLink label={s.label} href={s.href} placeholder={s.placeholder} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <nav aria-label="Free tools">
+                <p className="label mb-2 text-cream/60">Free tools</p>
+                <ul className="flex flex-col items-center md:items-start">{NAV_TOOLS.map(link)}</ul>
+              </nav>
+            </div>
             {/* <div className="grid w-full grid-cols-2 gap-6 text-sm md:max-w-sm lg:max-w-none">
               <div>
                 <p className="label mb-3 text-cream/60">Write</p>
@@ -85,9 +102,9 @@ export function Footer() {
               </div>
               <div>
                 <p className="label mb-3 text-cream/60">Follow</p>
-                <ul className="flex flex-col items-center gap-2 md:items-start">
+                <ul className="flex flex-col items-center md:items-start">
                   {CONTACT.socials.map((s) => (
-                    <li key={s.id}>
+                    <li key={s.id} className="flex min-h-11 items-center lg:min-h-8">
                       <ContactLink label={s.label} href={s.href} placeholder={s.placeholder} />
                     </li>
                   ))}
@@ -112,8 +129,8 @@ export function Footer() {
         </p>
 
         <div className="mt-4 flex flex-col items-center gap-2 border-t border-line-light pt-4 text-center text-xs text-cream/60 md:flex-row md:justify-between md:text-left">
-          <p>© {FOOTER.year} BrandGap</p>
-          <p className="label text-[0.6875rem]">{FOOTER.origin}</p>
+          <p>© {FOOTER.year} BrandGap. All Rights Reserved.</p>
+          <p className="label text-[0.6875rem]">{FOOTER.line}</p>
           <ul className="flex items-center gap-4">
             {NAV_LEGAL.map((l) => (
               <li key={l.to}>

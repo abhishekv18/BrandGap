@@ -35,6 +35,7 @@
   --color-terracotta-deep: #93392c;
   --color-cream: #f4e9e1;
   --color-blush: #efd6cc;
+  --color-cream-warm: #efe2d8; /* a step between cream and blush, for quiet section changes */
   --color-ink: #1a1a1a;
   --color-ink-soft: #574c47;
   --color-ink-muted: #665953;
@@ -192,6 +193,33 @@ main > div > section[data-theme="terracotta"]::after,
 footer::after {
   opacity: 0.12;
   mix-blend-mode: overlay;
+}
+
+/* Hero light — a soft studio fall-off behind the b/g: the centre a touch
+   lighter, the edges a touch deeper (about 3–4% each way). CSS only. */
+.hero-light {
+  /* A — a warm cream core with a blush (#EFD6CC) halo; D — a faint terracotta edge, not a muddy brown */
+  background:
+    radial-gradient(ellipse 42% 38% at 44% 44%, rgb(255 247 240 / 0.62), transparent 72%),
+    radial-gradient(ellipse 66% 60% at 46% 46%, rgb(239 214 204 / 0.26), transparent 76%),
+    radial-gradient(ellipse 96% 92% at 48% 46%, transparent 55%, rgb(168 72 58 / 0.05));
+}
+/* B — a terracotta haze in the gap. --haze is driven by the hero's scroll timeline:
+   it warms as the letters close in and settles as the mark locks. */
+.hero-light::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 26% 20% at 50% 52%, rgb(168 72 58 / var(--haze, 0.07)), transparent 72%);
+}
+@media (max-width: 767.98px) {
+  .hero-light { opacity: 0.6; }
+}
+/* D — in the hero, the grain blends softly so it textures the paper without greying it */
+main > section#top::after {
+  mix-blend-mode: soft-light;
+  opacity: 0.16;
 }
 
 /* Custom cursor hides the native one only where it is active */

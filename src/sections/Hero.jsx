@@ -4,15 +4,18 @@ import { JOIN_AT } from '../3d/constants'
 import { BrandMark } from '../components/BrandMark'
 import { MagneticButton } from '../components/MagneticButton'
 import { MARK_B_D, MARK_COLORS, MARK_G_D, MARK_VIEWBOX } from '../data/mark'
-import { FOOTER } from '../data/contact'
+import { HERO } from '../data/site'
 import { useCapabilities } from '../hooks/useCapabilities'
 
 // Brand guidelines p.14.
-const HERO_ORIGIN = FOOTER.origin
-
 const HeroScene = lazy(() => import('../3d/Scene'))
 
 const VB = `${MARK_VIEWBOX.x} ${MARK_VIEWBOX.y} ${MARK_VIEWBOX.w} ${MARK_VIEWBOX.h}`
+
+// The split message: the display serif in italic, kept well below the letters' scale
+// (phones ~18–22px, tablets ~24–32px, desktop ~28–40px).
+const SPLIT =
+  'block font-display italic leading-[1.12] tracking-[-0.015em] text-ink-soft text-[clamp(1.125rem,0.85rem+1.1vw,1.375rem)] md:text-[clamp(1.5rem,0.75rem+1.6vw,2rem)] desk:text-[clamp(1.75rem,0.9rem+1.35vw,2.5rem)]'
 
 /**
  * Chapter I — Discovery.
@@ -73,6 +76,9 @@ export function Hero() {
       const stageEl = stage.current
       const flatEl = flat.current
 
+      // The split message settles in once on arrival (its own wrapper, so the scroll tweens never fight it).
+      gsap.fromTo(q('[data-split-intro]'), { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 1.2, delay: 0.5, stagger: 0.15, ease: 'power3.out' })
+
       // Initial (pre-scroll) state. Without JS the lockup simply shows.
       gsap.set(q('[data-hero-line]'), { yPercent: 110 })
       gsap.set(q('[data-hero-fade]'), { autoAlpha: 0, y: 24 })
@@ -124,6 +130,10 @@ export function Hero() {
       tl.set({}, {}, 1) // timeline spans exactly 0 → 1
 
       tl.to(q('[data-scroll-cue]'), { autoAlpha: 0, duration: 0.06 }, 0)
+      // The split message leans toward the gap as it closes, and is gone well before the lockup's h1 (0.78).
+      tl.to(q('[data-split="a"]'), { x: -24, y: 10, autoAlpha: 0, duration: 0.22, ease: 'power1.in' }, 0.04)
+      tl.to(q('[data-split="b"]'), { x: 24, y: -10, autoAlpha: 0, duration: 0.22, ease: 'power1.in' }, 0.04)
+      tl.to(q('[data-gap-ends]'), { autoAlpha: 0, duration: 0.08 }, 0.06)
       tl.to(gapLine.current, { scaleX: 0, duration: JOIN_AT, ease: 'power2.inOut' }, 0)
       tl.to(q('[data-gap-label]'), { autoAlpha: 0, duration: 0.1 }, 0.34)
 
@@ -159,6 +169,9 @@ export function Hero() {
         0.72,
       )
       tl.to(q('[data-eyebrow], [data-hero-frame]'), { autoAlpha: 0, duration: 0.06 }, 0.7)
+      // The gap's terracotta haze warms as the letters close in, then settles as the mark locks.
+      tl.fromTo(q('[data-hero-light]'), { '--haze': 0.07 }, { '--haze': 0.12, duration: JOIN_AT * 0.9, ease: 'power1.in' }, 0)
+      tl.to(q('[data-hero-light]'), { '--haze': 0.05, duration: 0.14, ease: 'power2.out' }, 0.72)
       tl.to(q('[data-hero-line]'), { yPercent: 0, duration: 0.12, stagger: 0.03, ease: 'power3.out' }, 0.78)
       tl.to(
         q('[data-hero-fade]'),
@@ -182,11 +195,13 @@ export function Hero() {
         ref={stage}
         className={`${isStatic ? 'relative min-h-svh' : 'sticky top-0 h-svh'} overflow-hidden`}
       >
+        {/* Soft studio light behind the composition — tone only, no image */}
+        <div aria-hidden data-hero-light className="hero-light pointer-events-none absolute inset-0" />
+
         {/* Eyebrow */}
         {!isStatic && (
-          <p ref={eyebrow} data-eyebrow className="container-page absolute inset-x-0 top-24 label text-center text-ink-soft md:top-28 wide:text-left">
-            Brand &amp; growth partner <span className="text-terracotta">—</span> for ambitious D2C &amp;
-            service brands
+          <p ref={eyebrow} data-eyebrow className="container-page absolute inset-x-0 top-24 label text-center text-[0.8125rem] text-ink [-webkit-text-stroke:0.35px_currentColor] md:top-28 wide:text-left">
+            {HERO.label}
           </p>
         )}
 
@@ -247,7 +262,16 @@ export function Hero() {
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-1/2 flex flex-col items-center"
           >
-            <span ref={gapLine} className="block h-px w-[min(40vw,560px)] bg-terracotta/70" />
+            <span className="relative block w-[min(40vw,560px)]">
+              <span ref={gapLine} className="block h-px w-full bg-terracotta/70" />
+              {/* Measured ends: ticks with Brand and Growth — desktop only */}
+              <span data-gap-ends className="hidden desk:block">
+                <span className="absolute top-[-5px] left-0 h-[11px] w-px bg-terracotta/70" />
+                <span className="absolute top-[-5px] right-0 h-[11px] w-px bg-terracotta/70" />
+                <span className="label absolute top-4 left-0 text-[0.5625rem] text-terracotta">Brand</span>
+                <span className="label absolute top-4 right-12 text-[0.5625rem] text-ink">Growth</span>
+              </span>
+            </span>
             <span data-gap-label className="mt-3 flex items-baseline gap-2">
               <span className="label text-[0.6875rem] text-ink-muted">The gap</span>
               <span ref={gapReadout} className="font-display text-lg tabular-nums text-terracotta">
@@ -257,22 +281,55 @@ export function Hero() {
           </div>
         )}
 
+        {/* The core message, split across the gap — one half in each empty corner of the
+            diagonal. Visual only: the h1 in the lockup carries the same sentence for
+            assistive tech, so it is never announced twice. */}
+        {!isStatic && (
+          <div aria-hidden className="pointer-events-none absolute inset-0 [@media(max-height:540px)]:hidden">
+            <div className="container-page absolute inset-x-0 top-[23%] flex justify-end landscape:top-[27%]">
+              <div data-split-intro className="xl:mr-10">
+                <span data-split="a" className="flex flex-col items-end text-right">
+                  {/* <span className="label mb-3 hidden text-[0.625rem] text-ink-muted md:block">
+                    Fig. 01 <span className="text-terracotta">—</span> The gap
+                  </span> */}
+                  <span className={SPLIT}>
+                    We bridge
+                    <br />
+                    the gap
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div className="container-page absolute inset-x-0 top-[61%] landscape:top-[64%]">
+              <div data-split-intro className="w-fit">
+                <span data-split="b" className={SPLIT}>
+                  between your brand
+                  <br />
+                  and growth.
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Editorial frame: print crop marks and two quiet captions — tablet and up */}
         {!isStatic && (
           <div data-hero-frame aria-hidden className="pointer-events-none absolute inset-0 hidden md:block">
-            {[
-              'top-24 left-5 border-t border-l lg:left-6',
-              'top-24 right-5 border-t border-r lg:right-6',
-              'bottom-6 left-5 border-b border-l lg:left-6',
-              'bottom-6 right-5 border-b border-r lg:right-6',
-            ].map((pos) => (
-              <span key={pos} className={`absolute size-4 border-ink/25 ${pos}`} />
-            ))}
-            <p className="container-page absolute inset-x-0 bottom-8 flex items-end justify-between">
-              <span className="label text-[0.6875rem] text-ink-muted">{HERO_ORIGIN}</span>
-              <span className="label mr-10 text-[0.6875rem] text-ink-muted xl:mr-14">
-                Fig. 01 <span className="text-terracotta">—</span> The gap
-              </span>
+            {/* Corner arms sit just outside the content edge, so they frame the page without touching type */}
+            <div className="container-page absolute inset-x-0 top-24 bottom-5">
+              <div className="relative h-full">
+                {[
+                  'top-0 -left-3 border-t border-l',
+                  'top-0 -right-3 border-t border-r',
+                  'bottom-0 -left-3 border-b border-l',
+                  'bottom-0 -right-3 border-b border-r',
+                ].map((pos) => (
+                  <span key={pos} className={`absolute size-7 border-ink/30 lg:size-9 xl:size-10 ${pos}`} />
+                ))}
+              </div>
+            </div>
+            <p className="container-page absolute inset-x-0 bottom-8 flex items-end justify-end">
+              <span className="label text-[0.6875rem] text-ink-soft">{HERO.line}</span>
             </p>
           </div>
         )}
@@ -288,42 +345,46 @@ export function Hero() {
 
         {/* Lockup: mark beside the wordmark, as the guidelines specify */}
         <div
-          className={`${isStatic ? 'relative pt-28 pb-16' : 'absolute inset-0'} container-page flex flex-col justify-center gap-8 md:gap-10 wide:grid wide:grid-cols-12 wide:items-center`}
+          className={`${isStatic ? 'relative pt-28 pb-16' : 'absolute inset-0 pt-16 wide:pt-0'} container-page flex flex-col justify-center gap-8 md:gap-10 wide:flex-row wide:items-center wide:gap-[clamp(2.5rem,5vw,6rem)]`}
         >
           <div
             ref={markTarget}
-            className="h-[20svh] self-center md:h-[24svh] wide:col-span-4 wide:col-start-2 wide:mr-4 wide:h-[min(38svh,24vw)] wide:self-center wide:justify-self-end lg:mr-10 xl:mr-16"
+            className="h-[clamp(4.5rem,100svh-34rem,20svh)] self-center md:h-[24svh] wide:h-[min(38svh,24vw)] wide:shrink-0 wide:self-center"
             style={{ aspectRatio: `${MARK_VIEWBOX.w} / ${MARK_VIEWBOX.h}` }}
           >
             {isStatic && <BrandMark className="h-full w-full" />}
           </div>
-          <div className="text-center wide:col-span-7 wide:col-start-6 wide:text-left xl:col-span-6 xl:col-start-6">
-            <h1 className="text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)] leading-[0.92] md:text-[4.5rem] wide:text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)]">
-              <span className="line-mask">
+          <div className="text-center wide:max-w-[38rem] wide:text-left xl:max-w-[44rem]">
+            {/* The wordmark leads the lockup; the page's one h1 is the core message beneath it. */}
+            <div className="font-display text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)] leading-[0.92] tracking-[-0.02em] md:text-[4.5rem] wide:text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)]">
+              <p aria-hidden className="line-mask">
                 <span data-hero-line className="block">
                   Brand<span className="text-terracotta">Gap</span>
                 </span>
-              </span>
-              <span className="line-mask mt-3 md:mt-5">
+              </p>
+              <h1 className="line-mask mx-auto mt-3 max-w-[22rem] md:mt-5 md:max-w-[26rem] wide:mx-0 xl:max-w-[30rem]">
                 <span data-hero-line className="block text-[clamp(1.375rem,1.05rem+1.2vw,2.125rem)] leading-[1.1] italic text-ink-soft">
-                  Where brand becomes growth.
+                  {HERO.title}
                 </span>
-              </span>
-            </h1>
-            <p data-hero-fade className="mx-auto mt-6 max-w-md text-lead text-ink-soft md:mt-8 wide:mx-0">
-              Brand &amp; growth, built together for ambitious brands.
+              </h1>
+            </div>
+            <p data-hero-fade className="mx-auto mt-5 max-w-md text-lead text-ink-soft md:mt-7 wide:mx-0 xl:max-w-lg">
+              {HERO.body}
             </p>
             <div
               data-hero-fade
               className="mt-8 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-8 md:mt-10 wide:justify-start"
             >
               <MagneticButton href="/contact" cursor="start" trackAs="hero_start_project">
-                Start a project
+                {HERO.primary}
               </MagneticButton>
               <MagneticButton href="#work" variant="text" trackAs="hero_explore_work">
-                Explore our work
+                {HERO.secondary}
               </MagneticButton>
             </div>
+            <p data-hero-fade className="label mt-5 text-[0.75rem] text-ink [-webkit-text-stroke:0.35px_currentColor] md:hidden">
+              {HERO.line}
+            </p>
           </div>
         </div>
       </div>

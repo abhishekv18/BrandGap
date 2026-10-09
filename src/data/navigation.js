@@ -1,6 +1,6 @@
 /** Primary navigation — every page is a route. */
 export const NAV_LINKS = [
-  { to: '/work', label: 'Work' },
+  { to: '/portfolio', label: 'Portfolio' },
   { to: '/services', label: 'Services' },
   { to: '/about', label: 'About' },
   { to: '/insights', label: 'Insights' },
@@ -22,15 +22,24 @@ export const NAV_LEGAL = [
   { to: '/terms', label: 'Terms' },
 ]
 
-/** The homepage story, keyed by the section that opens each chapter (brief §4). */
+/** The homepage story, keyed by the section that opens each chapter. Sections read their numeral from here. */
 export const CHAPTERS = [
   { id: 'top', numeral: 'I', name: 'Hero' },
   { id: 'gap', numeral: 'II', name: 'The gap' },
   { id: 'services', numeral: 'III', name: 'What we do' },
-  { id: 'work', numeral: 'IV', name: 'Selected work' },
-  { id: 'approach', numeral: 'V', name: 'Our approach' },
-  { id: 'growth', numeral: 'VI', name: 'Growth system' },
-  { id: 'clients', numeral: 'VII', name: 'Clients' },
-  { id: 'about', numeral: 'VIII', name: 'About' },
-  { id: 'cta', numeral: 'IX', name: 'Close the gap' },
+  { id: 'approach', numeral: 'IV', name: 'The BrandGap Method' },
+  { id: 'performance', numeral: 'V', name: 'Performance marketing' },
+  { id: 'numbers', numeral: 'VI', name: 'The numbers' },
+  { id: 'work', numeral: 'VII', name: 'Case studies' },
+  { id: 'brands', numeral: 'VIII', name: 'Selected brands' },
+  { id: 'creative-performance', numeral: 'IX', name: 'Creative × Performance' },
+  { id: 'growth', numeral: 'X', name: 'Growth system' },
+  { id: 'why', numeral: 'XI', name: 'Why BrandGap' },
+  { id: 'about', numeral: 'XII', name: 'About BrandGap' },
+  { id: 'capabilities', numeral: 'XIII', name: 'Capabilities' },
+  { id: 'clients', numeral: 'XIV', name: 'Clients' },
+  { id: 'cta', numeral: 'XV', name: 'Close the gap' },
 ]
+
+/** The numeral for a homepage chapter, by section id. */
+export const numeralOf = (id) => CHAPTERS.find((c) => c.id === id)?.numeral ?? null

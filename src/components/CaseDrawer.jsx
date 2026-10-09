@@ -2,7 +2,7 @@ import { m } from 'framer-motion'
 import { X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
-import { CASE_FLOW } from '../data/projects'
+import { flowSteps } from '../data/projects'
 import { track } from '../utils/analytics'
 import { Copy } from './Copy'
 import { MagneticButton } from './MagneticButton'
@@ -28,7 +28,7 @@ export function trapTab(e, container) {
 
 /**
  * "Expand to detail" (brief §4): the case study's flow in a side drawer,
- * with the way through to the full /work/[slug] page. Render inside
+ * with the way through to the full /portfolio/[slug] page. Render inside
  * <AnimatePresence>. Modal: scroll locked, focus trapped, Escape closes,
  * focus returns to the button that opened it.
  */
@@ -56,6 +56,7 @@ export function CaseDrawer({ project, onClose }) {
   }, [project.slug, onClose, start, stop])
 
   const titleId = `drawer-${project.slug}`
+  const steps = flowSteps(project)
 
   return createPortal(
     <m.div className="fixed inset-0 z-[70]" initial={{ opacity: 1 }} exit={{ opacity: 1 }}>
@@ -101,11 +102,10 @@ export function CaseDrawer({ project, onClose }) {
           <h2 id={titleId} className="mt-5 text-h2">
             <Copy value={project.client} />
           </h2>
-          <p className="mt-3 font-display text-h3 italic text-ink-soft">
-            <Copy value={project.title} />
-          </p>
+          {project.statement && <p className="mt-3 font-display text-h3 italic text-ink-soft">{project.statement}</p>}
+          <p className="mt-4 text-ink-soft">{project.summary}</p>
 
-          <dl className="mt-8 grid grid-cols-3 gap-4 border-y border-line py-5">
+          <dl className="mt-8 grid grid-cols-2 gap-4 border-y border-line py-5 sm:grid-cols-3">
             {project.metrics.map((metric, i) => (
               <div key={i} className="flex flex-col-reverse justify-end gap-1">
                 <dt className="label text-[0.6875rem] text-ink-muted">
@@ -127,7 +127,7 @@ export function CaseDrawer({ project, onClose }) {
               animate={{ scaleY: 1 }}
               transition={{ duration: 1.2, ease: EASE, delay: 0.35 }}
             />
-            {CASE_FLOW.map((step, i) => (
+            {steps.map((step, i) => (
               <m.li
                 key={step.id}
                 className="relative"
@@ -137,7 +137,7 @@ export function CaseDrawer({ project, onClose }) {
               >
                 <span
                   aria-hidden
-                  className={`absolute top-1.5 -left-8 size-[7px] rounded-full ${i === CASE_FLOW.length - 1 ? 'bg-terracotta' : 'bg-ink'}`}
+                  className={`absolute top-1.5 -left-8 size-[7px] rounded-full ${i === steps.length - 1 ? 'bg-terracotta' : 'bg-ink'}`}
                 />
                 <p className="label text-terracotta">
                   0{i + 1} <span className="text-ink-muted">— {step.label}</span>
@@ -150,7 +150,7 @@ export function CaseDrawer({ project, onClose }) {
           </ol>
 
           <div className="mt-auto flex flex-wrap items-center gap-4 pt-10">
-            <MagneticButton href={`/work/${project.slug}`} onClick={onClose} cursor="view" trackAs="drawer_full_case">
+            <MagneticButton href={`/portfolio/${project.slug}`} onClick={onClose} cursor="view" trackAs="drawer_full_case">
               Full case study
             </MagneticButton>
           </div>

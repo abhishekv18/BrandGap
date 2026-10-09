@@ -1,6 +1,6 @@
 import { AnimatePresence, LazyMotion, MotionConfig } from 'framer-motion'
 import { lazy, Suspense, useEffect } from 'react'
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router'
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from 'react-router'
 import { CookieConsent } from './components/CookieConsent'
 import { CustomCursor } from './components/CustomCursor'
 import { ExitIntent } from './components/ExitIntent'
@@ -19,6 +19,7 @@ const pages = {
   WorkIndex: () => import('./pages/WorkIndex'),
   CaseStudy: () => import('./pages/CaseStudy'),
   ServicesPage: () => import('./pages/ServicesPage'),
+  ServiceDetail: () => import('./pages/ServiceDetail'),
   AboutPage: () => import('./pages/AboutPage'),
   Insights: () => import('./pages/Insights'),
   Article: () => import('./pages/Article'),
@@ -32,6 +33,7 @@ const pages = {
 const WorkIndex = lazy(pages.WorkIndex)
 const CaseStudy = lazy(pages.CaseStudy)
 const ServicesPage = lazy(pages.ServicesPage)
+const ServiceDetail = lazy(pages.ServiceDetail)
 const AboutPage = lazy(pages.AboutPage)
 const Insights = lazy(pages.Insights)
 const Article = lazy(pages.Article)
@@ -47,24 +49,34 @@ const loadMotionFeatures = () => import('./utils/motionFeatures').then((mod) => 
 /** Holds the page's height while a page chunk loads, under the curtain. */
 const PageFallback = () => <div className="min-h-svh" />
 
+/** /work/:slug → /portfolio/:slug */
+function LegacyCase() {
+  const { slug } = useParams()
+  return <Navigate to={`/portfolio/${slug}`} replace />
+}
+
 function AppRoutes() {
   const location = useLocation()
   return (
     <Routes location={location}>
       <Route path="/" element={<Home />} />
-      <Route path="/work" element={<WorkIndex />} />
-      <Route path="/work/:slug" element={<CaseStudy />} />
+      <Route path="/portfolio" element={<WorkIndex />} />
+      <Route path="/portfolio/:slug" element={<CaseStudy />} />
+      {/* The portfolio used to live at /work — keep old links working */}
+      <Route path="/work" element={<Navigate to="/portfolio" replace />} />
+      <Route path="/work/:slug" element={<LegacyCase />} />
       <Route path="/services" element={<ServicesPage />} />
+      <Route path="/services/:slug" element={<ServiceDetail />} />
       <Route path="/about" element={<AboutPage />} />
-     {/* <Route path="/insights" element={<Insights />} />
+     <Route path="/insights" element={<Insights />} />
       <Route path="/insights/:slug" element={<Article />} />
       <Route path="/gap-score" element={<GapScore />} />
-      <Route path="/free-audit" element={<FreeAudit />} /> */}
+      <Route path="/free-audit" element={<FreeAudit />} />
       <Route path="/contact" element={<ContactPage />} />
-      {/* <Route path="/faq" element={<Faq />} />
+      <Route path="/faq" element={<Faq />} />
       <Route path="/privacy" element={<Legal kind="privacy" />} />
       <Route path="/terms" element={<Legal kind="terms" />} />
-      <Route path="*" element={<NotFound />} /> */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

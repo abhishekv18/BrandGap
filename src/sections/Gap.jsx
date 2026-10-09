@@ -2,8 +2,10 @@ import { useLayoutEffect, useRef } from 'react'
 import { easeInOutCubic, gsap, range } from '../animations/gsap'
 import { Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
-import { GAP_PAIRS, GAP_STATEMENT } from '../data/gap'
+import { GapFigure, GapStrip } from '../components/illustrations/GapFigure'
+import { GAP_BETWEEN, GAP_PAIRS, GAP_STATEMENT } from '../data/gap'
 import { useCapabilities } from '../hooks/useCapabilities'
+import { numeralOf } from '../data/navigation'
 
 // Sized so the longest word always fits: stacked below 1024px, side by side above.
 const WORD =
@@ -15,6 +17,20 @@ function Statement({ className = '' }) {
     <h2 id="gap-title" className={`mx-auto max-w-[22ch] text-h2 desk:mx-0 ${className}`}>
       {GAP_STATEMENT.lead} <span className="italic text-terracotta">{GAP_STATEMENT.emphasis}</span>
     </h2>
+  )
+}
+
+/** The four gaps every brand recognises, set as a quiet list under the statement. */
+function Between({ className = '' }) {
+  return (
+    <ul className={`mx-auto flex max-w-xl flex-col gap-2 text-ink-soft desk:mx-0 desk:gap-1.5 ${className}`}>
+      {GAP_BETWEEN.map((line) => (
+        <li key={line} className="flex items-baseline justify-center gap-3 desk:justify-start">
+          <span aria-hidden className="hidden h-px w-3 shrink-0 -translate-y-1 bg-terracotta desk:block" />
+          <span>{line}</span>
+        </li>
+      ))}
+    </ul>
   )
 }
 
@@ -36,8 +52,8 @@ function GapDiagram({ className = '' }) {
 }
 
 // Timeline layout (0–1 across the pinned section)
-const STATEMENT_OUT = 0.12
-const FIRST = 0.18
+const STATEMENT_OUT = 0.1
+const FIRST = 0.15
 const STEP = (1 - FIRST - 0.06) / GAP_PAIRS.length
 const CLOSE = STEP * 0.62
 
@@ -115,6 +131,13 @@ function GapScroll() {
         })
         tl.set({}, {}, 1)
 
+        // The measured drawing beside the statement: lines draw, callouts follow,
+        // and brand and growth lean a little closer — before the pairs take over.
+        const fig = q('[data-gap-figure]')
+        tl.fromTo(fig.flatMap((f) => [...f.querySelectorAll('[data-draw], [data-dim]')]), { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.05 }, 0)
+        tl.fromTo(fig.flatMap((f) => [...f.querySelectorAll('[data-callout]')]), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.02, stagger: 0.008 }, 0.025)
+        tl.fromTo(fig.flatMap((f) => [...f.querySelectorAll('[data-obj="brand"]')]), { x: 0 }, { x: 12, duration: 0.06 }, 0.04)
+        tl.fromTo(fig.flatMap((f) => [...f.querySelectorAll('[data-obj="growth"]')]), { x: 0 }, { x: -12, duration: 0.06 }, 0.04)
         tl.to(q('[data-statement]'), { autoAlpha: 0, y: -60, duration: 0.08, ease: 'power2.in' }, STATEMENT_OUT)
         tl.fromTo(q('[data-counter]'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.04 }, FIRST)
 
@@ -128,6 +151,13 @@ function GapScroll() {
           tl.set(line, wide ? { left: () => lineBox(pair).left, width: () => lineBox(pair).width } : { top: () => lineBox(pair).top, height: () => lineBox(pair).height }, s)
           tl.fromTo(line, { [lineScale]: 1 }, { [lineScale]: 0, duration: CLOSE, ease: 'power2.inOut' }, s)
           tl.to(pair.querySelector('[data-dot]'), { scale: 1, duration: 0.03, ease: 'back.out(3)' }, s + CLOSE - 0.01)
+          // Side by side, the joined pair settles centred as one word, whatever the two lengths.
+          if (wide) {
+            const area = pair.querySelector('[data-area]')
+            const from = pair.querySelector('[data-from]')
+            const to = pair.querySelector('[data-to]')
+            tl.fromTo(area, { x: 0 }, { x: () => (from.offsetWidth - to.offsetWidth) / 2, duration: CLOSE, ease: 'power2.inOut' }, s)
+          }
           if (!last) tl.to(pair, { autoAlpha: 0, duration: 0.025 }, s + STEP - 0.03)
         })
       },
@@ -137,15 +167,25 @@ function GapScroll() {
   }, [])
 
   return (
-    <section id="gap" ref={section} aria-labelledby="gap-title" className="relative -mt-[12svh] h-[260svh] md:-mt-[20svh] md:h-[270svh] desk:mt-0 desk:h-[340svh]">
+    <section id="gap" ref={section} aria-labelledby="gap-title" className="relative h-[300svh] md:h-[310svh] desk:h-[400svh]">
       <div ref={stage} className="sticky top-0 h-svh overflow-hidden">
-        <SectionLabel numeral="II" name="The gap" className="container-page absolute inset-x-0 top-20 md:top-28 md:!justify-center desk:!justify-start" />
+        <SectionLabel numeral={numeralOf('gap')} name="The gap" className="container-page absolute inset-x-0 top-20 md:top-28 md:!justify-center desk:!justify-start" />
 
         {/* Opening statement */}
         <div data-statement className="container-page absolute inset-0 flex flex-col justify-start pt-32 text-center md:pt-48 desk:justify-center desk:pt-0 desk:text-left">
           <Statement />
           <GapDiagram className="mt-6 md:mt-8" />
+          <Between className="mt-6 text-sm md:mt-8 md:text-base" />
+          {/* Tablet: the drawing as a short strip under the list (tall enough screens only) */}
+          <div data-gap-figure className="mx-auto mt-8 hidden w-full max-w-xl [@media(min-width:768px)_and_(min-height:820px)]:block desk:!hidden">
+            <GapStrip className="h-auto w-full" />
+          </div>
+          {/* Desktop: the measured drawing beside the statement */}
+          <div data-gap-figure className="pointer-events-none absolute top-1/2 right-[var(--gap-fig-inset)] hidden w-[min(40%,34rem)] -translate-y-1/2 [--gap-fig-inset:1.25rem] md:[--gap-fig-inset:2rem] xl:[--gap-fig-inset:3rem] desk:block">
+            <GapFigure className="h-auto w-full" />
+          </div>
         </div>
+
 
         {/* The pairs. Layout lives on wrappers; GSAP only moves the inner words,
             so centring never fights the animation. Visual only — the list below
@@ -181,9 +221,7 @@ function GapScroll() {
                 </span>
               </span>
               <p
-                className={`max-w-[26ch] font-display text-h3 italic md:max-w-none ${
-                  i === GAP_PAIRS.length - 1 ? 'text-ink' : 'text-ink-soft'
-                }`}
+                className="max-w-[26ch] font-display text-h3 italic text-ink-soft md:max-w-[34ch]"
               >
                 {pair.note}
               </p>
@@ -198,7 +236,7 @@ function GapScroll() {
         <ul className="sr-only">
           {GAP_PAIRS.map((p) => (
             <li key={p.from}>
-              {p.from} to {p.to}: {p.note}
+              {p.from} {p.to}: {p.note}
             </li>
           ))}
         </ul>
@@ -211,9 +249,16 @@ function GapScroll() {
 function GapStatic() {
   return (
     <section id="gap" aria-labelledby="gap-title" className="container-page section-y text-center md:text-left">
-      <SectionLabel numeral="II" name="The gap" />
-      <Statement className="mt-8 md:mt-10" />
-      <GapDiagram className="mt-8" />
+      <SectionLabel numeral={numeralOf('gap')} name="The gap" />
+      <div className="desk:grid desk:grid-cols-12 desk:items-center desk:gap-8">
+        <div className="desk:col-span-7">
+          <Statement className="mt-8 md:mt-10" />
+          <GapDiagram className="mt-8" />
+          <Between className="mt-6" />
+        </div>
+        <GapFigure className="hidden h-auto w-full desk:col-span-5 desk:block" />
+      </div>
+      <GapStrip className="mx-auto mt-10 hidden h-auto w-full max-w-xl md:block desk:hidden" />
       <ul className="mt-14 border-t border-line md:mt-16">
         {GAP_PAIRS.map((p) => (
           <Reveal as="li" key={p.from} className="grid gap-3 border-b border-line py-8 md:grid-cols-12 md:items-baseline">

@@ -1,26 +1,50 @@
 /**
- * VII — Clients & testimonials. Placeholders only.
- * Brief §4/§7: logos only with permission; testimonial results must come
- * from real client information.
+ * Clients & testimonials. The brands themselves are listed in
+ * data/brands.js (no logo wall).
+ *
+ * DRAFT CONTENT — the quotes below were written by the site team as
+ * proposed wording. They are not yet the clients' own words. Send each one
+ * to the client for approval or edits, then fill in the real person's name
+ * and role, and remove `demo: true`. While any entry has `demo: true` the
+ * section shows a "Sample testimonials" note. Results quote the case-study
+ * figures from the Website Content Brief (§07).
  */
 export const CLIENTS_INTRO = {
   title: "Trusted by brands building what's next.",
 }
 
-/**
- * Client logos. A logo renders only when it has a `src` AND `permission: true`;
- * otherwise its slot shows a labelled placeholder.
- *   { id, name, src: '/clients/name.svg', width, height, permission: true }
- */
-export const CLIENT_LOGOS = Array.from({ length: 6 }, (_, i) => ({
-  id: `logo-${i + 1}`,
-  name: '[Client Logo]',
-  src: null,
-  permission: false,
-}))
-
 export const TESTIMONIALS = [
-  { id: 't-01', quote: '[Testimonial Quote]', name: '[Client Name]', role: '[Role]', company: '[Company]', result: '[Result]' },
-  { id: 't-02', quote: '[Testimonial Quote]', name: '[Client Name]', role: '[Role]', company: '[Company]', result: '[Result]' },
-  { id: 't-03', quote: '[Testimonial Quote]', name: '[Client Name]', role: '[Role]', company: '[Company]', result: '[Result]' },
+  {
+    id: 't-decorshed',
+    demo: true,
+    quote:
+      'BrandGap treated our ad account like a business. Paid traffic finally turned into steady, profitable orders.',
+    name: 'The Decorshed',
+    role: 'Founder',
+    company: 'Home Décor & Lifestyle',
+    result: '3.33X ROAS',
+  },
+  {
+    id: 't-vibha',
+    demo: true,
+    quote:
+      'They understood what our products mean to customers and scaled only what worked.',
+    name: 'Vibha Designs',
+    role: 'Founder',
+    company: 'Spiritual & Devotional D2C',
+    result: '3.41X ROAS',
+  },
+  {
+    id: 't-global-ayurveda',
+    demo: true,
+    quote:
+      'Clear campaigns, honest reporting and a team focused on growing the business, not the dashboard.',
+    name: 'Global Ayurveda',
+    role: 'Founder',
+    company: 'Wellness / D2C',
+    result: 'Product campaigns',
+  },
 ]
+
+/** True while any testimonial is still draft content. */
+export const HAS_DEMO_TESTIMONIALS = TESTIMONIALS.some((t) => t.demo)

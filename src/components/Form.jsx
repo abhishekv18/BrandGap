@@ -160,7 +160,9 @@ export function useLeadForm(type, { extraValidate, onDone } = {}) {
       const found = validate(form, extraValidate)
       setErrors(found)
       if (Object.keys(found).length) {
-        const first = form.elements.namedItem(Object.keys(found)[0])
+        const named = form.elements.namedItem(Object.keys(found)[0])
+        // A radio group comes back as a list — focus its first option.
+        const first = named instanceof RadioNodeList ? named[0] : named
         if (first && 'focus' in first) first.focus()
         return
       }

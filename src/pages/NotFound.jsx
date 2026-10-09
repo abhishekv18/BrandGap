@@ -58,7 +58,7 @@ export default function NotFound() {
         <MagneticButton onClick={close} cursor="start" disabled={closing}>
           Close the gap
         </MagneticButton>
-        <MagneticButton href="/work" variant="text">
+        <MagneticButton href="/portfolio" variant="text">
           See the work
         </MagneticButton>
       </div>

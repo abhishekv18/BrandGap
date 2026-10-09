@@ -13,7 +13,7 @@ const TONES = {
  *
  * The [data-inner] layer is oversized so it can parallax inside the frame.
  */
-export function ProjectPlate({ project, tone: toneKey, ratio = '16 / 9', letter = 'b', crop = 'right', className = '', label = '[Project image]', cursor = 'view' }) {
+export function ProjectPlate({ project, tone: toneKey, ratio = '16 / 9', letter = 'b', crop = 'right', className = '', label = '[Project image]', cursor = 'view', priority = false, full = false }) {
   const tone = TONES[toneKey ?? project.tone] ?? TONES.blush
   const { x, y, w, h } = MARK_VIEWBOX
 
@@ -24,9 +24,10 @@ export function ProjectPlate({ project, tone: toneKey, ratio = '16 / 9', letter 
       data-cursor={cursor}
       {...(project.image ? {} : { role: 'img', 'aria-label': `${label} (placeholder)` })}
     >
-      <div data-inner className="absolute -inset-[8%] will-change-transform">
+      {/* `full`: the whole image, edge to edge — website screenshots should never be cropped */}
+      <div {...(full ? {} : { 'data-inner': '' })} className={`absolute will-change-transform ${full ? 'inset-0' : '-inset-[8%]'}`}>
         {/* Hover zoom lives on its own layer so it never fights the scroll parallax above */}
-        <div className="absolute inset-0 transition-transform duration-[1400ms] ease-(--ease-out-expo) group-hover/plate:scale-[1.045] motion-reduce:group-hover/plate:scale-100">
+        <div className={`absolute inset-0 ${full ? '' : 'transition-transform duration-[1400ms] ease-(--ease-out-expo) group-hover/plate:scale-[1.045] motion-reduce:group-hover/plate:scale-100'}`}>
         {project.image ? (
           <img
             src={project.image.src}
@@ -35,9 +36,11 @@ export function ProjectPlate({ project, tone: toneKey, ratio = '16 / 9', letter 
             alt={project.image.alt}
             width={project.image.width}
             height={project.image.height}
-            loading="lazy"
+            loading={priority ? 'eager' : 'lazy'}
+            fetchPriority={priority ? 'high' : undefined}
             decoding="async"
             className="h-full w-full object-cover"
+            style={{ objectPosition: project.image.position ?? 'center' }}
           />
         ) : (
           <svg

@@ -1,5 +1,5 @@
 import { ArrowRight, Plus } from 'lucide-react'
-import { CASE_FLOW } from '../data/projects'
+import { cardMetrics, flowSteps, siteAddress } from '../data/projects'
 import { useHrefClick } from '../hooks/useHrefClick'
 import { Copy } from './Copy'
 import { ProjectPlate } from './ProjectPlate'
@@ -8,10 +8,10 @@ import { ProjectPlate } from './ProjectPlate'
  * One case study (brief §5.2): client name, category tag, three headline
  * metrics. Hovering (or focusing) the image previews the
  * Problem → Strategy → Creative → Campaign → Result flow; "Expand" opens the
- * full flow in a drawer; the image and title lead to /work/[slug].
+ * full flow in a drawer; the image and title lead to /portfolio/[slug].
  */
 export function CaseCard({ project, onExpand, ratio = '4 / 3', letter = 'b', crop = 'right', heading: H = 'h3', className = '', frame = false }) {
-  const href = `/work/${project.slug}`
+  const href = `/portfolio/${project.slug}`
   const hrefClick = useHrefClick()
   const titleId = `case-${project.slug}`
 
@@ -25,16 +25,34 @@ export function CaseCard({ project, onExpand, ratio = '4 / 3', letter = 'b', cro
         className="relative block"
         {...(frame ? { 'data-frame': '' } : {})}
       >
-        <ProjectPlate project={project} ratio={ratio} letter={letter} crop={crop} cursor={undefined} />
+        {project.image ? (
+          /* A real website: shown whole, in the same quiet browser window as the portfolio page */
+          <span className="block overflow-hidden rounded-[0.625rem] border border-line bg-cream shadow-[0_30px_60px_-40px_rgba(28,18,22,0.45)]">
+            <span aria-hidden className="flex items-center gap-3 border-b border-line bg-[#F7EFE9] px-3 py-2">
+              <span className="flex gap-1.5">
+                <span className="size-2 rounded-full bg-terracotta/70" />
+                <span className="size-2 rounded-full bg-ink/20" />
+                <span className="size-2 rounded-full bg-ink/20" />
+              </span>
+              <span className="mx-auto max-w-[60%] truncate rounded-full bg-cream px-4 py-0.5 text-center text-[0.625rem] tracking-wide text-ink-muted">
+                {siteAddress(project)}
+              </span>
+              <span className="w-[2.625rem]" />
+            </span>
+            <ProjectPlate project={project} ratio="16 / 9" letter={letter} crop={crop} cursor={undefined} full />
+          </span>
+        ) : (
+          <ProjectPlate project={project} ratio={ratio} letter={letter} crop={crop} cursor={undefined} />
+        )}
 
         {/* Hover-to-preview: the flow, one step at a time */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 hidden flex-col justify-end bg-ink/85 p-5 text-cream opacity-0 transition-opacity duration-500 ease-(--ease-out-expo) group-hover/card:opacity-100 group-focus-within/card:opacity-100 md:flex lg:p-7"
+          className={`pointer-events-none absolute inset-0 hidden flex-col justify-end bg-ink/85 p-5 text-cream ${project.image ? 'rounded-[0.625rem]' : ''} opacity-0 transition-opacity duration-500 ease-(--ease-out-expo) group-hover/card:opacity-100 group-focus-within/card:opacity-100 md:flex lg:p-7`}
         >
-          <span className="label mb-3 text-[0.6875rem] text-blush">Problem → Result</span>
+          <span className="label mb-3 text-[0.6875rem] text-blush">Strategy → Result</span>
           <span className="flex flex-col">
-            {CASE_FLOW.map((step, i) => (
+            {flowSteps(project).map((step, i) => (
               <span
                 key={step.id}
                 className="flex translate-y-2 items-baseline gap-4 border-t border-line-light py-2 text-left opacity-0 transition-[opacity,translate] duration-500 ease-(--ease-out-expo) group-hover/card:translate-y-0 group-hover/card:opacity-100 group-focus-within/card:translate-y-0 group-focus-within/card:opacity-100"
@@ -59,13 +77,13 @@ export function CaseCard({ project, onExpand, ratio = '4 / 3', letter = 'b', cro
             <Copy value={project.client} />
           </a>
         </H>
-        <span className="label rounded-full border border-line px-3 py-1 text-[0.6875rem] text-ink-soft md:ml-auto">
-          <Copy value={project.category} tone="inherit" />
-        </span>
       </div>
+      <span className="label mt-3 self-center rounded-full border border-line px-3 py-1 text-center text-[0.6875rem] text-ink-soft md:self-start">
+        <Copy value={project.category} tone="inherit" />
+      </span>
 
       <dl className="mt-4 grid grid-cols-3 gap-3 border-t border-line pt-4">
-        {project.metrics.map((metric, i) => (
+        {cardMetrics(project).map((metric, i) => (
           <div key={i} className="flex flex-col-reverse justify-end gap-1">
             <dt className="label text-[0.6875rem] text-ink-muted">
               <Copy value={metric.label} tone="inherit" />

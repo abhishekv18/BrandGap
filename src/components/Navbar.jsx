@@ -147,7 +147,10 @@ export function Navbar() {
           >
             <div className="container-page flex items-center justify-between pt-3">
               <span className="flex min-h-11 items-center gap-3">
-                <BrandMark tone="dark" className="h-8 w-auto" />
+                {/* The b is terracotta, so on this ground the mark sits on a cream badge in its true colours */}
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-cream shadow-[0_6px_16px_-8px_rgba(28,18,22,0.45)]">
+                  <BrandMark className="h-6 w-auto" />
+                </span>
                 <Wordmark tone="dark" className="text-[1.375rem] leading-none [&>span:last-child]:text-cream" />
               </span>
               <button type="button" onClick={() => setOpen(false)} className="min-h-11 rounded-full px-4 label">
@@ -198,7 +201,16 @@ export function Navbar() {
               >
                 {NAV_CTA.label}
               </a>
-              <p className="text-sm text-cream">{CONTACT.email.label}</p>
+              <p className="flex flex-col items-end gap-1 text-sm text-cream">
+                <a href={CONTACT.email.href} className="underline-offset-4 hover:underline">
+                  {CONTACT.email.label}
+                </a>
+                {CONTACT.phone.href && (
+                  <a href={CONTACT.phone.href} className="underline-offset-4 hover:underline">
+                    {CONTACT.phone.label}
+                  </a>
+                )}
+              </p>
             </div>
           </m.div>
         )}

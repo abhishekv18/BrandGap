@@ -1,15 +1,36 @@
 /**
- * VIII — About BrandGap, and the /about page.
- * Approved copy only; founder, team and qualifier details are placeholders
- * until BrandGap supplies them (brief §7, §11). No history, locations,
- * experience or achievement claims.
+ * About BrandGap, and the /about page.
+ * Statement, story, closing line, values and audience come from the Website
+ * Content Brief §11–12. The brand speaks as "we" — no personal bios.
+ * Anything else not yet supplied stays a placeholder.
  */
 
-// Approved positioning line.
+// Content Brief §12 — headline.
 export const ABOUT_STATEMENT = {
-  lead: 'We close the gap between what a brand is and ',
-  emphasis: 'what it could become.',
+  lead: 'We believe every brand ',
+  emphasis: 'has a gap.',
 }
+
+// Content Brief §12 — the story, in its own words.
+export const ABOUT_STORY = {
+  between:
+    'Somewhere between where a business is today and where it wants to be. Between how a brand looks and how it is perceived. Between attention and conversion. Between marketing activity and measurable growth.',
+  exists: 'BrandGap exists to close that gap.',
+  body: [
+    'We are a growth focused digital agency combining strategy, creative, performance marketing and technology to help ambitious brands build stronger digital businesses. Our team works across performance advertising, e-commerce, social media, content, creative strategy, websites and conversion optimization.',
+    'We do not believe in one size fits all marketing. Every business has a different audience, challenge and growth opportunity, and our role is to understand it, build the right strategy and keep improving what works.',
+  ],
+  closing: { lead: 'Your brand shouldn’t just exist online.', emphasis: 'It should grow there.' },
+}
+
+// Content Brief §12 — values.
+export const VALUES = [
+  { id: 'beyond-campaign', name: 'Think Beyond the Campaign', text: 'A campaign is one part of the growth system.' },
+  { id: 'data-context', name: 'Data With Context', text: 'Understanding why numbers move matters more.' },
+  { id: 'creativity-purpose', name: 'Creativity With Purpose', text: 'Every creative has a reason.' },
+  { id: 'execution', name: 'Execution Matters', text: 'Great strategy needs strong execution.' },
+  { id: 'improve', name: 'Always Improve', text: 'Another test, insight and opportunity always exists.' },
+]
 
 // Brand guidelines p.9 — Voice & personality.
 export const ABOUT_BODY = 'Premium, but human. We have a point of view and the proof to back it partners, not vendors.'
@@ -38,14 +59,16 @@ export const FOUNDER = {
   pointOfView: '[Founder Point of View — two lines]',
 }
 
-/**
- * Brief §7 — "Who we are for / not for". Audience from the brief (p.1);
- * the minimum spend is to be decided by BrandGap.
- */
+/** Content Brief §11 — Who we work with. */
 export const AUDIENCE = {
-  for: ['D2C brands', 'Service-based brands', 'Founders and marketing heads'],
-  minimumSpend: '[Minimum monthly ad spend]',
-  notFor: ['[Not-for qualifier]', '[Not-for qualifier]'],
+  title: { lead: 'Built for', emphasis: 'ambitious brands.' },
+  segments: [
+    { id: 'd2c', name: 'D2C Brands', text: 'Ready to scale online sales.' },
+    { id: 'ecommerce', name: 'E-commerce Businesses', text: 'Looking for predictable customer acquisition.' },
+    { id: 'startups', name: 'Startups', text: 'Building their digital growth engine.' },
+    { id: 'services', name: 'Service Businesses', text: 'Looking for qualified leads and better acquisition.' },
+    { id: 'established', name: 'Established Brands', text: 'Improving digital performance and unlocking new growth.' },
+  ],
 }
 
 /** Team — placeholders until details are supplied. photo: { src, alt } or null. */

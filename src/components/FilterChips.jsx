@@ -1,5 +1,5 @@
 /**
- * A row of filters (industry on /work, category on /insights). Buttons with
+ * A row of filters (industry on /portfolio, category on /insights). Buttons with
  * aria-pressed; the count makes empty filters honest before they're chosen.
  */
 export function FilterChips({ label, options, value, onChange, counts = {} }) {

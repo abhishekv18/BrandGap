@@ -1,0 +1,517 @@
+/**
+ * Detailed service pages: /services/[slug].
+ *
+ * Source of truth: the BrandGap service-page developer handoffs in the shared
+ * Google Drive folder (Services › Performance Marketing, Services › Social
+ * Media). Their content, messaging, deliverables and proof are used as
+ * supplied; their UI directions are treated as suggestions — the layout
+ * follows the BrandGap design system. Proof figures follow the handoffs'
+ * guardrails (account-level totals for headlines, site-reported figures
+ * labelled as such).
+ *
+ * Only these two services have detailed content so far. The other services
+ * stay on /services until their content is supplied.
+ *
+ * Each page: hero, story (editorial blocks — components/EditorialBlocks.jsx),
+ * closing CTA and SEO.
+ */
+
+export const SERVICE_PAGES = [
+  /* ------------------------------------------------------------------ */
+  {
+    slug: 'performance-marketing',
+    serviceId: 'performance-marketing',
+    name: 'Performance Marketing',
+    hero: {
+      lead: 'We don’t just run ads.',
+      emphasis: 'We build growth engines.',
+      intro: 'Turn advertising spend into measurable customer acquisition through strategy, creative testing, audience intelligence and continuous optimization.',
+      primary: { label: 'Let’s grow your brand', href: '/contact' },
+      secondary: { label: 'See our work', href: '#proof' },
+    },
+    story: [
+      {
+        type: 'loops',
+        label: 'The problem',
+        headline: 'More spend doesn’t automatically',
+        emphasis: 'mean more growth.',
+        body: 'Anyone can launch a campaign. The difficult part is knowing who should see it, what they should see, why they should care, where they should land, what should happen next — and what to change when the numbers don’t work.',
+        bad: ['Spend', 'Clicks', 'Hope'],
+        good: ['Audience', 'Creative', 'Media', 'Conversion', 'Data', 'Iteration'],
+      },
+      {
+        type: 'pillars',
+        label: 'The BrandGap performance system',
+        headline: 'A performance engine,',
+        emphasis: 'not a collection of campaigns.',
+        items: [
+          { title: 'Research', body: 'Customer, product, market and competitive landscape.' },
+          { title: 'Strategy', body: 'Audience, offer, funnel structure and acquisition objectives.' },
+          { title: 'Creative', body: 'Hooks, concepts, formats and messages.' },
+          { title: 'Distribution', body: 'Paid media and campaign architecture.' },
+          { title: 'Conversion', body: 'Landing page, product experience and checkout.' },
+          { title: 'Optimization', body: 'Read signals, identify bottlenecks and improve.' },
+          { title: 'Scale', body: 'Increase investment behind repeatable winners.' },
+        ],
+        line: 'Every campaign gives us data. Every insight makes the next campaign better.',
+      },
+      {
+        type: 'groups',
+        label: 'What we do',
+        headline: 'Performance marketing,',
+        emphasis: 'built around the whole funnel.',
+        items: [
+          { title: 'Paid acquisition', items: ['Meta Ads', 'Facebook Ads', 'Instagram Ads', 'Google Ads', 'Prospecting', 'Product / catalog campaigns'] },
+          { title: 'Retargeting', items: ['Website visitors', 'Product viewers', 'Add-to-cart audiences', 'Engaged users', 'Existing customers'] },
+          { title: 'Creative testing', items: ['Hooks', 'Ad concepts', 'Static creatives', 'Video ads', 'Product-led creatives', 'UGC-style concepts', 'Offer testing'] },
+          { title: 'Optimization & scaling', items: ['Budget optimization', 'Audience testing', 'Campaign restructuring', 'Placement analysis', 'ROAS / CPA optimization', 'Funnel analysis'] },
+        ],
+      },
+      {
+        type: 'ledger',
+        label: 'The funnel',
+        headline: 'Every customer has a journey.',
+        emphasis: 'We build the media around it.',
+        columns: ['Stage', 'Customer thought', 'Media role'],
+        rows: [
+          ['Discover', '“I didn’t know this brand existed.”', 'Cold audiences · Broad · Interests · Lookalikes'],
+          ['Consider', '“This looks interesting.”', 'Engagers · Video viewers · Website visitors · Product viewers'],
+          ['Intent', '“I might actually buy this.”', 'Add to carts · Initiated checkouts · High-intent visitors'],
+          ['Convert', '“I’m ready.”', 'Purchase campaigns · Offers · Product campaigns · Conversion optimization'],
+          ['Retain', '“I’ll come back.”', 'Existing customers · Cross-sell · Upsell · Repeat purchase'],
+        ],
+      },
+      {
+        type: 'ledger',
+        label: 'Creative × performance',
+        headline: 'The ad is part of',
+        emphasis: 'the product experience.',
+        intro: 'Performance marketing is not only about targeting. Creative does a large amount of the targeting work: the right creative communicates who the product is for, what problem it solves, why it is different and why someone should care.',
+        columns: ['Angle', 'Example'],
+        rows: [
+          ['Product-led', '“Meet the product.”'],
+          ['Problem-led', '“Still struggling with ___?”'],
+          ['Benefit-led', '“Get ___ without ___.”'],
+          ['Social proof', '“Thousands are already choosing ___.”'],
+          ['Offer-led', '“Your reason to try it today.”'],
+        ],
+        line: 'We test the message, not just the audience.',
+      },
+      {
+        type: 'ledger',
+        label: 'Audience strategy',
+        headline: 'Right person. Right message.',
+        emphasis: 'Right moment.',
+        columns: ['Audience', 'Objective', 'Examples'],
+        rows: [
+          ['Cold', 'Discovery', 'Broad · Interests · Lookalikes · New customer acquisition'],
+          ['Warm', 'Consideration', 'Instagram/Facebook engagement · Video viewers · Website visitors · Product viewers'],
+          ['Hot', 'Conversion', 'Add to cart · Initiated checkout · High-intent visitors · Existing customer segments'],
+        ],
+        line: 'The objective isn’t to trap people in a funnel. It’s to move them through it.',
+      },
+      {
+        type: 'grid',
+        label: 'Data & optimization',
+        headline: 'We don’t stare at dashboards.',
+        emphasis: 'We look for signals.',
+        items: [
+          { title: 'CAC / CPA', body: 'What does it cost to acquire a customer?' },
+          { title: 'ROAS', body: 'How efficiently is advertising generating attributed revenue?' },
+          { title: 'CTR', body: 'Is the message earning attention?' },
+          { title: 'CPC', body: 'How efficiently are we buying traffic?' },
+          { title: 'CVR', body: 'Is the destination converting intent?' },
+          { title: 'AOV', body: 'How much is each transaction worth?' },
+          { title: 'Frequency', body: 'Are we reaching people too often?' },
+          { title: 'Creative performance', body: 'Which concepts are actually working?' },
+        ],
+        line: 'The goal isn’t to make the dashboard look good. The goal is to make the business perform better.',
+      },
+      {
+        type: 'proofs',
+        id: 'proof',
+        label: 'Proof',
+        headline: 'Performance isn’t a promise.',
+        emphasis: 'It’s something we can measure.',
+        items: [
+          {
+            client: 'The Decorshed',
+            slug: 'the-decorshed',
+            positioning: 'Building a scalable ecommerce acquisition engine.',
+            stats: [
+              { value: '₹37.64L', label: 'Ad spend' },
+              { value: '10,945', label: 'Purchases' },
+              { value: '28.89M', label: 'Impressions' },
+              { value: '₹130.28', label: 'CPM' },
+            ],
+            columns: ['ROAS', 'Campaign', 'Supporting proof'],
+            rows: [
+              ['5.84×', 'Lookalike Audience', '85 purchases · ₹14.54K spend · ₹84.97K attributed value'],
+              ['5.20×', 'Advantage+ Sales', '196 purchases · ₹95.05K spend · ₹4.94L attributed value'],
+              ['4.25×', 'Retargeting', '568 purchases · ₹2.28L spend · ₹9.69L attributed value'],
+              ['3.70×', 'Lookalike CBO', '1,404 purchases · ₹4.31L spend · ₹15.93L attributed value'],
+            ],
+            note: 'Headline figures: Meta Ads Manager account-level totals. Campaign rows: supplied campaign export.',
+          },
+          {
+            client: 'Vibha Designs',
+            slug: 'vibha-designs',
+            positioning: 'Different products. Same principle: find what works, then scale it.',
+            stats: [
+              { value: '₹12.23L', label: 'Ad spend' },
+              { value: '3,689', label: 'Purchases' },
+              { value: '₹41.68L', label: 'Purchase value' },
+              { value: '3.41×', label: 'Purchase ROAS' },
+            ],
+            columns: ['ROAS', 'Campaign', 'Purchases'],
+            rows: [
+              ['4.02×', 'Shop All', '547 purchases'],
+              ['3.96×', 'Re-Targeting', '357 purchases'],
+              ['3.82×', 'Rakshak', '732 purchases'],
+              ['3.80×', 'Likhit Japa', '1,068 purchases'],
+            ],
+            note: 'Headline figures: Meta Ads Manager account totals. Campaign rows: supplied campaign export.',
+          },
+          {
+            client: 'Ambaji Marble House',
+            slug: 'ambaji-marble-house',
+            positioning: 'Not every conversion is a purchase — turning local visibility into customer conversations.',
+            stats: [
+              { value: '₹1.30L', label: 'Total ad spend' },
+              { value: '1,087', label: 'Messaging contacts' },
+              { value: '978', label: 'New messaging contacts' },
+              { value: '21.76M', label: 'Impressions' },
+            ],
+            columns: ['Campaign', 'Result'],
+            rows: [['Leads || 18/3/26', '1,002 messaging conversations started · ₹79,307.53 spend · ₹79.15 per conversation · 703,032 impressions']],
+            note: 'Messaging contacts are platform-attributed conversations — not qualified leads or customers.',
+          },
+        ],
+      },
+      {
+        type: 'ledger',
+        label: 'Scaling',
+        headline: 'Scale isn’t pressing',
+        emphasis: 'the “increase budget” button.',
+        columns: ['Stage', 'What happens'],
+        rows: [
+          ['Find', 'Identify campaigns, audiences and creatives producing strong signals.'],
+          ['Validate', 'Test whether performance is repeatable.'],
+          ['Expand', 'Introduce new audiences, creative angles and campaign structures.'],
+          ['Scale', 'Increase spend where economics support it.'],
+          ['Refresh', 'Continuously introduce new creative and messaging.'],
+        ],
+      },
+      {
+        type: 'links',
+        label: 'Performance × creative × website',
+        headline: 'Ads don’t exist',
+        emphasis: 'in a vacuum.',
+        intro: 'A campaign can underperform because the creative is weak, the audience is wrong, the offer is unclear, or the landing experience doesn’t convert. BrandGap connects these disciplines rather than treating media buying as a standalone activity — with data looping back into all three.',
+        items: [
+          { title: 'Creative', body: 'Brand & creative strategy', href: '/services#brand-creative-strategy' },
+          { title: 'Performance', body: 'You are here', href: null },
+          { title: 'Website', body: 'Website & conversion', href: '/services#website-conversion' },
+        ],
+      },
+      {
+        type: 'grid',
+        label: 'Who we work with',
+        headline: 'Built for brands',
+        emphasis: 'that want to grow.',
+        items: [
+          { title: 'D2C & ecommerce', body: 'Products that need scalable customer acquisition.' },
+          { title: 'Consumer brands', body: 'Brands competing for attention in crowded markets.' },
+          { title: 'Service businesses', body: 'Businesses where leads and conversations matter.' },
+          { title: 'Personal & expert brands', body: 'Businesses built around expertise, trust and audience.' },
+        ],
+      },
+      {
+        type: 'grid',
+        label: 'Why BrandGap',
+        headline: 'Performance thinking',
+        emphasis: 'beyond the ad account.',
+        items: [
+          { title: 'Strategy before spend', body: 'Business goals come before campaign metrics.' },
+          { title: 'Creative + media together', body: 'Creatives are part of the acquisition strategy, not an afterthought.' },
+          { title: 'Test before scale', body: 'Winning is demonstrated through data, not assumed.' },
+          { title: 'Economics matter', body: 'Revenue and acquisition efficiency matter more than vanity metrics.' },
+          { title: 'Iteration is the system', body: 'The first campaign isn’t the final answer.' },
+          { title: 'No manufactured results', body: 'If the data doesn’t prove it, we don’t claim it.' },
+        ],
+      },
+      {
+        type: 'cases',
+        label: 'Selected work',
+        headline: 'We’ve put the system',
+        emphasis: 'to work.',
+        items: [
+          { slug: 'the-decorshed', title: 'Building a scalable ecommerce acquisition engine', tags: 'Performance Marketing' },
+          { slug: 'vibha-designs', title: 'Turning mindful products into measurable ecommerce growth', tags: 'Performance Marketing' },
+          { slug: 'ambaji-marble-house', title: 'Turning local visibility into customer conversations', tags: 'Lead Generation' },
+          { slug: 'healer-priya-agrawal', title: 'Building a digital brand from zero', tags: 'Social Media · Content' },
+        ],
+      },
+    ],
+    closing: {
+      headline: 'Ready to turn marketing spend into growth?',
+      body: 'Let’s build a performance engine around your brand. Strategy · Creative · Media · Conversion · Growth.',
+    },
+    seo: {
+      title: 'Performance Marketing Agency | Meta Ads & Ecommerce Growth',
+      description:
+        'BrandGap builds performance marketing systems combining paid media, creative testing, audience strategy and conversion optimization to drive measurable growth.',
+    },
+  },
+
+  /* ------------------------------------------------------------------ */
+  {
+    slug: 'social-media',
+    serviceId: 'social-media-content',
+    name: 'Social Media',
+    hero: {
+      lead: 'Build a social presence',
+      emphasis: 'people remember.',
+      intro: 'Strategy, content, creative and community built around a brand people want to discover, follow and come back to.',
+      primary: { label: 'Build my social presence', href: '/contact' },
+      secondary: { label: 'See our social work', href: '#social-work' },
+    },
+    story: [
+      {
+        type: 'loops',
+        label: 'The problem',
+        headline: 'Posting isn’t',
+        emphasis: 'a strategy.',
+        body: 'Most brands don’t have a content problem. They have a direction problem. They post when they have something to say, copy trends without context, create content that disappears after 24 hours, and collect followers without building a reason to stay.',
+        badLabel: 'Without direction',
+        bad: ['Post', 'Hope', 'Repeat'],
+        goodLabel: 'The system behind the content',
+        good: ['Position', 'Strategy', 'Create', 'Publish', 'Learn', 'Optimize', 'Grow'],
+      },
+      {
+        type: 'pillars',
+        label: 'The BrandGap social system',
+        headline: 'From “What should we post?”',
+        emphasis: 'to “What should people remember?”',
+        items: [
+          { title: 'Position', body: 'What should the brand be known for?' },
+          { title: 'Strategize', body: 'Who are we speaking to and what should we say?' },
+          { title: 'Create', body: 'Turn strategy into Reels, carousels, stories, campaigns and visual content.' },
+          { title: 'Publish', body: 'Distribute consistently and adapt content to each platform.' },
+          { title: 'Engage', body: 'Turn passive reach into conversations and community.' },
+          { title: 'Analyze', body: 'Study reach, retention, engagement, saves, shares and audience signals.' },
+          { title: 'Evolve', body: 'Double down on what works and continuously sharpen the content engine.' },
+        ],
+        line: 'Every month should make the brand smarter than the month before.',
+      },
+      {
+        type: 'groups',
+        label: 'What we manage',
+        headline: 'Your social media.',
+        emphasis: 'End to end.',
+        items: [
+          { title: 'Social strategy', items: ['Positioning', 'Audience research', 'Content pillars', 'Monthly strategy', 'Campaign planning'] },
+          { title: 'Content planning', items: ['Monthly calendars', 'Content themes', 'Series', 'Launches', 'Seasonal content', 'Platform planning'] },
+          { title: 'Reels & short-form', items: ['Hooks', 'Concepts', 'Scripts', 'Storyboards', 'Editing direction', 'Short-form storytelling'] },
+          { title: 'Creative content', items: ['Carousels', 'Static posts', 'Educational content', 'Brand storytelling', 'Promotional creatives'] },
+          { title: 'Copy & storytelling', items: ['Captions', 'Hooks', 'CTAs', 'Brand voice', 'Narrative frameworks', 'Content writing'] },
+          { title: 'Community & growth', items: ['Engagement strategy', 'Community building', 'Content optimization', 'Distribution', 'Audience development'] },
+          { title: 'Campaigns & launches', items: ['Offers', 'Product launches', 'Webinars', 'Events', 'Promotions', 'Campaign content'] },
+          { title: 'Analytics & optimization', items: ['Content performance', 'Format testing', 'Audience signals', 'Monthly insights', 'Iteration'] },
+        ],
+      },
+      {
+        type: 'ledger',
+        label: 'Content has a job',
+        headline: 'We don’t create content',
+        emphasis: 'just to fill a calendar.',
+        intro: 'Different content should do different jobs. The feed should work like a system, not a pile of posts.',
+        columns: ['Content job', 'Audience response', 'Examples'],
+        rows: [
+          ['Attract', '“Stop scrolling.”', 'Reels · Hooks · Trends with context · Visual storytelling'],
+          ['Educate', '“This brand knows what it’s talking about.”', 'Explainers · Insights · Frameworks · Educational carousels'],
+          ['Connect', '“I relate to this.”', 'Stories · Opinions · Personality · Behind the scenes'],
+          ['Trust', '“I believe this brand.”', 'Proof · Testimonials · Expertise · Results · Authority content'],
+          ['Convert', '“I want to take the next step.”', 'Offers · Launches · Products · Webinars · Strategic CTAs'],
+        ],
+        line: 'Consistency matters. But consistency without strategy is just noise.',
+      },
+      {
+        type: 'ledger',
+        label: 'Personal brands',
+        headline: 'Your personality is part',
+        emphasis: 'of the brand.',
+        intro: 'For coaches, consultants, creators, educators, founders and experts, social media is where people meet the person behind the expertise.',
+        columns: ['From', 'To'],
+        rows: [
+          ['Knowledge', 'Content'],
+          ['Personality', 'Connection'],
+          ['Expertise', 'Authority'],
+          ['Audience', 'Community'],
+          ['Community', 'Business'],
+        ],
+        line: 'We help turn expertise into content people save, share, discuss and remember.',
+      },
+      {
+        type: 'ledger',
+        label: 'Platform strategy',
+        headline: 'One brand.',
+        emphasis: 'Multiple touchpoints.',
+        columns: ['Platform', 'Role', 'Formats'],
+        rows: [
+          ['Instagram', 'Discovery + community + brand', 'Reels · Carousels · Stories · Collaborations · Visual storytelling'],
+          ['Facebook', 'Reach + community + distribution', 'Repurposed content · Community posts · Campaign support'],
+          ['YouTube', 'Depth + authority + search', 'Long-form · Shorts · Series · Evergreen content'],
+          ['LinkedIn', 'Expertise + professional authority', 'Thought leadership · Founder content · Insights'],
+        ],
+        note: 'The platforms in each engagement depend on the brand and its package.',
+      },
+      {
+        type: 'ledger',
+        label: 'The monthly content machine',
+        headline: 'A repeatable',
+        emphasis: 'content engine.',
+        columns: ['Phase', 'What happens'],
+        rows: [
+          ['Discover', 'Brand + audience + competitors'],
+          ['Plan', 'Content pillars + calendar + campaigns'],
+          ['Create', 'Scripts + designs + Reels + copy'],
+          ['Publish', 'Platform-native publishing'],
+          ['Analyze', 'Reach + engagement + retention + content performance'],
+          ['Optimize', 'Keep what works. Improve what doesn’t.'],
+        ],
+        line: 'The goal isn’t more posts. It’s a stronger content engine.',
+      },
+      {
+        type: 'ledger',
+        label: 'Social growth',
+        headline: 'Social media growth is bigger',
+        emphasis: 'than follower growth.',
+        intro: 'A bigger number isn’t automatically a bigger brand. We care about whether the right people are discovering the brand, consuming the content, remembering it, engaging with it and taking meaningful next steps.',
+        columns: ['Signal', 'Question'],
+        rows: [
+          ['Reach', 'Are more relevant people discovering the brand?'],
+          ['Engagement', 'Is the audience responding?'],
+          ['Saves & shares', 'Is the content valuable enough to keep or pass along?'],
+          ['Watch time / retention', 'Are people staying long enough to consume the story?'],
+          ['Profile / follow growth', 'Is content turning attention into audience?'],
+          ['Community', 'Are people commenting, replying and starting conversations?'],
+          ['Leads / conversions', 'When applicable, is social contributing to business?'],
+        ],
+        line: 'We don’t optimize for more posts. We optimize for stronger signals.',
+      },
+      {
+        type: 'proofs',
+        id: 'proof',
+        label: 'Proof',
+        headline: 'From zero to a',
+        emphasis: 'recognizable digital brand.',
+        items: [
+          {
+            client: 'Healer Priya Agrawal',
+            slug: 'healer-priya-agrawal',
+            positioning: 'The engagement began from zero — social presence, a YouTube content engine, a brand website and an ecommerce store, built into one ecosystem.',
+            stats: [
+              { value: '0', label: 'Starting point' },
+              { value: '200K+', label: 'Social followers*' },
+              { value: '22,345', label: 'Views on one featured YouTube video' },
+              { value: '2,100', label: 'Likes on that video' },
+            ],
+            columns: [],
+            rows: [],
+            note: '* 200K+ is the social following currently reported on the client’s website — not a BrandGap-attributed growth figure. The featured video is a February 2024 Pick-a-Card tarot reading: a single-video proof point, not a channel total.',
+          },
+        ],
+      },
+      {
+        type: 'timeline',
+        label: 'Social + content ecosystem',
+        headline: 'Social should not live',
+        emphasis: 'on an island.',
+        body: 'Discovery on Instagram, Facebook and YouTube; Reels, Shorts and long-form to watch; community and consistent content to follow; a website, services or products to explore; and an offer, enquiry or purchase to convert.',
+        steps: ['Discover', 'Watch', 'Follow', 'Explore', 'Convert'],
+      },
+      {
+        type: 'links',
+        label: 'Social × creative × performance',
+        headline: 'Content builds attention. Creative earns it.',
+        emphasis: 'Performance scales it.',
+        items: [
+          { title: 'Social', body: 'Build attention, identity and community.', href: null },
+          { title: 'Creative', body: 'Turn ideas into content people notice.', href: '/services#brand-creative-strategy' },
+          { title: 'Performance', body: 'Put winning messages in front of more of the right people.', href: '/services/performance-marketing' },
+        ],
+      },
+      {
+        type: 'cases',
+        id: 'social-work',
+        label: 'Selected social work',
+        headline: 'Content built',
+        emphasis: 'for real brands.',
+        items: [
+          { slug: 'healer-priya-agrawal', title: 'Building a digital brand from zero', tags: 'Social Media · YouTube · Content' },
+          { slug: 'the-decorshed', title: 'Building the brand beyond performance', tags: 'Social Media · Brand Content' },
+          { slug: 'vibha-designs', title: 'Building the brand beyond the product page', tags: 'Social Media · Content' },
+        ],
+      },
+      {
+        type: 'ledger',
+        label: 'Who social media is for',
+        headline: 'Different brands.',
+        emphasis: 'Different content engines.',
+        columns: ['Brand type', 'Examples'],
+        rows: [
+          ['Personal brands', 'Coaches · Consultants · Experts · Creators'],
+          ['D2C & ecommerce', 'Products · Fashion · Lifestyle · Consumer brands'],
+          ['Wellness & spiritual', 'Wellness · Yoga · Healing · Spiritual guidance'],
+          ['Founders & businesses', 'Founder-led brands · Startups · SMEs'],
+          ['Professional services', 'Agencies · Consultants · Service businesses'],
+        ],
+        line: 'The strategy changes. The principle doesn’t: build something people want to come back to.',
+      },
+      {
+        type: 'grid',
+        label: 'Why BrandGap',
+        headline: 'Not another agency',
+        emphasis: 'posting three times a week.',
+        items: [
+          { title: 'Strategy before content', body: 'Every post has a purpose.' },
+          { title: 'Creative with context', body: 'Design is not decoration. It communicates positioning.' },
+          { title: 'Personality matters', body: 'Especially for founder and expert-led brands.' },
+          { title: 'Platform-native thinking', body: 'Different platforms demand different storytelling.' },
+          { title: 'Data-informed iteration', body: 'Learn from performance instead of guessing forever.' },
+          { title: 'Business thinking', body: 'Followers are useful. A recognizable brand is better.' },
+        ],
+      },
+      {
+        type: 'ledger',
+        label: 'Not follower farming',
+        headline: 'A bigger number isn’t always',
+        emphasis: 'a bigger brand.',
+        intro: '10,000 irrelevant followers can be less valuable than 1,000 people who genuinely care. We build recognition, relevance, trust, community and demand.',
+        columns: ['Stage', 'Outcome'],
+        rows: [
+          ['Recognition', 'People know who you are.'],
+          ['Relevance', 'Your content feels useful or meaningful.'],
+          ['Trust', 'Your audience believes your point of view.'],
+          ['Community', 'People interact, return and participate.'],
+          ['Demand', 'Attention creates meaningful business action.'],
+        ],
+      },
+    ],
+    closing: {
+      headline: 'Your next audience is already out there.',
+      body: 'They just haven’t discovered you yet. Strategy · Content · Creative · Community · Growth.',
+    },
+    seo: {
+      title: 'Social Media Management & Marketing Agency',
+      description:
+        'BrandGap builds strategic social media systems that help brands attract attention, build communities and grow through content, creative and social marketing.',
+    },
+  },
+]
+
+export const findServicePage = (slug) => SERVICE_PAGES.find((p) => p.slug === slug)
+
+/** The detailed page for a service id on /services, if one exists. */
+export const servicePageFor = (serviceId) => SERVICE_PAGES.find((p) => p.serviceId === serviceId)

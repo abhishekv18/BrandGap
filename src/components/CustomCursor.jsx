@@ -1,3 +1,4 @@
+import { ArrowUpRight } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 const LABELS = {
@@ -8,7 +9,8 @@ const LABELS = {
 
 /**
  * Desktop-only cursor. Elements opt in with data-cursor="view|start|explore";
- * any other link or button gets the smaller hover ring. Sections marked
+ * any other link or button gets a small arrow disc, set just below and to
+ * the right of the pointer so it never covers the word being pointed at. Sections marked
  * data-cursor-invert (terracotta grounds) swap the fill to ink.
  */
 export function CustomCursor() {
@@ -71,7 +73,9 @@ export function CustomCursor() {
   }, [])
 
   // Project images get a larger "View" disc, so the work feels like the thing to click.
-  const scale = variant.mode === 'label' ? (variant.label === 'View' ? 1.25 : 1) : variant.mode === 'hover' ? 0.42 : 0.12
+  const hover = variant.mode === 'hover'
+  const scale = variant.mode === 'label' ? (variant.label === 'View' ? 1.25 : 1) : hover ? 0.3 : 0.12
+  const shift = hover ? 'translate(1.375rem, 1.375rem) ' : ''
   const fill = variant.invert ? 'bg-ink' : 'bg-terracotta'
 
   return (
@@ -82,9 +86,9 @@ export function CustomCursor() {
       style={{ opacity: visible ? 1 : 0, transition: 'opacity 200ms' }}
     >
       <div
-        className={`-mt-11 -ml-11 flex size-22 items-center justify-center rounded-full border-cream ${fill}`}
+        className={`relative -mt-11 -ml-11 flex size-22 items-center justify-center rounded-full border-cream ${fill}`}
         style={{
-          transform: `scale(${scale})`,
+          transform: `${shift}scale(${scale})`,
           borderWidth: variant.mode === 'dot' ? 10 : 0,
           transition: 'transform 450ms cubic-bezier(0.16,1,0.3,1), background-color 300ms',
         }}
@@ -95,6 +99,15 @@ export function CustomCursor() {
         >
           {variant.label}
         </span>
+        <ArrowUpRight
+          strokeWidth={2.25}
+          className="absolute size-11 text-cream"
+          style={{
+            opacity: hover ? 1 : 0,
+            transform: hover ? 'rotate(0deg)' : 'rotate(-45deg)',
+            transition: 'opacity 250ms, transform 450ms cubic-bezier(0.16,1,0.3,1)',
+          }}
+        />
       </div>
     </div>
   )

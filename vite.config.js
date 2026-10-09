@@ -4,10 +4,14 @@ import tailwindcss from '@tailwindcss/vite'
 
 import { PUBLISHED_ARTICLES } from './src/data/insights.js'
 import { PUBLISHED_PROJECTS } from './src/data/projects.js'
+import { SERVICE_PAGES } from './src/data/servicePages.js'
 
 // Every indexable route. Case studies and articles come from src/data, so a
 // new published entry is in the sitemap on the next build.
-const STATIC_ROUTES = ['/', '/work', '/services', '/about', '/insights', '/gap-score', '/free-audit', '/contact', '/faq', '/privacy', '/terms']
+// '/gap-score' and '/free-audit' are left out while those tools show "Coming soon" —
+// add them back here when their LAUNCHED switch is turned on.
+// const STATIC_ROUTES = ['/', '/portfolio', '/services', '/about', '/insights', '/gap-score', '/free-audit', '/contact', '/faq', '/privacy', '/terms']
+const STATIC_ROUTES = ['/', '/portfolio', '/services', '/about', '/insights', '/contact', '/faq', '/privacy', '/terms']
 
 /**
  * Writes robots.txt and sitemap.xml at build time from VITE_SITE_URL (.env),
@@ -22,7 +26,8 @@ function seoFiles(siteUrl) {
       const today = new Date().toISOString().slice(0, 10)
       const routes = [
         ...STATIC_ROUTES,
-        ...PUBLISHED_PROJECTS.map((p) => `/work/${p.slug}`),
+        ...SERVICE_PAGES.map((s) => `/services/${s.slug}`),
+        ...PUBLISHED_PROJECTS.map((p) => `/portfolio/${p.slug}`),
         ...PUBLISHED_ARTICLES.map((a) => `/insights/${a.slug}`),
       ]
       this.emitFile({

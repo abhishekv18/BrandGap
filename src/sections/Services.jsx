@@ -5,9 +5,10 @@ import { HoverPreview } from '../components/HoverPreview'
 import { MagneticButton } from '../components/MagneticButton'
 import { MaskReveal, Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
-import { SERVICES, SERVICES_CENTER, SERVICES_INTRO } from '../data/services'
+import { SERVICES, SERVICES_CENTER, SERVICES_HEADING, SERVICES_INTRO } from '../data/services'
 import { useCapabilities } from '../hooks/useCapabilities'
 import { useReducedMotion } from '../hooks/useMediaQuery'
+import { numeralOf } from '../data/navigation'
 
 const EASE = [0.16, 1, 0.3, 1]
 const STEP = 360 / SERVICES.length
@@ -41,11 +42,11 @@ export function Services() {
     <section id="services" aria-labelledby="services-title" className="container-page section-y text-center md:text-left">
       <div className="grid gap-heading-row md:grid-cols-12">
         <div className="md:col-span-8">
-          <SectionLabel numeral="III" name="What we do" />
+          <SectionLabel numeral={numeralOf('services')} name="What we do" />
           <h2 id="services-title" className="mt-5 text-h2 md:mt-7">
-            <MaskReveal>Brand and growth,</MaskReveal>
+            <MaskReveal>{SERVICES_HEADING.lead}</MaskReveal>
             <MaskReveal delay={0.08} className="italic text-terracotta">
-              under one roof.
+              {SERVICES_HEADING.emphasis}
             </MaskReveal>
           </h2>
         </div>
@@ -131,14 +132,13 @@ function ServiceRow({ service, index, active, onSelect }) {
             className="overflow-hidden md:hidden"
           >
             <div className="grid gap-4 pb-6 md:grid-cols-2 md:gap-8 md:pl-16">
-              <p className="text-ink-soft">
+              <p className="font-display text-xl italic text-ink-soft">
                 <Copy value={service.description} />
               </p>
-              <ul className="flex flex-col items-center gap-1 text-sm md:items-start">
+              <ul className="flex flex-wrap justify-center gap-2">
                 {service.includes.map((item, i) => (
-                  <li key={i} className="flex items-center gap-3">
-                    <span aria-hidden className="h-px w-3 bg-terracotta" />
-                    <Copy value={item} />
+                  <li key={i} className="label rounded-full border border-line px-3 py-1.5 text-[0.625rem]">
+                    <Copy value={item} tone="inherit" />
                   </li>
                 ))}
               </ul>
@@ -153,7 +153,7 @@ function ServiceRow({ service, index, active, onSelect }) {
 /** Desktop: the chosen service's detail sits under the diagram, so the list never shifts under the pointer. */
 function ServiceDetail({ service, index }) {
   return (
-    <div className="mt-8 hidden min-h-36 border-t border-line pt-5 md:block" aria-live="polite">
+    <div className="mt-8 hidden min-h-60 border-t border-line pt-5 md:block" aria-live="polite">
       <AnimatePresence mode="wait">
         <m.div
           key={service.id}
@@ -161,15 +161,17 @@ function ServiceDetail({ service, index }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -6 }}
           transition={{ duration: 0.4, ease: EASE }}
-          className="grid grid-cols-5 gap-6"
+          className="grid gap-4"
         >
-          <p className="col-span-3 text-ink-soft">
+          <p className="text-ink-soft">
             <span className="label mb-3 block text-terracotta">
               0{index + 1} — {service.name}
             </span>
-            <Copy value={service.description} />
+            <span className="font-display text-xl italic text-ink">
+              <Copy value={service.description} />
+            </span>
           </p>
-          <ul className="col-span-2 flex flex-col gap-1 pt-8 text-sm">
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm">
             {service.includes.map((item, i) => (
               <li key={i} className="flex items-center gap-3">
                 <span aria-hidden className="h-px w-3 bg-terracotta" />

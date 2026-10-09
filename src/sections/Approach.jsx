@@ -4,6 +4,7 @@ import { MaskReveal, Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
 import { APPROACH_INTRO, APPROACH_STEPS } from '../data/approach'
 import { useCapabilities } from '../hooks/useCapabilities'
+import { numeralOf } from '../data/navigation'
 
 const LAST = APPROACH_STEPS.length - 1
 
@@ -13,7 +14,7 @@ const LAST = APPROACH_STEPS.length - 1
  * to the step being read; beneath it the b and the g close in, one step at a
  * time, and meet on Scale. Phones read the steps as a simple sequence.
  */
-export function Approach({ numeral = 'V', headingLevel = 'h2', className = '' }) {
+export function Approach({ numeral = numeralOf('approach'), headingLevel = 'h2', className = '' }) {
   const { reducedMotion } = useCapabilities()
   const root = useRef(null)
   const [active, setActive] = useState(0)
@@ -39,7 +40,7 @@ export function Approach({ numeral = 'V', headingLevel = 'h2', className = '' })
     <section id="approach" ref={root} aria-labelledby="approach-title" className={`container-page section-y ${className}`}>
       <div className="grid gap-6 text-center md:grid-cols-12 md:gap-8 md:text-left">
         <div className="md:col-span-8">
-          <SectionLabel numeral={numeral} name="Our approach" />
+          <SectionLabel numeral={numeral} name="The BrandGap Method" />
           <Heading id="approach-title" className="mt-5 text-h2 md:mt-7">
             <MaskReveal>{APPROACH_INTRO.title}</MaskReveal>
           </Heading>
@@ -111,13 +112,12 @@ export function Approach({ numeral = 'V', headingLevel = 'h2', className = '' })
                   {step.name}
                   {i === LAST && <span className="text-terracotta">.</span>}
                 </h3>
-                <p
-                  className={`mt-4 max-w-sm text-lead transition-colors duration-700 ${
-                    on ? 'text-ink-soft' : 'desk:text-ink/35'
-                  }`}
-                >
-                  {step.text}
-                </p>
+                <div className={`mt-4 max-w-md [&>p]:transition-colors [&>p]:duration-700 ${on ? '' : 'desk:text-ink/35'}`}>
+                  {/* Steps only dim on desktop, where one is read at a time */}
+                  <p className={`text-lead text-ink ${on ? '' : 'desk:text-inherit'}`}>{step.promise}</p>
+                  <p className={`mt-2 text-sm text-ink-soft ${on ? '' : 'desk:text-inherit'}`}>{step.text}</p>
+                  <p className={`mt-3 font-display text-lg italic text-terracotta ${on ? '' : 'desk:text-inherit'}`}>{step.note}</p>
+                </div>
               </li>
             )
           })}

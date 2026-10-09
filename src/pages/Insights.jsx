@@ -38,7 +38,7 @@ export default function Insights() {
 
   return (
     <>
-      <PageHero crumbs={[{ name: 'Insights', path: '/insights' }]} lead={INSIGHTS_INTRO.title} line={INSIGHTS_INTRO.line} />
+      <PageHero crumbs={[{ name: 'Insights', path: '/insights' }]} lead={INSIGHTS_INTRO.title} emphasis={INSIGHTS_INTRO.emphasis} intro={INSIGHTS_INTRO.intro} />
 
       <section aria-label="Articles" className="container-page pb-12 md:pb-16">
         <FilterChips label="Filter by topic" options={INSIGHT_CATEGORIES} value={category} onChange={setCategory} counts={counts} />
@@ -87,7 +87,7 @@ export default function Insights() {
                           className="group grid gap-6 text-center sm:grid-cols-5 sm:text-left"
                         >
                           <div className="sm:col-span-2">
-                            <ProjectPlate project={a} ratio="4 / 5" letter={i % 2 ? 'b' : 'g'} crop="left" label="[Article image]" cursor={undefined} />
+                            <ProjectPlate project={{ ...a, image: a.card ?? a.image }} ratio="4 / 5" letter={i % 2 ? 'b' : 'g'} crop="left" label="[Article image]" cursor={undefined} />
                           </div>
                           <div className="sm:col-span-3">
                             <ArticleMeta article={a} />

@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react'
 import { useLayoutEffect, useRef, useState } from 'react'
 import { gsap, ScrollTrigger } from '../animations/gsap'
 import { Copy } from '../components/Copy'
@@ -6,16 +7,17 @@ import { PageHero } from '../components/PageHero'
 import { ProjectPlate } from '../components/ProjectPlate'
 import { MaskReveal, Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
-import { ENGAGEMENT_MODELS, SERVICES, SERVICES_INTRO } from '../data/services'
+import { servicePageFor } from '../data/servicePages'
+import { ENGAGEMENT_MODELS, SERVICES, SERVICES_HEADING, SERVICES_INTRO } from '../data/services'
 import { useCapabilities } from '../hooks/useCapabilities'
 import { useHrefClick } from '../hooks/useHrefClick'
 import { absoluteUrl, breadcrumbLd, useSeo } from '../hooks/useSeo'
 import { Approach } from '../sections/Approach'
 import { FinalCta } from '../sections/FinalCta'
 
-const TONES = ['blush', 'terracotta', 'ink', 'blush', 'terracotta']
+const TONES = ['blush', 'terracotta', 'ink', 'blush', 'terracotta', 'ink']
 
-/** /services — the five service areas in detail (brief §3, §5.1), with engagement formats. */
+/** /services — the six capability areas in detail (Content Brief §03), with engagement formats. */
 export default function ServicesPage() {
   const { reducedMotion } = useCapabilities()
   const root = useRef(null)
@@ -25,7 +27,7 @@ export default function ServicesPage() {
   useSeo({
     title: 'Services',
     description:
-      'Brand Strategy, Performance Marketing, Content and Creative, E-commerce Growth and Social Growth — built together by one team, accountable to one growth number.',
+      'Performance Marketing, Brand & Creative Strategy, Social Media & Content, E-commerce Growth, Website & Conversion and Growth & Analytics — one growth partner, multiple capabilities.',
     path: '/services',
     jsonLd: [
       {
@@ -71,7 +73,7 @@ export default function ServicesPage() {
 
   return (
     <div ref={root}>
-      <PageHero crumbs={[{ name: 'Services', path: '/services' }]} lead="Brand and growth," emphasis="under one roof." intro={SERVICES_INTRO} />
+      <PageHero crumbs={[{ name: 'Services', path: '/services' }]} lead={SERVICES_HEADING.lead} emphasis={SERVICES_HEADING.emphasis} intro={SERVICES_INTRO} />
 
       <section aria-label="Service areas" className="container-page pb-8 md:grid md:grid-cols-12 md:gap-6 md:pb-16">
         {/* Index — follows the reader on tablet and up */}
@@ -119,13 +121,23 @@ export default function ServicesPage() {
                       </li>
                     ))}
                   </ul>
+                  {servicePageFor(s.id) && (
+                    <a
+                      href={`/services/${servicePageFor(s.id).slug}`}
+                      onClick={(e) => hrefClick(e, `/services/${servicePageFor(s.id).slug}`)}
+                      className="group label mt-6 inline-flex min-h-11 items-center gap-2 border-b border-ink/30 text-ink transition-colors hover:border-terracotta hover:text-terracotta"
+                    >
+                      Explore {s.name}
+                      <ArrowRight aria-hidden strokeWidth={1.5} className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
+                    </a>
+                  )}
                 </Reveal>
               </div>
               <figure data-frame className={`mx-auto w-full max-w-[17rem] md:col-span-4 md:max-w-none ${i % 2 ? 'md:order-1 md:col-start-1' : 'md:col-start-6'}`}>
                 <div className="border border-line bg-cream p-2 shadow-[0_18px_36px_-22px_rgba(26,26,26,0.4)]">
                   <div className="relative overflow-hidden" style={{ filter: 'saturate(0.8) contrast(0.95) sepia(0.15)' }}>
                     <ProjectPlate
-                      project={{ image: s.image ? { ...s.image, sizes: '(min-width: 768px) 56vw, 100vw' } : null, tone: TONES[i] }}
+                      project={{ image: s.image ? { ...s.image, sizes: '(min-width: 768px) 56vw, 100vw' } : null, tone: TONES[i % TONES.length] }}
                       ratio="4 / 5"
                       letter={i % 2 ? 'g' : 'b'}
                       crop={i % 2 ? 'left' : 'right'}

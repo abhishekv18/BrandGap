@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { SITE } from '../data/site'
 
-const DEFAULT_TITLE = `${SITE.name} — ${SITE.tagline.replace(/\.$/, '')}`
+// Content Brief §15 — the homepage title, also the fallback for any page without its own.
+const DEFAULT_TITLE = SITE.homeTitle
 
 function setMeta(attr, key, value) {
   let el = document.head.querySelector(`meta[${attr}="${key}"]`)
@@ -30,7 +31,7 @@ export const absoluteUrl = (path = '/') => `${SITE.url}${path}`
  * robots and page-level JSON-LD. index.html carries the homepage defaults for
  * crawlers that don't run JavaScript; this keeps them correct on every route.
  */
-export function useSeo({ title, description = SITE.description, path = '/', image = SITE.ogImage, jsonLd, noindex = false }) {
+export function useSeo({ title, description = SITE.description, path = '/', image = SITE.ogImage, type = 'website', jsonLd, noindex = false }) {
   const ld = jsonLd ? JSON.stringify(jsonLd) : ''
   useEffect(() => {
     const fullTitle = title ? `${title} — ${SITE.name}` : DEFAULT_TITLE
@@ -42,6 +43,7 @@ export function useSeo({ title, description = SITE.description, path = '/', imag
     setMeta('property', 'og:title', fullTitle)
     setMeta('property', 'og:description', description)
     setMeta('property', 'og:url', url)
+    setMeta('property', 'og:type', type)
     setMeta('property', 'og:image', absoluteUrl(image))
     setMeta('name', 'twitter:title', fullTitle)
     setMeta('name', 'twitter:description', description)
@@ -56,7 +58,7 @@ export function useSeo({ title, description = SITE.description, path = '/', imag
       script.textContent = ld
       document.head.appendChild(script)
     }
-  }, [title, description, path, image, ld, noindex])
+  }, [title, description, path, image, type, ld, noindex])
 }
 
 /** BreadcrumbList for inner pages: [{ name, path }]. */

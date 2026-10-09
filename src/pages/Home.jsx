@@ -1,4 +1,5 @@
 import { GapRail } from '../components/GapRail'
+import { LogoStrip } from '../components/LogoStrip'
 import { Marquee } from '../components/Marquee'
 import { MARQUEE_WORDS } from '../data/services'
 import { SITE } from '../data/site'
@@ -6,20 +7,29 @@ import { useCapabilities } from '../hooks/useCapabilities'
 import { useSeo } from '../hooks/useSeo'
 import { About } from '../sections/About'
 import { Approach } from '../sections/Approach'
+import { Brands } from '../sections/Brands'
+import { Capabilities } from '../sections/Capabilities'
 import { Clients } from '../sections/Clients'
+import { CreativePerformance } from '../sections/CreativePerformance'
 import { Dashboard } from '../sections/Dashboard'
 import { FinalCta } from '../sections/FinalCta'
 import { Gap } from '../sections/Gap'
 import { Growth } from '../sections/Growth'
 import { Hero } from '../sections/Hero'
+import { Performance } from '../sections/Performance'
 import { Services } from '../sections/Services'
 import { Work } from '../sections/Work'
+import { Why } from '../sections/Why'
 
 /**
- * The homepage, in the order of the Website Development Brief §4:
- * 01 Hero · 02 The Gap · 03 What We Do · 04 Selected Work · 05 Our Approach ·
- * 06 The Growth System · 07 Clients & Testimonials · 08 About · 09 Final CTA ·
- * 10 Footer (in the app shell). Marquees run between sections, alternating.
+ * The homepage: the approved flow, with the Website Content Brief's sections
+ * woven in (chapter numerals live in data/navigation.js):
+ * I Hero · II The Gap · III What We Do · IV The BrandGap Method ·
+ * V Performance Marketing · VI The Numbers · VII Case Studies ·
+ * VIII Selected Brands · IX Creative × Performance · X Growth System ·
+ * XI Why BrandGap · XII About & Values · XIII Capabilities ·
+ * XIV Clients · XV Final CTA · Footer (in the app shell).
+ * Marquees run between chapters, alternating.
  */
 export default function Home() {
   const { tier } = useCapabilities()
@@ -38,16 +48,26 @@ export default function Home() {
     <>
       {tier === 'desktop' && <GapRail />}
       <Hero />
+      <LogoStrip />
       <Gap />
       <Services />
       <Marquee words={MARQUEE_WORDS} />
-      <Work />
-      <Approach />
-      <Growth />
+      <div className="bg-cream-warm">
+        <Approach />
+      </div>
+      <Performance />
       <Dashboard />
+      <Work />
+      <Brands />
       <Marquee words={MARQUEE_WORDS} reverse />
+      <CreativePerformance />
+      <Growth />
+      <Why />
+      <div className="bg-cream-warm">
+        <About />
+      </div>
+      <Capabilities />
       <Clients />
-      <About />
       <FinalCta />
     </>
   )

@@ -64,7 +64,7 @@ export const HoverPreview = forwardRef(function HoverPreview({ items, active, vi
                 crop={active % 2 ? 'left' : 'right'}
                 label="[Service image]"
                 cursor={undefined}
-                className="h-full w-full"
+                className="h-full w-full [&_img]:[filter:saturate(0.8)_sepia(0.1)_contrast(0.97)]"
               />
             </m.div>
           </AnimatePresence>

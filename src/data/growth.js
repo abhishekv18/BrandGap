@@ -16,23 +16,38 @@ export const GROWTH_TITLE = { lead: 'One team.', emphasis: 'One growth system.' 
 export const GROWTH_PROVES = 'Lower CAC, more repeat.'
 
 /**
- * The dashboard (brief §5.3). These are the brief's own sample values, which it
- * states are placeholders — so the panel is always labelled as an illustration
- * while `sample` is true. Replace with real aggregated figures and set
- * `sample: false` only once they are verified.
+ * VI — The numbers (Content Brief §06). These figures and the disclaimer are
+ * exactly as supplied by BrandGap; the disclaimer must always stay visible.
  */
-export const DASHBOARD = {
-  title: 'BrandGap / Growth system',
-  sample: true,
-  sampleLabel: 'Illustration · sample data',
-  sampleNote: 'Sample figures for illustration only — not BrandGap client results.',
+export const NUMBERS = {
+  lead: 'The numbers',
+  emphasis: 'behind the work.',
+  panelTitle: 'BrandGap / Meta Ads data',
+  disclaimer: 'Selected campaign performance based on Meta Ads data across featured projects.',
   kpis: [
-    { id: 'spend', label: 'Ad Spend', value: 4.8, prefix: '₹', suffix: 'L', decimals: 1 },
-    { id: 'revenue', label: 'Revenue', value: 24.6, prefix: '₹', suffix: 'L', decimals: 1 },
-    { id: 'roas', label: 'ROAS', value: 5.12, suffix: 'X', decimals: 2 },
-    { id: 'conversions', label: 'Conversions', value: 1842, decimals: 0 },
-    { id: 'growth', label: 'Growth', value: 127, prefix: '+', suffix: '%', decimals: 0 },
+    { id: 'spend', label: 'Tracked Meta Ad Spend', value: 50, prefix: '₹', suffix: 'L+', decimals: 0 },
+    { id: 'value', label: 'Purchase Conversion Value', value: 1.68, prefix: '₹', suffix: 'Cr+', decimals: 2 },
+    { id: 'purchases', label: 'Tracked Purchases', value: 14.5, suffix: 'K+', decimals: 1 },
+    { id: 'roas', label: 'Blended Purchase ROAS', value: 3.4, suffix: 'X', decimals: 1 },
+    { id: 'impressions', label: 'Impressions', value: 4.2, suffix: 'Cr+', decimals: 1 },
   ],
-  // Shape of the illustrative trend line (0–1), drawn when the panel enters view.
-  trend: [0.08, 0.12, 0.1, 0.18, 0.22, 0.2, 0.31, 0.36, 0.34, 0.47, 0.55, 0.52, 0.66, 0.74, 0.83, 0.92],
+  /**
+   * The graph: cumulative Meta ad spend (x) against cumulative purchase value
+   * (y) across the two featured case studies — the brief's own figures (§07),
+   * in lakh (₹1Cr = 100L). Vibha Designs, then The Decorshed added on top,
+   * lands on the headline totals (₹50L+ spend, ₹1.68Cr+ value). The dashed
+   * line is break-even (1X ROAS) for reference.
+   */
+  graph: {
+    title: 'Cumulative ad spend → purchase value',
+    xMax: 55,
+    yMax: 180,
+    xTicks: [0, 10, 20, 30, 40, 50],
+    yTicks: [0, 50, 100, 150],
+    points: [
+      { id: 'start', x: 0, y: 0 },
+      { id: 'vibha', x: 12.24, y: 41.68, name: 'Vibha Designs', value: '₹41.68L+', roas: '3.41X' },
+      { id: 'decorshed', x: 50.03, y: 167.68, name: '+ The Decorshed', value: '₹1.68Cr+', roas: '3.4X blended' },
+    ],
+  },
 }

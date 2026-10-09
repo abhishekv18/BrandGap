@@ -12,6 +12,7 @@ export function GapRail() {
   const readout = useRef(null)
   const chapter = useRef(null)
   const rail = useRef(null)
+  const gauge = useRef(null)
 
   useEffect(() => {
     const page = ScrollTrigger.create({
@@ -23,6 +24,14 @@ export function GapRail() {
           readout.current.textContent = String(Math.round(100 - self.progress * 100)).padStart(2, '0')
       },
     })
+    // The hero carries its own gap readout, so the rail's waits until the hero is done.
+    const hero = document.getElementById('top')
+    const showGauge = (self) => {
+      if (gauge.current) gauge.current.style.opacity = self.isActive ? '0' : '1'
+    }
+    const heroGauge = hero
+      ? ScrollTrigger.create({ trigger: hero, start: 'top bottom', end: 'bottom 60%', onToggle: showGauge, onRefresh: showGauge })
+      : null
     const chapters = CHAPTERS.map((c) => {
       const el = document.getElementById(c.id)
       if (!el) return null
@@ -49,6 +58,7 @@ export function GapRail() {
       : null
     return () => {
       hide?.kill()
+      heroGauge?.kill()
       page.kill()
       chapters.forEach((t) => t?.kill())
     }
@@ -66,7 +76,7 @@ export function GapRail() {
       <span className="relative block h-40 w-px bg-line">
         <span ref={fill} className="absolute inset-0 origin-top scale-y-0 bg-terracotta" />
       </span>
-      <span className="flex flex-col items-center leading-none">
+      <span ref={gauge} className="flex flex-col items-center leading-none transition-opacity duration-500">
         <span className="label text-[0.5625rem] text-ink-muted">Gap</span>
         <span ref={readout} className="mt-1 font-display text-lg tabular-nums text-terracotta">
           100

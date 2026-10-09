@@ -4,7 +4,7 @@ import { Box3, ExtrudeGeometry, MathUtils, Shape, Vector2, Vector3 } from 'three
 import { easeInOutCubic, range, smoothstep } from '../animations/gsap'
 import { MARK_B, MARK_G, MARK_VIEWBOX } from '../data/mark'
 import { JOIN_AT, MARK_WORLD_HEIGHT } from './constants'
-import { createLetterMaterial, materialColors } from './Materials'
+import { createLetterMaterial, letterFinish, materialColors } from './Materials'
 
 const S = MARK_WORLD_HEIGHT / MARK_VIEWBOX.h
 const CX = MARK_VIEWBOX.x + MARK_VIEWBOX.w / 2
@@ -41,8 +41,8 @@ function buildLetter(points) {
 export const BrandMark3D = memo(function BrandMark3D({ progress, pointer, safeTop }) {
   const b = useMemo(() => buildLetter(MARK_B), [])
   const g = useMemo(() => buildLetter(MARK_G), [])
-  const bMat = useMemo(() => createLetterMaterial(materialColors.b), [])
-  const gMat = useMemo(() => createLetterMaterial(materialColors.g, { sheen: 0, envMapIntensity: 0.3 }), [])
+  const bMat = useMemo(() => createLetterMaterial(materialColors.b, letterFinish.b), [])
+  const gMat = useMemo(() => createLetterMaterial(materialColors.g, letterFinish.g), [])
   const bRef = useRef(null)
   const gRef = useRef(null)
   const eased = useRef(0)

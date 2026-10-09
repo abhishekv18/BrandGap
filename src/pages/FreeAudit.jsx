@@ -1,3 +1,4 @@
+import { ComingSoon } from '../components/ComingSoon'
 import { Copy } from '../components/Copy'
 import { Field, FormStatus, SelectField, useLeadForm } from '../components/Form'
 import { MagneticButton } from '../components/MagneticButton'
@@ -13,7 +14,29 @@ import { breadcrumbLd, useSeo } from '../hooks/useSeo'
  * /free-audit — the low-commitment offer (brief §6): a free Meta Ads / Brand
  * audit request, and the ROAS / growth calculator.
  */
+/*
+ * LAUNCH SWITCH — the Free Audit page (with the ROAS calculator) is built but
+ * hidden until launch. While LAUNCHED is false the route shows a "Coming soon"
+ * page; the full page below (FreeAuditLive) is kept exactly as it was. Set to
+ * true to go live, and restore '/free-audit' in the sitemap list in vite.config.js.
+ */
+const LAUNCHED = false
+
 export default function FreeAudit() {
+  return LAUNCHED ? (
+    <FreeAuditLive />
+  ) : (
+    <ComingSoon
+      name="Free audit"
+      path="/free-audit"
+      line="A free Meta Ads and brand audit, plus a ROAS calculator to check your numbers. Both are launching soon."
+      note="Want a second pair of eyes before then? Start a conversation and we’ll take a look."
+    />
+  )
+}
+
+// eslint-disable-next-line no-unused-vars -- kept for launch, see LAUNCHED above
+function FreeAuditLive() {
   const { status, errors, onSubmit } = useLeadForm('free-audit')
 
   useSeo({

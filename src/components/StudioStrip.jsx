@@ -12,11 +12,15 @@ const PLATE_LAYOUT = [
   'w-[60vw] md:w-[24vw] self-start md:mt-20',
 ]
 
+// On phones the last two swap so the tones alternate diagonally across the two columns.
+const PHONE_ORDER = [0, 1, 3, 2]
+
 /** Studio imagery that drifts sideways as you scroll, each image settling in its frame. */
 export function StudioStrip({ className = '' }) {
   const { reducedMotion, tier } = useCapabilities()
-  // Phones (and reduced motion) get a still, centred layout; the sideways drift needs a wider screen.
-  const still = reducedMotion || tier === 'mobile'
+  // Phones get a still, staggered two-column sheet; the sideways drift needs a wider screen.
+  const phone = tier === 'mobile'
+  const still = reducedMotion || phone
   const root = useRef(null)
 
   useLayoutEffect(() => {
@@ -51,21 +55,23 @@ export function StudioStrip({ className = '' }) {
     <div ref={root} className={`overflow-hidden ${className}`}>
       <div
         data-about-strip
-        className={`flex gap-4 px-4 md:gap-8 md:px-12 ${
-          still ? 'flex-wrap items-start justify-center' : 'w-max items-stretch md:min-h-[42vw]'
-        }`}
+        className={
+          phone
+            ? 'grid grid-cols-2 gap-x-3 gap-y-4 px-4 pb-12 [&>*:nth-child(even)]:translate-y-12'
+            : `flex gap-4 px-4 md:gap-8 md:px-12 ${still ? 'flex-wrap items-start justify-center' : 'w-max items-stretch md:min-h-[42vw]'}`
+        }
       >
-        {ABOUT_IMAGES.map((img, i) => (
+        {(phone ? PHONE_ORDER.map((n) => ABOUT_IMAGES[n]).filter(Boolean) : ABOUT_IMAGES).map((img, i) => (
           <ProjectPlate
             key={img.id}
             project={img}
             tone={img.tone}
-            ratio={img.ratio}
+            ratio={phone ? '4 / 5' : img.ratio}
             letter={img.letter}
             crop={i % 2 ? 'left' : 'right'}
             label={img.label}
             cursor="explore"
-            className={`shrink-0 ${still ? 'w-[calc(50%-0.5rem)] md:w-[22vw]' : PLATE_LAYOUT[i % PLATE_LAYOUT.length]}`}
+            className={phone ? '' : `shrink-0 ${still ? 'md:w-[22vw]' : PLATE_LAYOUT[i % PLATE_LAYOUT.length]}`}
           />
         ))}
       </div>

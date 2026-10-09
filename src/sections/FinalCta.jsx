@@ -9,14 +9,15 @@ import { CONTACT, FINAL_CTA } from '../data/contact'
 import { useCapabilities } from '../hooks/useCapabilities'
 import { useHrefClick } from '../hooks/useHrefClick'
 import { track } from '../utils/analytics'
+import { numeralOf } from '../data/navigation'
 
 /**
- * Chapter IX — Final CTA (brief §4, section 09): the strongest call to
+ * Final CTA (Content Brief §14): the strongest call to
  * action on the page. The terracotta field opens from a thin band — the gap,
  * widening — and the page asks its one question. Reused at the foot of
  * every page, so each one ends on the same moment.
  */
-export function FinalCta({ numeral = 'IX', showSecondary = true }) {
+export function FinalCta({ numeral = numeralOf('cta'), showSecondary = true, headline = FINAL_CTA.headline, body = FINAL_CTA.body }) {
   const { reducedMotion } = useCapabilities()
   const root = useRef(null)
 
@@ -50,10 +51,10 @@ export function FinalCta({ numeral = 'IX', showSecondary = true }) {
         <div className="grid items-center gap-10 md:grid-cols-12 md:gap-6">
           <div className="md:col-span-8">
             <h2 id="cta-title" data-contact-fade className="text-h2">
-              {FINAL_CTA.headline}
+              {headline}
             </h2>
-            <p data-contact-fade className="mx-auto mt-4 max-w-lg font-display text-h3 italic md:mx-0 md:mt-5">
-              {FINAL_CTA.body}
+            <p data-contact-fade className="mx-auto mt-4 max-w-2xl font-display text-h3 italic md:mx-0 md:mt-5">
+              {body}
             </p>
             {showSecondary && (
               <div data-contact-fade className="mt-5 flex justify-center md:mt-6 md:justify-start">
@@ -61,7 +62,7 @@ export function FinalCta({ numeral = 'IX', showSecondary = true }) {
                   href={FINAL_CTA.secondary.href}
                   variant="text"
                   className="!text-cream"
-                  trackAs="cta_gap_score"
+                  trackAs="cta_view_work"
                 >
                   {FINAL_CTA.secondary.label}
                 </MagneticButton>
@@ -77,6 +78,10 @@ export function FinalCta({ numeral = 'IX', showSecondary = true }) {
           <div>
             <p className="label mb-1.5 text-cream">Write</p>
             <ContactLink label={CONTACT.email.label} href={CONTACT.email.href} className="break-words" />
+          </div>
+          <div>
+            <p className="label mb-1.5 text-cream">Call</p>
+            <ContactLink label={CONTACT.phone.label} href={CONTACT.phone.href} placeholder="[Phone]" className="whitespace-nowrap" />
           </div>
           <div>
             <p className="label mb-1.5 text-cream">Follow</p>
@@ -122,7 +127,7 @@ function StartButton() {
   }
 
   const label = (
-    <span className="flex items-center gap-2">
+    <span className="flex max-w-[8.5rem] items-center justify-center text-center leading-snug tracking-[0.12em] md:max-w-[9rem]">
       {FINAL_CTA.label}
       {/* <ArrowUpRight aria-hidden strokeWidth={1.5} className="size-4" /> */}
     </span>
@@ -140,7 +145,7 @@ function StartButton() {
       onMouseLeave={onLeave}
       style={{ x, y, skewX }}
       data-cursor="start"
-      className="group relative flex size-36 items-center justify-center overflow-hidden rounded-full bg-cream text-ink md:size-44 lg:size-52"
+      className="group relative flex size-40 items-center justify-center overflow-hidden rounded-full bg-cream text-ink md:size-44 lg:size-52"
     >
       <span
         aria-hidden

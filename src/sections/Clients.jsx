@@ -4,19 +4,19 @@ import { useState } from 'react'
 import { Copy } from '../components/Copy'
 import { MaskReveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
-import { CLIENT_LOGOS, CLIENTS_INTRO, TESTIMONIALS } from '../data/testimonials'
-import { useReducedMotion } from '../hooks/useMediaQuery'
+import { CLIENTS_INTRO, HAS_DEMO_TESTIMONIALS, TESTIMONIALS } from '../data/testimonials'
+import { numeralOf } from '../data/navigation'
 
 const EASE = [0.16, 1, 0.3, 1]
 
 /**
- * Chapter VII — Clients & testimonials (brief §4, section 07).
- * Logos arrive one by one; a logo shows only with an asset and permission.
+ * Clients & testimonials. The brands themselves are listed in Selected
+ * brands (Content Brief §08 asks for no logo wall), so this chapter holds
+ * the testimonials only — placeholders until real, permitted quotes exist.
  * Each testimonial is a folded card — name, role and result — that opens to
  * the full quote on click.
  */
-export function Clients({ numeral = 'VII' }) {
-  const reduced = useReducedMotion()
+export function Clients({ numeral = numeralOf('clients') }) {
   const [open, setOpen] = useState(0)
   const [lead, ...rest] = CLIENTS_INTRO.title.split(' building ')
 
@@ -30,46 +30,16 @@ export function Clients({ numeral = 'VII' }) {
         </MaskReveal>
       </h2>
 
-      {/* Logo wall */}
-      <m.ul
-        aria-label="Clients"
-        className="mt-8 grid grid-cols-2 gap-px border border-line bg-line sm:grid-cols-3 md:mt-10 lg:grid-cols-6"
-        initial={reduced ? false : 'hidden'}
-        whileInView="shown"
-        viewport={{ once: true, margin: '0px 0px -10% 0px' }}
-        transition={{ staggerChildren: 0.12 }}
-      >
-        {CLIENT_LOGOS.map((logo) => {
-          const live = logo.src && logo.permission
-          return (
-            <m.li
-              key={logo.id}
-              variants={{ hidden: { opacity: 0, y: 14 }, shown: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.8, ease: EASE }}
-              className="flex aspect-[2/1] items-center justify-center bg-cream p-4"
-            >
-              {live ? (
-                <img
-                  src={logo.src}
-                  alt={logo.name}
-                  width={logo.width}
-                  height={logo.height}
-                  loading="lazy"
-                  decoding="async"
-                  className="max-h-12 w-auto opacity-80 grayscale transition duration-500 hover:opacity-100 hover:grayscale-0"
-                />
-              ) : (
-                <span className="label text-[0.6875rem]">
-                  <Copy value={logo.name} />
-                </span>
-              )}
-            </m.li>
-          )
-        })}
-      </m.ul>
+      {/* Shown only while the quotes are demo content (data/testimonials.js) */}
+      {HAS_DEMO_TESTIMONIALS && (
+        <p className="label mt-6 flex items-center justify-center gap-2 text-[0.625rem] text-ink-muted md:justify-start">
+          <span aria-hidden className="size-1.5 rounded-full bg-terracotta" />
+          Draft testimonials — awaiting client approval
+        </p>
+      )}
 
       {/* Testimonials */}
-      <ul aria-label="Testimonials" className="mt-10 border-t border-line md:mt-14">
+      <ul aria-label="Testimonials" className="space-heading-content border-t border-line">
         {TESTIMONIALS.map((t, i) => (
           <Testimonial key={t.id} t={t} index={i} open={open === i} onToggle={() => setOpen(open === i ? -1 : i)} />
         ))}
@@ -132,7 +102,7 @@ function Testimonial({ t, index, open, onToggle }) {
               <span aria-hidden className="font-display text-[clamp(3.5rem,2.5rem+3.5vw,6rem)] leading-[0.6] text-terracotta md:col-span-1 md:col-start-2">
                 &ldquo;
               </span>
-              <blockquote className="mt-2 font-display text-quote tracking-[-0.02em] md:col-span-9 md:mt-0">
+              <blockquote className="mt-2 max-w-3xl font-display text-h3 tracking-[-0.02em] md:col-span-9 md:mt-0">
                 <Copy value={t.quote} />
               </blockquote>
             </figure>

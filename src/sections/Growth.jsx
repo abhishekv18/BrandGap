@@ -2,8 +2,10 @@ import { Fragment, useLayoutEffect, useRef } from 'react'
 import { gsap } from '../animations/gsap'
 import { Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
+import { GLYPH_LABELS, GrowthGlyph, GrowthLine } from '../components/illustrations/GrowthGlyphs'
 import { GROWTH_INPUTS, GROWTH_OUTPUT, GROWTH_PROVES, GROWTH_TITLE } from '../data/growth'
 import { useCapabilities } from '../hooks/useCapabilities'
+import { numeralOf } from '../data/navigation'
 
 const PANEL = 'w-[var(--pw)] h-[calc(var(--pw)*1.3)]'
 const PANEL_SIZE = { '--pw': 'clamp(7.75rem, 5rem + 9vw, 14rem)' }
@@ -30,14 +32,31 @@ export function Growth() {
   return reducedMotion ? <GrowthStatic /> : <GrowthScroll />
 }
 
-function Panel({ label, index, className = '', ...rest }) {
+
+/**
+ * An input card, set like a print plate: an inset hairline frame, the
+ * numeral and a terracotta registration dot, a quiet line drawing, and the
+ * name ruled off beneath.
+ */
+function Panel({ id, label, index, className = '', ...rest }) {
   return (
     <div
-      className={`flex flex-col justify-between border border-line bg-cream p-3 md:p-5 ${PANEL} ${className}`}
+      className={`flex flex-col justify-between overflow-hidden border border-line bg-cream p-3 shadow-[0_28px_50px_-30px_rgba(28,18,22,0.45)] md:p-5 ${PANEL} ${className}`}
       {...rest}
     >
-      <span data-word className="label text-[0.6875rem] text-ink-muted">0{index + 1}</span>
-      <span data-word className="font-display text-[clamp(0.9375rem,0.45rem+1.1vw,1.875rem)] leading-none">{label}</span>
+      <span aria-hidden className="pointer-events-none absolute inset-1.5 border border-ink/[0.07] md:inset-2" />
+      <span className="relative flex items-center justify-between">
+        <span data-word className="label text-[0.6875rem] text-ink-muted">0{index + 1}</span>
+        <span data-word aria-hidden className="size-1.5 rounded-full bg-terracotta" />
+      </span>
+      {/* Same height as the old icon slot, so the card never grows */}
+      <span data-word aria-hidden className="relative flex flex-col items-center gap-1 self-center">
+        <GrowthGlyph id={id} className="h-[calc(var(--pw)*0.3)] w-[calc(var(--pw)*0.62)]" />
+        <span className="label hidden text-[0.5rem] text-ink-muted md:block">{GLYPH_LABELS[id]}</span>
+      </span>
+      <span data-word className="relative border-t border-line pt-2 md:pt-3">
+        <span className="block font-display text-[clamp(0.9375rem,0.45rem+1.1vw,1.875rem)] leading-none">{label}</span>
+      </span>
     </div>
   )
 }
@@ -143,6 +162,8 @@ function GrowthScroll() {
       })
       tl.to(q('[data-input] [data-word]'), { autoAlpha: 0, duration: 0.05 }, 0.45)
       tl.to(output, { autoAlpha: 1, scale: 1, duration: 0.07, ease: 'power2.out' }, 0.55)
+      // The Growth card's faint rising line draws itself as the card lands.
+      tl.fromTo(q('[data-rise]'), { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.1 }, 0.57)
       tl.to(panels, { autoAlpha: 0, duration: 0.03 }, 0.62)
 
       // The promise
@@ -164,12 +185,13 @@ function GrowthScroll() {
   return (
     <section id="growth" ref={section} aria-labelledby="growth-title" className="relative h-[300svh] md:h-[270svh] desk:h-[360svh]">
       <div ref={stage} className={`sticky top-0 h-svh overflow-hidden ${PANEL_TABLET}`}>
-        <SectionLabel numeral="VI" name="The growth system" className="container-page absolute inset-x-0 top-24 md:top-28 [&>span:first-child]:text-terracotta-deep" />
+        <SectionLabel numeral={numeralOf('growth')} name="The growth system" className="container-page absolute inset-x-0 top-24 md:top-28 [&>span:first-child]:text-terracotta-deep" />
 
         <div data-group className="absolute inset-0 [perspective:1400px]">
           {GROWTH_INPUTS.map((input, i) => (
             <Panel
               key={input.id}
+              id={input.id}
               data-input
               label={input.label}
               index={i}
@@ -190,6 +212,7 @@ function GrowthScroll() {
             data-output
             className={`absolute top-[calc(50%_-_var(--pw)*0.65)] left-[calc(50%_-_var(--pw)/2)] flex flex-col justify-between bg-terracotta p-4 text-cream md:p-5 ${PANEL}`}
           >
+            <GrowthLine className="pointer-events-none absolute inset-x-4 top-[30%] h-[28%] w-[calc(100%-2rem)] md:inset-x-5 md:w-[calc(100%-2.5rem)]" />
             <span className="label text-[0.6875rem] text-cream/80">=</span>
             <span className="font-display text-[clamp(1.5rem,1rem+1.8vw,2.75rem)] leading-none">{GROWTH_OUTPUT}</span>
           </div>
@@ -221,11 +244,11 @@ function GrowthStatic() {
   return (
     <section id="growth" aria-labelledby="growth-title" className="bg-blush section-y" style={PANEL_SIZE}>
       <div className="container-page">
-        <SectionLabel numeral="VI" name="The growth system" className="[&>span:first-child]:text-terracotta-deep" />
+        <SectionLabel numeral={numeralOf('growth')} name="The growth system" className="[&>span:first-child]:text-terracotta-deep" />
         <div className="mt-12 flex flex-wrap items-center justify-center gap-4 md:mt-16 md:gap-6">
           {GROWTH_INPUTS.map((input, i) => (
             <Fragment key={input.id}>
-              <Panel label={input.label} index={i} />
+              <Panel id={input.id} label={input.label} index={i} className="relative" />
               {i < GROWTH_INPUTS.length - 1 && (
                 <span aria-hidden className="font-display text-3xl text-terracotta">→</span>
               )}
@@ -233,7 +256,8 @@ function GrowthStatic() {
           ))}
         </div>
         <div className="mt-10 flex justify-center">
-          <div className={`flex flex-col justify-between bg-terracotta p-5 text-cream ${PANEL}`}>
+          <div className={`relative flex flex-col justify-between bg-terracotta p-5 text-cream ${PANEL}`}>
+            <GrowthLine className="pointer-events-none absolute inset-x-5 top-[30%] h-[28%] w-[calc(100%-2.5rem)]" />
             <span className="label text-[0.6875rem] text-cream/80">=</span>
             <span className="font-display text-[clamp(1.5rem,1rem+1.8vw,2.75rem)] leading-none">{GROWTH_OUTPUT}</span>
           </div>

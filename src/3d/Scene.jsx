@@ -14,12 +14,12 @@ function PaperShadow({ progress }) {
   const mat = useRef(null)
   useFrame(() => {
     if (mat.current)
-      mat.current.opacity = 0.15 * (1 - smoothstep(progress.current ?? 0, JOIN_AT - 0.16, JOIN_AT))
+      mat.current.opacity = 0.13 * (1 - smoothstep(progress.current ?? 0, JOIN_AT - 0.16, JOIN_AT))
   })
   return (
     <mesh position={[0, 0, -0.7]} receiveShadow>
       <planeGeometry args={[40, 24]} />
-      <shadowMaterial ref={mat} color="#5A2A22" opacity={0.15} />
+      <shadowMaterial ref={mat} color="#8A3A2E" opacity={0.13} />
     </mesh>
   )
 }
