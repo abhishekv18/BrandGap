@@ -40,8 +40,8 @@ export function Services() {
 
   return (
     <section id="services" aria-labelledby="services-title" className="container-page section-y text-center md:text-left">
-      <div className="grid gap-heading-row md:grid-cols-12">
-        <div className="md:col-span-8">
+      <div className="grid gap-heading-row lg:grid-cols-12">
+        <div className="lg:col-span-8">
           <SectionLabel numeral={numeralOf('services')} name="What we do" />
           <h2 id="services-title" className="mt-5 text-h2 md:mt-7">
             <MaskReveal>{SERVICES_HEADING.lead}</MaskReveal>
@@ -50,7 +50,7 @@ export function Services() {
             </MaskReveal>
           </h2>
         </div>
-        <Reveal as="p" delay={0.15} className="self-end text-lead text-ink-soft md:col-span-4">
+        <Reveal as="p" delay={0.15} className="self-end text-lead text-ink-soft md:max-w-xl lg:col-span-4">
           {SERVICES_INTRO}
         </Reveal>
       </div>
@@ -171,7 +171,8 @@ function ServiceDetail({ service, index }) {
               <Copy value={service.description} />
             </span>
           </p>
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm">
+          {/* One column on portrait tablets, where the detail panel is narrow; two from lg */}
+          <ul className="grid gap-x-6 gap-y-1 text-sm lg:grid-cols-2">
             {service.includes.map((item, i) => (
               <li key={i} className="flex items-center gap-3">
                 <span aria-hidden className="h-px w-3 bg-terracotta" />

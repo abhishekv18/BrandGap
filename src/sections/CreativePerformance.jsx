@@ -31,8 +31,8 @@ export function CreativePerformance() {
 
   return (
     <section id="creative-performance" ref={root} aria-labelledby="cp-title" className="container-page section-y overflow-hidden text-center md:text-left">
-      <div className="grid gap-heading-row md:grid-cols-12">
-        <div className="md:col-span-8">
+      <div className="grid gap-heading-row lg:grid-cols-12">
+        <div className="lg:col-span-8">
           <SectionLabel numeral={numeralOf('creative-performance')} name="Creative × Performance" />
           <h2 id="cp-title" className="mt-5 text-h2 md:mt-7">
             <MaskReveal>{CP.lead}</MaskReveal>
@@ -41,7 +41,7 @@ export function CreativePerformance() {
             </MaskReveal>
           </h2>
         </div>
-        <Reveal as="p" delay={0.15} className="self-end text-lead text-ink-soft md:col-span-4">
+        <Reveal as="p" delay={0.15} className="self-end text-lead text-ink-soft md:max-w-xl lg:col-span-4">
           {CP.body}
         </Reveal>
       </div>

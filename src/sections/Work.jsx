@@ -108,8 +108,8 @@ export function Work() {
     // On the homepage the work sits on blush: a warm change after the numbers' dark chart panel.
     <section id="work" ref={root} aria-labelledby="work-title" className="isolate section-y">
       <Ground tone="blush" />
-      <header className="container-page grid gap-heading-row text-center md:grid-cols-12 md:text-left">
-        <div className="md:col-span-8">
+      <header className="container-page grid gap-heading-row text-center md:text-left lg:grid-cols-12">
+        <div className="lg:col-span-8">
           <SectionLabel numeral={numeralOf('work')} name="Case studies" />
           <h2 id="work-title" className="mt-5 text-h2 md:mt-7">
             <MaskReveal>{WORK_INTRO.title}</MaskReveal>
@@ -119,7 +119,7 @@ export function Work() {
           </h2>
         </div>
         {WORK_INTRO.line && (
-          <Reveal as="p" delay={0.1} className="self-end font-display text-h3 italic text-ink-soft md:col-span-4">
+          <Reveal as="p" delay={0.1} className="self-end font-display text-h3 italic text-ink-soft md:max-w-xl lg:col-span-4">
             {WORK_INTRO.line}
           </Reveal>
         )}
@@ -129,7 +129,7 @@ export function Work() {
         <div data-strip className="relative mt-6 h-svh overflow-hidden">
           <div
             data-track
-            className="flex h-full w-max items-center gap-[4vw] pt-16 pb-20 pr-[8vw] pl-[max(3rem,calc((100vw_-_1440px)/2_+_3rem))]"
+            className="flex h-full w-max items-center gap-[4vw] pt-16 pb-20 pr-[8vw] pl-[max(3rem,calc((100vw_-_90rem)/2_+_3rem))]"
           >
             {projects.map((project, i) => (
               <div

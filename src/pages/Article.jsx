@@ -122,7 +122,7 @@ function Block({ block }) {
               <dt className="font-display text-lg text-ink">{row[0]}</dt>
               {row.slice(1).map((cell, c) => (
                 <dd key={c} className="mt-2 text-sm text-ink-soft">
-                  <span className="label mb-0.5 block text-[0.5625rem] text-ink-muted">{head[c + 1]}</span>
+                  <span className="label mb-0.5 block text-[0.625rem] text-ink-muted">{head[c + 1]}</span>
                   {cell}
                 </dd>
               ))}
@@ -285,7 +285,8 @@ function Post({ article }) {
         </header>
 
         <Reveal className="container-page">
-          <ProjectPlate project={article} ratio="16 / 9" letter="g" crop="right" label="[Article image]" cursor={undefined} priority />
+          {/* full: the cover illustrations carry captions at their edges, so no parallax overscan crop */}
+          <ProjectPlate project={article} ratio="16 / 9" letter="g" crop="right" label="[Article image]" cursor={undefined} priority full />
         </Reveal>
 
         {/* From lg: a sticky contents rail beside the reading column */}

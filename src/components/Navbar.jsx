@@ -71,7 +71,7 @@ export function Navbar() {
             className={`pointer-events-auto flex w-full items-center justify-between gap-4 rounded-full transition-[background-color,box-shadow,max-width,padding] duration-700 ease-(--ease-out-expo) ${
               condensed
                 ? 'max-w-4xl bg-cream/95 py-2 pr-2 pl-4 shadow-[0_0_0_1px_var(--color-line)]'
-                : 'max-w-[1440px] bg-transparent py-2 pr-0 pl-0'
+                : 'max-w-[90rem] bg-transparent py-2 pr-0 pl-0'
             }`}
           >
             <a href="/" onClick={(e) => go(e, '/')} className="flex min-h-11 items-center gap-3" aria-label="BrandGap — home">
@@ -201,12 +201,12 @@ export function Navbar() {
               >
                 {NAV_CTA.label}
               </a>
-              <p className="flex flex-col items-end gap-1 text-sm text-cream">
-                <a href={CONTACT.email.href} className="underline-offset-4 hover:underline">
+              <p className="flex flex-col items-end text-sm text-cream">
+                <a href={CONTACT.email.href} className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">
                   {CONTACT.email.label}
                 </a>
                 {CONTACT.phone.href && (
-                  <a href={CONTACT.phone.href} className="underline-offset-4 hover:underline">
+                  <a href={CONTACT.phone.href} className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">
                     {CONTACT.phone.label}
                   </a>
                 )}

@@ -38,14 +38,14 @@ export function Approach({ numeral = numeralOf('approach'), headingLevel = 'h2',
 
   return (
     <section id="approach" ref={root} aria-labelledby="approach-title" className={`container-page section-y ${className}`}>
-      <div className="grid gap-6 text-center md:grid-cols-12 md:gap-8 md:text-left">
-        <div className="md:col-span-8">
+      <div className="grid gap-6 text-center md:text-left lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-8">
           <SectionLabel numeral={numeral} name="The BrandGap Method" />
           <Heading id="approach-title" className="mt-5 text-h2 md:mt-7">
             <MaskReveal>{APPROACH_INTRO.title}</MaskReveal>
           </Heading>
         </div>
-        <Reveal as="p" delay={0.1} className="self-end font-display text-h3 italic text-ink-soft md:col-span-4">
+        <Reveal as="p" delay={0.1} className="self-end font-display text-h3 italic text-ink-soft md:max-w-xl lg:col-span-4">
           {APPROACH_INTRO.line}
         </Reveal>
       </div>

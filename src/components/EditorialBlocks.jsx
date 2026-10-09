@@ -84,7 +84,7 @@ function Table({ columns, rows, caption }) {
             <dt className="font-display text-lg text-ink">{row[0]}</dt>
             {row.slice(1).map((cell, c) => (
               <dd key={c} className="mt-2 text-sm text-ink-soft">
-                {head[c + 1] && <span className="label mb-0.5 block text-[0.5625rem] text-ink-muted">{head[c + 1]}</span>}
+                {head[c + 1] && <span className="label mb-0.5 block text-[0.625rem] text-ink-muted">{head[c + 1]}</span>}
                 {cell}
               </dd>
             ))}
@@ -217,7 +217,7 @@ function Cards({ b, n }) {
           <Reveal as="li" key={`${item.title}-${i}`} delay={(i % 3) * 0.05} className="flex flex-col bg-cream p-6 text-center md:p-7 md:text-left">
             <p className="font-display text-h3 text-terracotta">{item.kicker}</p>
             <h3 className="mt-3 font-display text-xl tracking-[-0.01em] md:text-2xl">{item.title}</h3>
-            <p className="label mt-3 text-[0.5625rem] leading-relaxed text-ink-muted">{item.meta}</p>
+            <p className="label mt-3 text-[0.625rem] leading-relaxed text-ink-muted">{item.meta}</p>
             <p className="mt-4 text-sm text-ink-soft">{item.body}</p>
           </Reveal>
         ))}
@@ -424,7 +424,7 @@ function Proofs({ b, n }) {
               <dl className="grid grid-cols-2 gap-px bg-line md:grid-cols-4">
                 {p.stats.map((s) => (
                   <div key={s.label} className="flex flex-col-reverse justify-end gap-1.5 bg-cream px-5 py-5 text-center md:px-8 md:text-left">
-                    <dt className="label text-[0.5625rem] text-ink-muted">{s.label}</dt>
+                    <dt className="label text-[0.625rem] text-ink-muted">{s.label}</dt>
                     <dd className="font-display text-[clamp(1.5rem,1rem+1.2vw,2.25rem)] leading-none">{s.value}</dd>
                   </div>
                 ))}

@@ -165,7 +165,7 @@ function WayRow({ name, best, action, href, external, onClick, placeholder, plai
         {placeholder ? (
           <span className="text-sm text-ink-muted">
             <Copy value={placeholder} />
-            <span className="label ml-3 text-[0.5625rem] text-terracotta">Placeholder · dev only</span>
+            <span className="label ml-3 text-[0.625rem] text-terracotta">Placeholder · dev only</span>
           </span>
         ) : (
           <>
@@ -471,8 +471,8 @@ export default function ContactPage() {
               ].map(([label, c]) =>
                 c.href ? (
                   <li key={label} className="flex items-baseline justify-between gap-4 border-b border-line py-3 text-sm">
-                    <span className="label text-[0.5625rem] text-ink-muted">{label}</span>
-                    <a href={c.href} className="text-ink underline-offset-4 transition-colors hover:text-terracotta hover:underline">
+                    <span className="label text-[0.625rem] text-ink-muted">{label}</span>
+                    <a href={c.href} className="-my-3 py-3 text-ink underline-offset-4 transition-colors hover:text-terracotta hover:underline">
                       {c.label}
                     </a>
                   </li>

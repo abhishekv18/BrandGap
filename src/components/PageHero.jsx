@@ -47,13 +47,14 @@ export function Breadcrumb({ items }) {
  * emphasis), an intro set against it, and the measured hairline — a b-dot and
  * a g-dot — drawing across beneath.
  */
-export function PageHero({ crumbs, lead, emphasis, line, intro, children, className = '' }) {
+export function PageHero({ crumbs, lead, emphasis, line, intro, children, deep = false, className = '' }) {
   const reduced = useReducedMotion()
   return (
-    <header className={`container-page pt-24 pb-8 text-center md:pt-36 md:pb-12 md:text-left ${className}`}>
+    <header className={`container-page pt-24 text-center md:pt-36 md:text-left ${deep ? 'pb-12 md:pb-18' : 'pb-8 md:pb-12'} ${className}`}>
       <Breadcrumb items={crumbs} />
-      <div className="mt-5 grid gap-6 md:mt-7 md:grid-cols-12 md:gap-6">
-        <h1 className="text-h2 md:col-span-8">
+      {/* Headline + intro side by side from lg; portrait tablets stack them, so the intro keeps a readable measure */}
+      <div className="mt-5 grid gap-6 md:mt-7 lg:grid-cols-12">
+        <h1 className="text-h2 lg:col-span-8">
           <MaskReveal>{lead}</MaskReveal>
           {emphasis && (
             <MaskReveal delay={0.08} className="italic text-terracotta">
@@ -62,12 +63,12 @@ export function PageHero({ crumbs, lead, emphasis, line, intro, children, classN
           )}
         </h1>
         {line && (
-          <Reveal as="p" delay={0.15} className="mx-auto max-w-md self-end font-display text-h3 italic text-ink-soft md:col-span-4 md:mx-0">
+          <Reveal as="p" delay={0.15} className="mx-auto max-w-md self-end font-display text-h3 italic text-ink-soft md:mx-0 lg:col-span-4">
             {line}
           </Reveal>
         )}
         {intro && (
-          <Reveal as="p" delay={0.2} className="mx-auto max-w-md self-end text-lead text-ink-soft md:col-span-4 md:mx-0">
+          <Reveal as="p" delay={0.2} className="mx-auto max-w-md self-end text-lead text-ink-soft md:mx-0 md:max-w-xl lg:col-span-4 lg:max-w-md">
             {intro}
           </Reveal>
         )}

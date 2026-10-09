@@ -85,8 +85,9 @@ export function CaseCard({ project, onExpand, ratio = '4 / 3', letter = 'b', cro
 
       <dl className="mt-4 grid grid-cols-3 gap-3 border-t border-line pt-4">
         {cardMetrics(project).map((metric, i) => (
-          <div key={i} className="flex flex-col-reverse justify-end gap-1">
-            <dt className="label text-[0.6875rem] text-ink-muted">
+          <div key={i} className="flex min-w-0 flex-col-reverse justify-end gap-1">
+            {/* Tighter tracking under 375px so single long words ("Impressions") fit a third of the card */}
+            <dt className="label text-[0.6875rem] tracking-[0.12em] text-ink-muted xs:tracking-[0.18em]">
               <Copy value={metric.label} tone="inherit" />
             </dt>
             <dd className="font-display text-lg leading-tight md:text-xl">

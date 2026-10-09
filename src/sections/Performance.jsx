@@ -38,8 +38,8 @@ export function Performance() {
 
   return (
     <section id="performance" ref={root} aria-labelledby="performance-title" className="container-page section-y text-center md:text-left">
-      <div className="grid gap-heading-row md:grid-cols-12">
-        <div className="md:col-span-8">
+      <div className="grid gap-heading-row lg:grid-cols-12">
+        <div className="lg:col-span-8">
           <SectionLabel numeral={numeralOf('performance')} name="Performance marketing" />
           <h2 id="performance-title" className="mt-5 max-w-[22ch] text-h2 md:mt-7">
             <MaskReveal>{PERFORMANCE_INTRO.lead}</MaskReveal>
@@ -48,7 +48,7 @@ export function Performance() {
             </MaskReveal>
           </h2>
         </div>
-        <Reveal as="div" delay={0.15} className="flex flex-col gap-2 self-end text-lead text-ink-soft md:col-span-4">
+        <Reveal as="div" delay={0.15} className="flex flex-col gap-2 self-end text-lead text-ink-soft md:max-w-xl lg:col-span-4">
           {PERFORMANCE_INTRO.principles.map((line) => (
             <p key={line}>{line}</p>
           ))}

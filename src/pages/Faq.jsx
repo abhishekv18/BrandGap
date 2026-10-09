@@ -195,7 +195,7 @@ export default function Faq() {
                           <span className="label tabular-nums text-ink-muted">{pad(i + 1)}</span>
                           <span className="font-display text-lg">{g.name}</span>
                         </span>
-                        <span className="label text-[0.5625rem] tabular-nums text-ink-muted">{pad(g.items.length)}</span>
+                        <span className="label text-[0.625rem] tabular-nums text-ink-muted">{pad(g.items.length)}</span>
                       </a>
                     </li>
                   ))}

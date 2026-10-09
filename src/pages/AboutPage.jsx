@@ -97,11 +97,11 @@ export default function AboutPage() {
   return (
     <>
       {/* The statement is the page's headline — lit word by word as it's read */}
-      <header className="container-page pt-24 pb-8 text-center md:pt-36 md:pb-12 md:text-left">
+      <header className="container-page pt-24 pb-12 text-center md:pt-36 md:pb-18 md:text-left">
         <Breadcrumb items={[{ name: 'About', path: '/about' }]} />
-        <div className="mt-5 grid gap-6 md:mt-7 md:grid-cols-12">
-          <AboutStatement as="h1" id="about-page-title" size="text-h2 max-w-[22ch]" className="md:col-span-8" />
-          <Reveal as="p" delay={0.2} className="mx-auto max-w-md self-end text-lead text-ink-soft md:col-span-4 md:mx-0">
+        <div className="mt-5 grid gap-6 md:mt-7 lg:grid-cols-12">
+          <AboutStatement as="h1" id="about-page-title" size="text-h2 max-w-[22ch]" className="lg:col-span-8" />
+          <Reveal as="p" delay={0.2} className="mx-auto max-w-md self-end text-lead text-ink-soft md:mx-0 md:max-w-xl lg:col-span-4 lg:max-w-md">
             {ABOUT_STORY.between}
           </Reveal>
         </div>
@@ -114,9 +114,7 @@ export default function AboutPage() {
 
       {HAS_STUDIO && <StudioStrip />}
 
-      <div className="pt-4 md:pt-6">
-        <EditorialBlocks blocks={STORY} />
-      </div>
+      <EditorialBlocks blocks={STORY} />
 
       {/* Who we work with */}
       {/* Follows the work's ink ground, so space rather than a hairline marks the change */}

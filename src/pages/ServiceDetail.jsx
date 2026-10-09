@@ -49,6 +49,7 @@ function Service({ page }) {
         lead={hero.lead}
         emphasis={hero.emphasis}
         intro={hero.intro}
+        deep
       >
         <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-8 md:justify-start">
           <MagneticButton href={hero.primary.href} cursor="start" trackAs={`service_${page.slug}_primary`}>
@@ -60,9 +61,8 @@ function Service({ page }) {
         </div>
       </PageHero>
 
-      <div className="pt-4 md:pt-6">
-        <EditorialBlocks blocks={page.story} />
-      </div>
+      {/* The header's deeper padding carries the space, so the paper texture has no seam */}
+      <EditorialBlocks blocks={page.story} />
 
       <FinalCta numeral={null} headline={page.closing.headline} body={page.closing.body} />
     </>

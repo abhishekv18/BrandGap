@@ -76,19 +76,20 @@ export function FinalCta({ numeral = numeralOf('cta'), showSecondary = true, hea
 
         <div data-contact-fade className="grid gap-5 border-t border-line-light pt-5 text-sm sm:grid-cols-3">
           <div>
-            <p className="label mb-1.5 text-cream">Write</p>
-            <ContactLink label={CONTACT.email.label} href={CONTACT.email.href} className="break-words" />
+            <p className="label text-cream md:mb-1.5">Write</p>
+            {/* Phones: a full 44px tap target; desktop keeps the quiet text link */}
+            <ContactLink label={CONTACT.email.label} href={CONTACT.email.href} className="inline-flex min-h-11 items-center break-words md:min-h-0" />
           </div>
           <div>
-            <p className="label mb-1.5 text-cream">Call</p>
-            <ContactLink label={CONTACT.phone.label} href={CONTACT.phone.href} placeholder="[Phone]" className="whitespace-nowrap" />
+            <p className="label text-cream md:mb-1.5">Call</p>
+            <ContactLink label={CONTACT.phone.label} href={CONTACT.phone.href} placeholder="[Phone]" className="inline-flex min-h-11 items-center whitespace-nowrap md:min-h-0" />
           </div>
           <div>
-            <p className="label mb-1.5 text-cream">Follow</p>
+            <p className="label text-cream md:mb-1.5">Follow</p>
             <ul className="flex justify-center gap-5 md:justify-start">
               {CONTACT.socials.map((s) => (
                 <li key={s.id}>
-                  <ContactLink label={s.label} href={s.href} placeholder={s.placeholder} />
+                  <ContactLink label={s.label} href={s.href} placeholder={s.placeholder} className="inline-flex min-h-11 items-center md:min-h-0" />
                 </li>
               ))}
             </ul>

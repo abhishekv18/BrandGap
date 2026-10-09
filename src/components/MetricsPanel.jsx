@@ -59,13 +59,13 @@ function PointList({ points, compact = false }) {
         <li key={p.id} className={compact ? 'flex flex-col gap-1' : 'flex items-baseline gap-3'}>
           {compact ? (
             <>
-              <span className="label flex gap-2 text-[0.5625rem] text-cream/65">
+              <span className="label flex gap-2 text-[0.625rem] text-cream/65">
                 <span className="text-blush">0{p.n}</span>
                 {p.name}
               </span>
               <span className="flex items-baseline gap-2">
                 <span className="font-display text-base leading-none text-cream">{p.value}</span>
-                <span className="label text-[0.5625rem] text-blush">{p.roas}</span>
+                <span className="label text-[0.625rem] text-blush">{p.roas}</span>
               </span>
             </>
           ) : (
@@ -75,7 +75,7 @@ function PointList({ points, compact = false }) {
                 <span className="label text-[0.625rem] text-cream/65">{p.name}</span>
                 <span className="flex items-baseline gap-2">
                   <span className="font-display text-lg leading-none text-cream">{p.value}</span>
-                  <span className="label text-[0.5625rem] text-blush">{p.roas}</span>
+                  <span className="label text-[0.625rem] text-blush">{p.roas}</span>
                 </span>
               </span>
             </>
@@ -243,8 +243,9 @@ export function MetricsPanel({ title, kpis, graph, caption, summary, roasDigits 
               </p>
             </div>
 
-            <div aria-hidden className="grid grid-cols-3 gap-4 border-y border-line-light py-4 lg:grid-cols-2 lg:gap-x-4 lg:gap-y-4">
-              <Readout label={valueLabel} name="value" value={fmtY(g.end.y)} accent compact={compact} className="lg:col-span-2" />
+            {/* Under 375px the three readouts don't fit side by side: the headline figure takes the row */}
+            <div aria-hidden className="grid grid-cols-2 gap-4 border-y border-line-light py-4 xs:grid-cols-3 lg:grid-cols-2 lg:gap-x-4 lg:gap-y-4">
+              <Readout label={valueLabel} name="value" value={fmtY(g.end.y)} accent compact={compact} className="col-span-2 xs:col-span-1 lg:col-span-2" />
               <Readout label="Ad spend" name="spend" value={money(g.end.x)} compact={compact} />
               <Readout label={ratioLabel} name="roas" value={roas(g.end.x, g.end.y)} compact={compact} />
             </div>
@@ -362,7 +363,7 @@ export function MetricsPanel({ title, kpis, graph, caption, summary, roasDigits 
                   </span>
                 ))}
               </div>
-              <p aria-hidden className="label mt-2 text-right text-[0.5625rem] text-cream/45">
+              <p aria-hidden className="label mt-2 text-right text-[0.625rem] text-cream/45">
                 Meta ad spend →
               </p>
             </div>

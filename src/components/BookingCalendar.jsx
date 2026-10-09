@@ -156,7 +156,7 @@ export function BookingCalendar() {
         </div>
         <div aria-hidden className="mt-5 grid grid-cols-7 text-center">
           {WEEKDAYS.map((d) => (
-            <span key={d} className="label text-[0.5625rem] text-ink-muted">
+            <span key={d} className="label text-[0.625rem] text-ink-muted">
               {d}
             </span>
           ))}
@@ -232,7 +232,7 @@ export function BookingCalendar() {
           <p aria-live="polite" className="min-h-6 text-sm text-ink-soft">
             {when ? (
               <>
-                <span className="label mr-2 text-[0.5625rem] text-ink-muted">Your request</span>
+                <span className="label mr-2 text-[0.625rem] text-ink-muted">Your request</span>
                 <span className="text-ink">{when}</span>
               </>
             ) : (

@@ -115,12 +115,12 @@ function CaseRow({ project, flip, onQuickView }) {
         {tags.length > 0 && (
           <ul className="mt-5 flex flex-wrap justify-center gap-2 md:justify-start" aria-label="Strategy">
             {tags.slice(0, TAGS).map((tag) => (
-              <li key={tag} className="label rounded-full border border-line px-3 py-1.5 text-[0.5625rem] text-ink-soft">
+              <li key={tag} className="label rounded-full border border-line px-3 py-1.5 text-[0.625rem] text-ink-soft">
                 {tag}
               </li>
             ))}
             {tags.length > TAGS && (
-              <li className="label rounded-full bg-blush px-3 py-1.5 text-[0.5625rem] text-ink-soft">+{tags.length - TAGS} more</li>
+              <li className="label rounded-full bg-blush px-3 py-1.5 text-[0.625rem] text-ink-soft">+{tags.length - TAGS} more</li>
             )}
           </ul>
         )}

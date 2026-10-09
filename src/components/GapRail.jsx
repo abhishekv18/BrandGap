@@ -88,7 +88,7 @@ export function GapRail() {
         <span ref={fill} className="absolute inset-0 origin-top scale-y-0 bg-terracotta" />
       </span>
       <span ref={gauge} className="flex flex-col items-center leading-none transition-opacity duration-500">
-        <span className="label text-[0.5625rem] text-ink-muted">Gap</span>
+        <span className="label text-[0.625rem] text-ink-muted">Gap</span>
         <span ref={readout} className="mt-1 font-display text-lg tabular-nums text-terracotta">
           100
         </span>

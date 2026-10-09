@@ -174,7 +174,20 @@ export const MARQUEE_WORDS = ['Strategy', 'Creative', 'Performance', 'Content', 
 
 // Brief §7 — show the format only, no prices.
 export const ENGAGEMENT_MODELS = [
-  { id: 'project', name: 'Project', note: '[Engagement description]' },
-  { id: 'retainer', name: 'Monthly Growth Retainer', note: '[Engagement description]' },
-  { id: 'fractional-cmo', name: 'Fractional CMO', note: '[Engagement description]' },
+  // Formats only: no prices, timeframes or guarantees. Scope and terms are agreed per brand (see the FAQ).
+  {
+    id: 'project',
+    name: 'Project',
+    note: 'A defined piece of work with a clear scope and outcome: a website build, a campaign launch, a brand strategy or an ad-account rebuild. Best when you know exactly which gap needs closing.',
+  },
+  {
+    id: 'retainer',
+    name: 'Monthly Growth Retainer',
+    note: 'An ongoing partnership across performance, content and creative. Every month we plan, launch, test and optimise, so the work compounds instead of starting over each time.',
+  },
+  {
+    id: 'fractional-cmo',
+    name: 'Fractional CMO',
+    note: 'Senior marketing leadership without a full-time hire. We shape the strategy, guide priorities and budget, and connect your team, partners and channels into one growth system.',
+  },
 ]
