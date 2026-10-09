@@ -72,10 +72,13 @@ export function CustomCursor() {
     }
   }, [])
 
-  // Project images get a larger "View" disc, so the work feels like the thing to click.
+  // Project images get the "View" disc centred on the pointer; the smaller "Start"/"Explore"
+  // discs sit just below and to the right, so they never cover the button's own label.
   const hover = variant.mode === 'hover'
-  const scale = variant.mode === 'label' ? (variant.label === 'View' ? 1.25 : 1) : hover ? 0.3 : 0.12
-  const shift = hover ? 'translate(1.375rem, 1.375rem) ' : ''
+  const label = variant.mode === 'label'
+  const view = label && variant.label === 'View'
+  const scale = label ? (view ? 0.95 : 0.6) : hover ? 0.3 : 0.12
+  const shift = hover ? 'translate(1.375rem, 1.375rem) ' : label && !view ? 'translate(2.25rem, 2.25rem) ' : ''
   const fill = variant.invert ? 'bg-ink' : 'bg-terracotta'
 
   return (
@@ -94,8 +97,9 @@ export function CustomCursor() {
         }}
       >
         <span
-          className="label text-[0.6875rem] text-cream"
-          style={{ opacity: variant.label ? 1 : 0, transition: 'opacity 200ms' }}
+          className="label text-cream"
+          // Counter the disc's scale so the word always reads at the same 10.5px.
+          style={{ fontSize: `${10.5 / scale}px`, opacity: variant.label ? 1 : 0, transition: 'opacity 200ms' }}
         >
           {variant.label}
         </span>

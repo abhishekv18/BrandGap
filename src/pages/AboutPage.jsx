@@ -2,6 +2,7 @@ import { Audience } from '../components/Audience'
 import { Copy, isPlaceholder } from '../components/Copy'
 import { EditorialBlocks } from '../components/EditorialBlocks'
 import { Founder } from '../components/Founder'
+import { Ground } from '../components/Ground'
 import { Breadcrumb } from '../components/PageHero'
 import { ProjectPlate } from '../components/ProjectPlate'
 import { MaskReveal, Reveal } from '../components/Reveal'
@@ -43,6 +44,7 @@ const STORY = [
   {
     type: 'traits',
     label: 'Our voice',
+    ground: 'blush',
     headline: 'Premium, but human.',
     emphasis: 'Partners, not vendors.',
     body: ['We have a point of view and the proof to back it.', ABOUT_SUMMARY],
@@ -70,6 +72,7 @@ const STORY = [
   {
     type: 'cases',
     label: 'The work',
+    ground: 'ink',
     headline: 'Real campaigns.',
     emphasis: 'Real growth.',
     items: [
@@ -116,8 +119,9 @@ export default function AboutPage() {
       </div>
 
       {/* Who we work with */}
-      <section aria-labelledby="audience-title" className="container-page pb-12 text-center md:pb-16 md:text-left">
-        <div className="border-t border-line pt-10 md:pt-12">
+      {/* Follows the work's ink ground, so space rather than a hairline marks the change */}
+      <section aria-labelledby="audience-title" className="container-page pt-12 pb-12 text-center md:pt-16 md:pb-16 md:text-left">
+        <div>
           <SectionLabel numeral={String(++n).padStart(2, '0')} name="Who we work with" />
           <h2 id="audience-title" className="mt-5 text-h2 md:mt-7">
             <MaskReveal>{AUDIENCE.title.lead}</MaskReveal>
@@ -131,7 +135,8 @@ export default function AboutPage() {
 
       {/* The founder — shown once their details are added in data/about.js */}
       {HAS_FOUNDER && (
-        <section aria-labelledby="strategist-title" className="bg-blush">
+        <section aria-labelledby="strategist-title" className="relative isolate">
+          <Ground tone="blush" />
           <div className="container-page section-y">
             <SectionLabel numeral={String(++n).padStart(2, '0')} name="Founder · Fractional CMO" className="[&>span:first-child]:text-terracotta-deep" />
             <h2 id="strategist-title" className="sr-only">

@@ -148,6 +148,7 @@ export const PROJECTS = [
       {
         type: 'pillars',
         label: 'The strategy',
+        ground: 'blush',
         headline: 'An evolving acquisition system,',
         emphasis: 'not a single campaign.',
         items: [
@@ -372,6 +373,7 @@ export const PROJECTS = [
       {
         type: 'pillars',
         label: 'The strategy',
+        ground: 'blush',
         headline: 'Five moves,',
         emphasis: 'one performance engine.',
         items: [
@@ -602,6 +604,7 @@ export const PROJECTS = [
       {
         type: 'pillars',
         label: 'Content strategy',
+        ground: 'blush',
         headline: 'Five',
         emphasis: 'content pillars.',
         items: [
@@ -774,6 +777,7 @@ export const PROJECTS = [
       {
         type: 'pillars',
         label: 'The strategy',
+        ground: 'blush',
         headline: 'Two objectives. Two jobs.',
         emphasis: 'One acquisition system.',
         items: [

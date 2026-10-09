@@ -1,4 +1,5 @@
 import { GapRail } from '../components/GapRail'
+import { Ground } from '../components/Ground'
 import { LogoStrip } from '../components/LogoStrip'
 import { Marquee } from '../components/Marquee'
 import { MARQUEE_WORDS } from '../data/services'
@@ -51,19 +52,21 @@ export default function Home() {
       <LogoStrip />
       <Gap />
       <Services />
-      <Marquee words={MARQUEE_WORDS} />
-      <div className="bg-cream-warm">
+      <Marquee words={MARQUEE_WORDS} tone="ink" />
+      <div className="relative isolate">
+        <Ground tone="blush" />
         <Approach />
       </div>
       <Performance />
       <Dashboard />
       <Work />
       <Brands />
-      <Marquee words={MARQUEE_WORDS} reverse />
+      <Marquee words={MARQUEE_WORDS} reverse tone="blush" />
       <CreativePerformance />
       <Growth />
       <Why />
-      <div className="bg-cream-warm">
+      <div className="relative isolate">
+        <Ground tone="blush" />
         <About />
       </div>
       <Capabilities />

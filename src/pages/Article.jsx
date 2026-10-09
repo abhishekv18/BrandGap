@@ -1,17 +1,21 @@
-import { ArrowRight, Check } from 'lucide-react'
-import { Fragment } from 'react'
+import { m } from 'framer-motion'
+import { ArrowRight, ArrowUpRight, Check } from 'lucide-react'
+import { Fragment, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Copy, isPlaceholder } from '../components/Copy'
+import { Ground } from '../components/Ground'
 import { NewsletterForm } from '../components/NewsletterForm'
 import { Breadcrumb } from '../components/PageHero'
 import { ProjectPlate } from '../components/ProjectPlate'
 import { MaskReveal, Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
+import { useSmoothScroll } from '../components/SmoothScroll'
 import { findArticle, relatedTo } from '../data/insights'
 import { useHrefClick } from '../hooks/useHrefClick'
+import { useReducedMotion } from '../hooks/useMediaQuery'
 import { absoluteUrl, breadcrumbLd, useSeo } from '../hooks/useSeo'
 import { FinalCta } from '../sections/FinalCta'
-import { ArticleMeta } from './Insights'
+import { ArticleMeta, formatDate } from './Insights'
 import NotFound from './NotFound'
 
 /** /insights/[slug] — one article, with Article schema (brief §9.7). */
@@ -80,8 +84,9 @@ function Block({ block }) {
     return (
       <ul className="mt-5 flex flex-col gap-3 text-ink-soft">
         {block.ul.map((item, i) => (
-          <li key={i} className="flex gap-4">
-            <span aria-hidden className="mt-[0.8em] h-px w-3 shrink-0 bg-terracotta" />
+          <li key={i} className="flex flex-col items-center gap-2 md:flex-row md:items-start md:gap-4">
+            <span aria-hidden className="mt-[0.8em] hidden h-px w-3 shrink-0 bg-terracotta md:block" />
+            <span aria-hidden className="h-px w-6 bg-terracotta md:hidden" />
             <span>
               <Inline text={item} />
             </span>
@@ -94,8 +99,8 @@ function Block({ block }) {
     return (
       <ol className="mt-5 flex flex-col gap-4 text-ink-soft">
         {block.ol.map((item, i) => (
-          <li key={i} className="flex gap-4">
-            <span aria-hidden className="w-6 shrink-0 font-display text-lg leading-[1.5] text-terracotta tabular-nums">
+          <li key={i} className="flex flex-col items-center gap-1 md:flex-row md:items-start md:gap-4">
+            <span aria-hidden className="shrink-0 font-display text-lg leading-[1.5] text-terracotta tabular-nums md:w-6">
               {String(i + 1).padStart(2, '0')}
             </span>
             <span>
@@ -113,7 +118,7 @@ function Block({ block }) {
         {/* Phones: each row as a short stacked block, so nothing needs a sideways swipe */}
         <dl className="flex flex-col overflow-hidden rounded-[0.625rem] border border-line sm:hidden">
           {rows.map((row, r) => (
-            <div key={r} className="border-t border-line px-4 py-4 first:border-t-0">
+            <div key={r} className="border-t border-line px-4 py-4 text-center first:border-t-0">
               <dt className="font-display text-lg text-ink">{row[0]}</dt>
               {row.slice(1).map((cell, c) => (
                 <dd key={c} className="mt-2 text-sm text-ink-soft">
@@ -156,7 +161,7 @@ function Block({ block }) {
             </tbody>
           </table>
         </div>
-        <figcaption className="label mt-3 text-[0.625rem] text-ink-muted">{caption}</figcaption>
+        <figcaption className="label mt-3 text-center text-[0.625rem] text-ink-muted md:text-left">{caption}</figcaption>
       </figure>
     )
   }
@@ -164,7 +169,7 @@ function Block({ block }) {
     const { label, title, body } = block.example
     return (
       <aside aria-label={`${label}: ${title}`} className="mt-10 rounded-[0.625rem] border border-line bg-blush/45 px-5 py-6 md:px-8 md:py-8">
-        <p className="label flex items-center gap-3 text-[0.625rem] text-terracotta-deep">
+        <p className="label flex items-center justify-center gap-3 text-[0.625rem] text-terracotta-deep md:justify-start">
           <span aria-hidden className="size-1.5 rounded-full bg-terracotta" />
           {label}
         </p>
@@ -187,7 +192,7 @@ function Block({ block }) {
         </h2>
         <ul className="mt-6 flex flex-col">
           {items.map((item, i) => (
-            <li key={i} className="flex gap-4 border-t border-line py-3.5 text-ink-soft first:border-t-0 first:pt-0 last:pb-0">
+            <li key={i} className="flex gap-4 border-t border-line py-3.5 text-left text-ink-soft first:border-t-0 first:pt-0 last:pb-0">
               <span aria-hidden className="mt-[0.15em] flex size-5 shrink-0 items-center justify-center rounded-full border border-terracotta text-terracotta">
                 <Check strokeWidth={2} className="size-3" />
               </span>
@@ -202,7 +207,7 @@ function Block({ block }) {
   }
   if (block.quote) {
     return (
-      <blockquote className="mt-12 border-l-2 border-terracotta pl-6 font-display text-quote italic tracking-[-0.02em] text-ink md:pl-8">
+      <blockquote className="mx-auto mt-12 border-t-2 border-terracotta pt-6 font-display text-quote italic tracking-[-0.02em] text-ink md:border-t-0 md:border-l-2 md:pt-0 md:pl-8">
         {block.quote}
       </blockquote>
     )
@@ -245,29 +250,48 @@ function Post({ article }) {
   return (
     <>
       <article aria-labelledby="article-title">
-        <header className="container-page pt-24 text-center md:pt-36">
-          <div className="flex justify-center">
-            <Breadcrumb items={[{ name: 'Insights', path: '/insights' }, { name: article.category, path }]} />
+        {/* Phones: centred. From md: the headline on the left, the article's details as a ledger on the right */}
+        <header className="container-page pt-24 pb-8 text-center md:pt-36 md:pb-12 md:text-left">
+          <Breadcrumb items={[{ name: 'Insights', path: '/insights' }, { name: article.category, path }]} />
+          <div className="mt-5 grid gap-6 md:mt-7 md:grid-cols-12">
+            <h1 id="article-title" className="mx-auto max-w-[24ch] text-[clamp(1.75rem,1.15rem+1.7vw,2.75rem)] leading-[1.08] tracking-[-0.015em] md:col-span-8 md:mx-0 md:max-w-[34ch]">
+              <MaskReveal>
+                <Copy value={article.title} tone="inherit" />
+              </MaskReveal>
+            </h1>
+            <div className="flex flex-col items-center gap-3 md:hidden">
+              <ArticleMeta article={article} />
+              <p className="label text-ink-muted">
+                By <Copy value={article.author} tone="inherit" />
+              </p>
+            </div>
+            <Reveal delay={0.15} className="hidden self-end md:col-span-4 md:block lg:col-span-3 lg:col-start-10">
+              <dl className="border-t border-line">
+                {[
+                  ['Topic', <span className="text-terracotta">{article.category}</span>],
+                  ['Published', article.date ? <time dateTime={article.date}>{formatDate(article.date)}</time> : <Copy value={formatDate(null)} tone="inherit" />],
+                  ['Reading time', <Copy value={article.readTime} tone="inherit" />],
+                  ['Written by', <Copy value={article.author} tone="inherit" />],
+                ].map(([term, value]) => (
+                  <div key={term} className="flex items-baseline justify-between gap-4 border-b border-line py-3">
+                    <dt className="label text-[0.625rem] text-ink-muted">{term}</dt>
+                    <dd className="label text-right text-[0.6875rem] text-ink">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
           </div>
-          <h1 id="article-title" className="mx-auto mt-5 max-w-[22ch] text-h2 md:mt-7">
-            <MaskReveal>
-              <Copy value={article.title} tone="inherit" />
-            </MaskReveal>
-          </h1>
-          <div className="mt-6 flex justify-center">
-            <ArticleMeta article={article} />
-          </div>
-          <p className="label mt-3 text-ink-muted">
-            By <Copy value={article.author} tone="inherit" />
-          </p>
+          <Hairline />
         </header>
 
-        <Reveal className="container-page mt-8 md:mt-12">
+        <Reveal className="container-page">
           <ProjectPlate project={article} ratio="16 / 9" letter="g" crop="right" label="[Article image]" cursor={undefined} priority />
         </Reveal>
 
-        <div className="container-page section-y">
-          <div className="mx-auto max-w-[40rem] text-lead">
+        {/* From lg: a sticky contents rail beside the reading column */}
+        <div className="container-page section-y lg:grid lg:grid-cols-12 lg:gap-6">
+          <Contents article={article} />
+          <div className="mx-auto max-w-[40rem] text-center text-lead md:text-left lg:col-span-8 lg:col-start-5 lg:mx-0 lg:max-w-[46rem]">
             <p className="font-display text-h3 italic">
               <Copy value={article.excerpt} />
             </p>
@@ -280,8 +304,9 @@ function Post({ article }) {
 
       {/* Related reading */}
       {related.length > 0 && (
-        <section aria-labelledby="related-title" className="container-page pb-12 md:pb-16">
-          <div className="border-t border-line pt-10 md:pt-12">
+        <section aria-labelledby="related-title" className="relative isolate section-y">
+          <Ground tone="blush" />
+          <div className="container-page">
             <SectionLabel numeral={null} name="Keep reading" />
             <h2 id="related-title" className="sr-only">
               Related articles
@@ -314,13 +339,97 @@ function Post({ article }) {
         </section>
       )}
 
-      <section aria-label="Newsletter" className="container-page pb-12 md:pb-16">
-        <div className="mx-auto max-w-xl border-t border-line pt-10">
+      <section aria-label="Newsletter" className={`container-page pb-12 md:pb-16 ${related.length > 0 ? 'pt-12 md:pt-16' : ''}`}>
+        <div className={`mx-auto max-w-xl ${related.length > 0 ? '' : 'border-t border-line pt-10'}`}>
           <NewsletterForm id="article-newsletter" />
         </div>
       </section>
 
       <FinalCta numeral={null} headline={article.cta?.headline} body={article.cta?.body} />
     </>
+  )
+}
+
+/** The measured hairline under every page header: a b-dot, a line drawing across, a g-dot. */
+function Hairline() {
+  const reduced = useReducedMotion()
+  return (
+    <div aria-hidden className="relative mt-8 h-2.5 md:mt-10">
+      <m.span
+        className="absolute top-1/2 right-1.5 left-1.5 h-px origin-left bg-line"
+        initial={reduced ? false : { scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+      />
+      <span className="absolute top-0 left-0 size-2.5 rounded-full bg-terracotta" />
+      <span className="absolute top-0 right-0 size-2.5 rounded-full bg-ink" />
+    </div>
+  )
+}
+
+/** Large screens: the article's sections as a sticky, numbered contents list that follows the reader. */
+function Contents({ article }) {
+  const { scrollTo } = useSmoothScroll()
+  const hrefClick = useHrefClick()
+  const sections = article.body.filter((b) => b?.h2).map((b) => ({ id: anchorOf(b.h2), title: b.h2 }))
+  const [current, setCurrent] = useState(sections[0]?.id)
+
+  useEffect(() => {
+    const els = sections.map((s) => document.getElementById(s.id)).filter(Boolean)
+    if (!els.length) return
+    // The reader is in the last section whose heading has passed the upper third of the screen.
+    const update = () => {
+      const line = window.innerHeight * 0.35
+      const passed = els.filter((el) => el.getBoundingClientRect().top < line)
+      setCurrent((passed.at(-1) ?? els[0]).id)
+    }
+    const io = new IntersectionObserver(update, { rootMargin: '0px 0px -60% 0px' })
+    els.forEach((el) => io.observe(el))
+    return () => io.disconnect()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [article.slug])
+
+  if (!sections.length) return null
+  return (
+    <aside aria-label="In this article" className="hidden lg:col-span-3 lg:block">
+      <div className="sticky top-28">
+        <p className="label text-[0.625rem] text-ink-muted">In this article</p>
+        <ol className="mt-4 border-t border-line">
+          {sections.map((s, i) => {
+            const on = s.id === current
+            return (
+              <li key={s.id} className="border-b border-line">
+                <a
+                  href={`#${s.id}`}
+                  aria-current={on ? 'location' : undefined}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    scrollTo(`#${s.id}`, { offset: -112 })
+                  }}
+                  className={`flex gap-3 py-3 text-sm leading-snug transition-colors duration-300 ${on ? 'text-ink' : 'text-ink-muted hover:text-ink'}`}
+                >
+                  <span className={`label shrink-0 pt-px text-[0.625rem] tabular-nums transition-colors duration-300 ${on ? 'text-terracotta' : ''}`}>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  {s.title}
+                </a>
+              </li>
+            )
+          })}
+        </ol>
+        <a
+          href="/contact"
+          onClick={(e) => hrefClick(e, '/contact')}
+          data-cursor="start"
+          className="group mt-8 block rounded-[0.625rem] bg-ink px-5 py-5 text-cream transition-colors duration-500 hover:bg-terracotta"
+        >
+          <span className="label block text-[0.625rem] text-cream/60">Working on this?</span>
+          <span className="mt-2 flex items-center justify-between gap-3 font-display text-xl">
+            Talk to BrandGap
+            <ArrowUpRight aria-hidden strokeWidth={1.5} className="size-5 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </span>
+        </a>
+      </div>
+    </aside>
   )
 }

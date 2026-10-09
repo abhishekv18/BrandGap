@@ -87,7 +87,7 @@ export function WhatsAppButton() {
             {...props}
             onClick={onClick}
             aria-label="Chat with BrandGap on WhatsApp"
-            className="group flex h-12 items-center gap-0 overflow-hidden rounded-full bg-ink pr-3.5 pl-3.5 text-cream shadow-[0_12px_30px_-14px_rgba(26,26,26,0.55)] transition-[background-color,gap,padding] duration-500 ease-(--ease-out-expo) hover:gap-2 hover:bg-terracotta hover:pr-5 focus-visible:gap-2 focus-visible:pr-5"
+            className="group flex h-12 items-center gap-0 overflow-hidden rounded-full bg-ink pr-3.5 pl-3.5 text-cream shadow-[0_12px_30px_-14px_rgba(26,26,26,0.55),0_0_0_1px_rgb(244_233_225/0.16)] transition-[background-color,gap,padding] duration-500 ease-(--ease-out-expo) hover:gap-2 hover:bg-terracotta hover:pr-5 focus-visible:gap-2 focus-visible:pr-5"
           >
             <MessageCircle aria-hidden strokeWidth={1.5} className="size-5 shrink-0" />
             <span className="label max-w-0 overflow-hidden text-[0.6875rem] whitespace-nowrap transition-[max-width] duration-500 ease-(--ease-out-expo) group-hover:max-w-24 group-focus-visible:max-w-24">

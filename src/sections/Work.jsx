@@ -4,6 +4,7 @@ import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { gsap } from '../animations/gsap'
 import { CaseCard } from '../components/CaseCard'
 import { CaseDrawer } from '../components/CaseDrawer'
+import { Ground } from '../components/Ground'
 import { MaskReveal, Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
 import { HOME_CASES, MORE_WORK, PUBLISHED_PROJECTS, WORK_INTRO } from '../data/projects'
@@ -104,7 +105,9 @@ export function Work() {
   }, [reducedMotion, horizontal])
 
   return (
-    <section id="work" ref={root} aria-labelledby="work-title" className="section-y">
+    // On the homepage the work sits on blush: a warm change after the numbers' dark chart panel.
+    <section id="work" ref={root} aria-labelledby="work-title" className="isolate section-y">
+      <Ground tone="blush" />
       <header className="container-page grid gap-heading-row text-center md:grid-cols-12 md:text-left">
         <div className="md:col-span-8">
           <SectionLabel numeral={numeralOf('work')} name="Case studies" />

@@ -42,6 +42,7 @@ export const SERVICE_PAGES = [
       {
         type: 'pillars',
         label: 'The BrandGap performance system',
+        ground: 'blush',
         headline: 'A performance engine,',
         emphasis: 'not a collection of campaigns.',
         items: [
@@ -129,6 +130,7 @@ export const SERVICE_PAGES = [
       },
       {
         type: 'proofs',
+        ground: 'ink',
         id: 'proof',
         label: 'Proof',
         headline: 'Performance isn’t a promise.',
@@ -291,6 +293,7 @@ export const SERVICE_PAGES = [
       {
         type: 'pillars',
         label: 'The BrandGap social system',
+        ground: 'blush',
         headline: 'From “What should we post?”',
         emphasis: 'to “What should people remember?”',
         items: [
@@ -402,6 +405,7 @@ export const SERVICE_PAGES = [
       },
       {
         type: 'proofs',
+        ground: 'ink',
         id: 'proof',
         label: 'Proof',
         headline: 'From zero to a',

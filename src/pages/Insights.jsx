@@ -2,6 +2,7 @@ import { AnimatePresence, m } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Copy } from '../components/Copy'
+import { Ground } from '../components/Ground'
 import { FilterChips } from '../components/FilterChips'
 import { NewsletterForm } from '../components/NewsletterForm'
 import { PageHero } from '../components/PageHero'
@@ -112,7 +113,8 @@ export default function Insights() {
         </AnimatePresence>
       </section>
 
-      <section aria-label="Newsletter" className="bg-blush">
+      <section aria-label="Newsletter" className="relative isolate">
+        <Ground tone="blush" />
         <div className="container-page section-y grid gap-8 md:grid-cols-12">
           <p className="text-center font-display text-h2 md:col-span-6 md:text-left">
             The gap, <span className="italic text-terracotta-deep">weekly.</span>

@@ -2,6 +2,7 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { Fragment } from 'react'
 import { PUBLISHED_PROJECTS } from '../data/projects'
 import { useHrefClick } from '../hooks/useHrefClick'
+import { Ground } from './Ground'
 import { MaskReveal, Reveal } from './Reveal'
 import { SectionLabel } from './SectionLabel'
 
@@ -15,6 +16,11 @@ import { SectionLabel } from './SectionLabel'
  * workstreams · proof · engines · loops · groups · grid · proofs · links ·
  * cases. A page can pass `slots` to render its own content for a block type
  * (e.g. the case page's metrics panel).
+ *
+ * A block can set `ground: 'blush' | 'ink'` to sit on a full-width coloured ground, with the
+ * same opening/closing transition as the homepage (components/Ground.jsx). Ink remaps the
+ * text tokens to light (global.css); cards that keep their own light surface opt back out
+ * with data-ground="paper".
  */
 
 const pad = (n) => String(n).padStart(2, '0')
@@ -398,7 +404,7 @@ function Proofs({ b, n }) {
         {b.items.map((p) => {
           const href = `/portfolio/${p.slug}`
           return (
-            <Reveal key={p.slug} className="overflow-hidden rounded-[0.625rem] border border-line">
+            <Reveal key={p.slug} data-ground="paper" className="overflow-hidden rounded-[0.625rem] border border-line bg-cream">
               <div className="flex flex-col items-center gap-3 border-b border-line bg-blush/50 px-5 py-5 text-center md:flex-row md:items-end md:justify-between md:px-8 md:text-left">
                 <div>
                   <p className="label text-[0.625rem] text-ink-muted">Proof</p>
@@ -567,14 +573,32 @@ export function EditorialBlocks({ blocks, slots = {}, start = 0 }) {
     const Block = RENDER[b.type]
     if (!Block) return null
     if (b.label) n += 1
+    if (b.ground) {
+      return (
+        <section
+          key={i}
+          id={b.id}
+          aria-label={b.label ?? undefined}
+          {...(b.ground === 'ink' ? { 'data-ground': 'ink' } : {})}
+          className="relative isolate scroll-mt-24 section-y"
+        >
+          <Ground tone={b.ground} />
+          <div className="container-page">
+            <Block b={b} n={n} />
+          </div>
+        </section>
+      )
+    }
+    // After a coloured ground the ground itself is the divider, so the hairline gives way to space.
+    const afterGround = !!blocks[i - 1]?.ground
     return (
       <section
         key={i}
         id={b.id}
         aria-label={b.label ?? undefined}
-        className="container-page scroll-mt-24 pb-12 md:pb-16"
+        className={`container-page scroll-mt-24 pb-12 md:pb-16 ${afterGround ? 'pt-12 md:pt-16' : ''}`}
       >
-        <div className={b.type === 'proof' ? '' : 'border-t border-line pt-10 md:pt-12'}>
+        <div className={b.type === 'proof' || afterGround ? '' : 'border-t border-line pt-10 md:pt-12'}>
           <Block b={b} n={n} />
         </div>
       </section>

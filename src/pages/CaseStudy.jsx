@@ -7,6 +7,7 @@ import { EditorialBlocks } from '../components/EditorialBlocks'
 import { Copy, isPlaceholder } from '../components/Copy'
 import { MetricsPanel, toKpi } from '../components/MetricsPanel'
 import { PageHero } from '../components/PageHero'
+import { Ground } from '../components/Ground'
 import { MaskReveal, Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
 import { findProject, PUBLISHED_PROJECTS, siteAddress } from '../data/projects'
@@ -178,10 +179,11 @@ function Case({ project }) {
       {/* 4 — The story, from the case-study handoff */}
       <EditorialBlocks blocks={project.story ?? []} />
 
-      {/* 5 — The website, when real screenshots exist */}
+      {/* 5 — The website, when real screenshots exist: the page's ink showcase, a gallery wall */}
       {gallery.length > 0 && (
-        <section aria-label="The website" className="container-page pb-12 md:pb-16">
-          <div className="border-t border-line pt-10 md:pt-12">
+        <section aria-label="The website" data-ground="ink" className="relative isolate section-y">
+          <Ground tone="ink" />
+          <div className="container-page">
             <SectionLabel numeral={null} name="The website" />
             <div className={`mt-6 grid gap-6 md:mt-8 md:gap-8 ${gallery.length > 1 ? 'md:grid-cols-2' : ''}`}>
               {gallery.map((image, k) => (
@@ -194,7 +196,7 @@ function Case({ project }) {
 
       {/* 7 — Next case */}
       {next && next !== project && (
-        <section aria-label="Next case study" className="container-page pb-12 md:pb-16">
+        <section aria-label="Next case study" className={`container-page pb-12 md:pb-16 ${gallery.length > 0 ? 'pt-12 md:pt-16' : ''}`}>
           <a
             href={`/portfolio/${next.slug}`}
             onClick={(e) => hrefClick(e, `/portfolio/${next.slug}`)}

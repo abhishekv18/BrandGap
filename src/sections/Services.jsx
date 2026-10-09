@@ -1,5 +1,5 @@
-import { AnimatePresence, m, useMotionValue, useSpring } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { AnimatePresence, animate, m, useMotionValue, useMotionValueEvent, useSpring } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 import { Copy } from '../components/Copy'
 import { HoverPreview } from '../components/HoverPreview'
 import { MagneticButton } from '../components/MagneticButton'
@@ -197,6 +197,16 @@ function SystemDiagram({ active, rotation }) {
   const tiltX = useSpring(rx, { stiffness: 120, damping: 20 })
   const tiltY = useSpring(ry, { stiffness: 120, damping: 20 })
 
+  // The ring's turn, applied as SVG transform attributes rather than CSS transforms:
+  // iOS Safari misplaces CSS-rotated SVG text, which flung the labels off the ring.
+  const angle = useMotionValue(rotation)
+  const [turn, setTurn] = useState(rotation)
+  useMotionValueEvent(angle, 'change', setTurn)
+  useEffect(() => {
+    const anim = animate(angle, rotation, reduced ? { duration: 0 } : { duration: 1.1, ease: EASE })
+    return () => anim.stop()
+  }, [angle, rotation, reduced])
+
   const onMove = (e) => {
     if (reduced || !wrap.current) return
     const r = wrap.current.getBoundingClientRect()
@@ -239,11 +249,7 @@ const activeName = SERVICES[active].short
             transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
           />
 
-          <m.g
-            animate={{ rotate: rotation }}
-            transition={{ duration: 1.1, ease: EASE }}
-            style={{ originX: `${C}px`, originY: `${C}px`, transformBox: 'view-box' }}
-          >
+          <g transform={`rotate(${turn} ${C} ${C})`}>
             {SERVICES.map((s, i) => {
               const a = ((i * STEP - 90) * Math.PI) / 180
               const x = C + R * Math.cos(a)
@@ -262,22 +268,21 @@ const activeName = SERVICES[active].short
                     strokeWidth={1}
                     style={{ transition: 'r 500ms, fill 500ms' }}
                   />
-                  <m.text
+                  {/* Counter-rotated about its own anchor, so the label stays upright */}
+                  <text
                     x={lx}
                     y={ly}
+                    transform={`rotate(${-turn} ${lx} ${ly})`}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    animate={{ rotate: -rotation }}
-                    transition={{ duration: 1.1, ease: EASE }}
-                    style={{ transformBox: 'fill-box', originX: 0.5, originY: 0.5 }}
-                    className={`font-sans text-[13px] tracking-[0.15em] uppercase ${on ? 'fill-terracotta' : 'fill-ink-muted'}`}
+                    className={`font-sans text-[14px] tracking-[0.14em] uppercase ${on ? 'fill-terracotta' : 'fill-ink-muted'}`}
                   >
                     {s.short}
-                  </m.text>
+                  </text>
                 </g>
               )
             })}
-          </m.g>
+          </g>
 
           {/* Centre */}
           <circle cx={C} cy={C} r={58} fill="var(--color-cream)" stroke="var(--color-ink)" strokeWidth={1} />

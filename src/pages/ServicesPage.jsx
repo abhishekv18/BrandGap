@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react'
 import { useLayoutEffect, useRef, useState } from 'react'
 import { gsap, ScrollTrigger } from '../animations/gsap'
 import { Copy } from '../components/Copy'
+import { Ground } from '../components/Ground'
 import { MagneticButton } from '../components/MagneticButton'
 import { PageHero } from '../components/PageHero'
 import { ProjectPlate } from '../components/ProjectPlate'
@@ -154,7 +155,8 @@ export default function ServicesPage() {
       </section>
 
       {/* Engagement models — format only, no prices (brief §7) */}
-      <section aria-labelledby="models-title" className="bg-blush">
+      <section aria-labelledby="models-title" className="relative isolate">
+        <Ground tone="blush" />
         <div className="container-page section-y text-center md:text-left">
           <SectionLabel numeral={null} name="Engagement models" className="[&>span:first-child]:text-terracotta-deep" />
           <h2 id="models-title" className="mt-5 text-h2 md:mt-7">

@@ -92,7 +92,7 @@ function Question({ item, n, open, onToggle }) {
 function AskPanel({ className = '' }) {
   const wa = whatsappHref()
   return (
-    <div className={`rounded-[0.625rem] border border-line bg-blush/45 p-6 text-center md:p-7 lg:text-left ${className}`}>
+    <div className={`rounded-[0.625rem] border border-line bg-blush p-6 text-center md:p-7 lg:text-left ${className}`}>
       <p className="label text-[0.625rem] text-terracotta-deep">Still have a question?</p>
       <p className="mt-3 font-display text-h3 tracking-[-0.02em]">We’re happy to talk it through.</p>
       <p className="mt-2 text-sm text-ink-soft">Tell us about your brand and we’ll come back with the right next step.</p>

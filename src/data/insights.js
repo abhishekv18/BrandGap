@@ -30,7 +30,7 @@ export const INSIGHTS_INTRO = {
   title: 'Ideas from',
   emphasis: 'the gap.',
   line: 'Notes from the gap between brand and growth.',
-  intro: 'Ad teardowns, Meta Ads playbooks and creative breakdowns — practical notes on closing the gap between brand and growth.',
+  intro: 'Ad teardowns, Meta Ads playbooks and creative breakdowns practical notes on closing the gap between brand and growth.',
 }
 
 export const ARTICLE_AUTHOR = 'The BrandGap Team'
@@ -58,8 +58,8 @@ export const ARTICLES = [
   {
     slug: 'meta-ads-stop-working',
     published: true,
-    title: 'Why Most Meta Ads Stop Working — And What to Fix Before Increasing Spend',
-    seoTitle: 'Why Meta Ads Stop Working — Fix This Before You Increase Spend',
+    title: 'Why Most Meta Ads Stop Working And What to Fix Before Increasing Spend',
+    seoTitle: 'Why Meta Ads Stop Working Fix This Before You Increase Spend',
     category: 'Ad teardowns',
     excerpt:
       'An ad that stops performing is rarely a budget problem. Before you raise spend or brief ten new creatives, find out which part of the system actually broke.',
@@ -202,7 +202,7 @@ export const ARTICLES = [
     slug: 'meta-ads-playbook-d2c',
     published: true,
     title: 'From Clicks to Customers: A Practical Meta Ads Playbook for D2C Brands',
-    seoTitle: 'A Practical Meta Ads Playbook for D2C Brands — From Clicks to Customers',
+    seoTitle: 'A Practical Meta Ads Playbook for D2C Brands From Clicks to Customers',
     category: 'Meta Ads playbooks',
     excerpt:
       'Traffic is easy to buy. Customers are not. A working playbook for structuring Meta Ads around the full funnel — and the numbers that tell you it’s actually growing the business.',
@@ -385,12 +385,12 @@ export const ARTICLES = [
     slug: 'creative-that-converts',
     published: true,
     title: 'Creative That Converts: How to Build Ads People Actually Notice',
-    seoTitle: 'Creative That Converts — How to Build Ads People Actually Notice',
+    seoTitle: 'Creative That Converts How to Build Ads People Actually Notice',
     category: 'Creative breakdowns',
     excerpt:
-      'Beautiful content can still fail. A practical framework — hook, problem, desire, proof, offer, CTA — for building creative that earns attention and moves people to act.',
+      'Beautiful content can still fail. A practical framework hook, problem, desire, proof, offer, CTA — for building creative that earns attention and moves people to act.',
     description:
-      'How to build ad creative that converts: hooks, the first three seconds, product demonstration, social proof, offers and CTAs — plus a practical HOOK → PROBLEM → DESIRE → PROOF → OFFER → CTA framework.',
+      'How to build ad creative that converts: hooks, the first three seconds, product demonstration, social proof, offers and CTAs plus a practical HOOK → PROBLEM → DESIRE → PROOF → OFFER → CTA framework.',
     author: ARTICLE_AUTHOR,
     date: '2026-10-01',
     image: img('creative-that-converts', 'An illustrated storyboard of six ad frames — hook, problem, desire, proof, offer and call to action — laid out in sequence.'),

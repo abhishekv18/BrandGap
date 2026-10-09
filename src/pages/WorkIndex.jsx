@@ -9,6 +9,7 @@ import { FilterChips } from '../components/FilterChips'
 import { LogoStrip } from '../components/LogoStrip'
 import { MagneticButton } from '../components/MagneticButton'
 import { PageHero } from '../components/PageHero'
+import { Ground } from '../components/Ground'
 import { Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
 import { NUMBERS } from '../data/growth'
@@ -22,10 +23,12 @@ const EASE = [0.16, 1, 0.3, 1]
 // How many strategy tags a row shows before "+n more".
 const TAGS = 4
 
-/** The combined results across the featured cases, set as one quiet bar under the title. */
+/** The combined results across the featured cases, set as an ink figures band under the title. */
 function ResultsBar() {
   return (
-    <section aria-label="Results across featured projects" className="container-page">
+    <section aria-label="Results across featured projects" data-ground="ink" className="relative isolate py-14 md:py-16">
+      <Ground tone="ink" />
+      <div className="container-page">
       <Reveal className="border-y border-line">
         <dl className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
           {NUMBERS.kpis.map((k, i) => (
@@ -44,6 +47,7 @@ function ResultsBar() {
         </dl>
       </Reveal>
       <p className="mt-3 text-center text-xs text-ink-muted lg:text-left">{NUMBERS.disclaimer}</p>
+      </div>
     </section>
   )
 }
@@ -211,7 +215,8 @@ export default function WorkIndex() {
       <LogoStrip />
 
       {/* The rest of the work: brands we have worked with, without published numbers */}
-      <section aria-label="More work" className="section-y">
+      <section aria-label="More work" className="relative isolate section-y">
+        <Ground tone="blush" />
         <MoreWork start={PUBLISHED_PROJECTS.length} className="" />
       </section>
 

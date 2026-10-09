@@ -32,15 +32,25 @@ export function GapRail() {
     const heroGauge = hero
       ? ScrollTrigger.create({ trigger: hero, start: 'top bottom', end: 'bottom 60%', onToggle: showGauge, onRefresh: showGauge })
       : null
+    // The rail is drawn in multiply, so it steps aside over ink grounds (the work) and the final chapter.
+    let onInk = false
+    let atEnd = false
+    const showRail = () => {
+      if (rail.current) rail.current.style.opacity = onInk || atEnd ? '0' : '1'
+    }
     const chapters = CHAPTERS.map((c) => {
       const el = document.getElementById(c.id)
       if (!el) return null
+      const ink = el.dataset.ground === 'ink'
       return ScrollTrigger.create({
         trigger: el,
         start: 'top 50%',
         end: 'bottom 50%',
         onToggle: (self) => {
           if (self.isActive && chapter.current) chapter.current.textContent = `${c.numeral} — ${c.name}`
+          if (self.isActive) onInk = ink
+          else if (ink) onInk = false
+          showRail()
         },
       })
     })
@@ -51,7 +61,8 @@ export function GapRail() {
           trigger: exit,
           start: 'top 60%',
           onToggle: (self) => {
-            if (rail.current) rail.current.style.opacity = self.isActive || self.progress === 1 ? '0' : '1'
+            atEnd = self.isActive || self.progress === 1
+            showRail()
           },
           end: 'max',
         })

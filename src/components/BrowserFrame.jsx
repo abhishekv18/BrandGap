@@ -6,7 +6,8 @@
  */
 export function BrowserFrame({ image, address, sizes = '100vw', priority = false, className = '' }) {
   return (
-    <figure data-frame className={`overflow-hidden rounded-[0.625rem] border border-line bg-cream shadow-[0_30px_60px_-40px_rgba(28,18,22,0.45)] ${className}`}>
+    // data-ground="paper": the frame keeps its light surface and type on an ink ground.
+    <figure data-frame data-ground="paper" className={`overflow-hidden rounded-[0.625rem] border border-line bg-cream shadow-[0_30px_60px_-40px_rgba(28,18,22,0.45)] ${className}`}>
       <div aria-hidden className="flex items-center gap-3 border-b border-line bg-[#F7EFE9] px-3 py-2 md:px-4 md:py-2.5">
         <span className="flex gap-1.5">
           <span className="size-2 rounded-full bg-terracotta/70" />

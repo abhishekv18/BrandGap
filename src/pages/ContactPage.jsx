@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { BookingCalendar } from '../components/BookingCalendar'
 import { Copy } from '../components/Copy'
 import { Field, FormStatus, TextAreaField, useLeadForm } from '../components/Form'
+import { Ground } from '../components/Ground'
 import { MagneticButton } from '../components/MagneticButton'
 import { PageHero } from '../components/PageHero'
 import { Reveal } from '../components/Reveal'
@@ -447,9 +448,13 @@ export default function ContactPage() {
             <WayRow key={way.id} {...way} />
           ))}
         </ul>
+      </section>
 
-        {/* Book a call: the connected scheduler, or our own request calendar until one is set */}
-        <div id="booking" className="mt-12 grid scroll-mt-24 gap-8 md:mt-16 lg:grid-cols-12 lg:gap-6">
+      {/* Book a call: the connected scheduler, or our own request calendar until one is set.
+          Its own section so it can sit on the page's blush ground. */}
+      <section id="booking" aria-label="Book a call" className="relative isolate scroll-mt-24 section-y">
+        <Ground tone="blush" />
+        <div className="container-page grid gap-8 lg:grid-cols-12 lg:gap-6">
           <div className="text-center md:text-left lg:col-span-4">
             <p className="label text-ink-muted">Book a call</p>
             <h3 className="mt-4 text-h2">
@@ -487,8 +492,8 @@ export default function ContactPage() {
 
       {/* Follow BrandGap — real profiles only */}
       {socials.length > 0 && (
-        <section aria-labelledby="follow-title" className="container-page pb-16 md:pb-24">
-          <div className="border-t border-line pt-10 text-center md:pt-12 md:text-left">
+        <section aria-labelledby="follow-title" className="container-page pt-12 pb-16 md:pt-16 md:pb-24">
+          <div className="text-center md:text-left">
             <SectionLabel numeral="03" name="Follow BrandGap" />
             <h2 id="follow-title" className="mt-5 text-h3 md:mt-7">
               Follow the <span className="italic text-terracotta">gap.</span>

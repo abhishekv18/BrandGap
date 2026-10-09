@@ -22,6 +22,7 @@ export function CaseCard({ project, onExpand, ratio = '4 / 3', letter = 'b', cro
         onClick={(e) => hrefClick(e, href)}
         data-cursor="view"
         aria-label={`View case study ${project.index}`}
+        data-ground="paper"
         className="relative block"
         {...(frame ? { 'data-frame': '' } : {})}
       >
