@@ -105,6 +105,23 @@
   }
 }
 
+/* "short": a low viewport (iPhone SE, phones held sideways) — 640px tall or less. Declared
+   after wide/desk so it wins where they overlap: the hero lockup and the growth equation
+   tighten up so nothing ends up behind the navigation. */
+@custom-variant short {
+  @media (max-height: 40rem) {
+    @slot;
+  }
+}
+
+/* "squat": a phone held sideways (landscape, under 768px wide, 480px tall or less). There is
+   no room to stack, so the hero lockup and the growth cards use their side-by-side forms. */
+@custom-variant squat {
+  @media (orientation: landscape) and (max-height: 30rem) and (width < 48rem) {
+    @slot;
+  }
+}
+
 /* ------------------------------------------------------------------
    Base
    ------------------------------------------------------------------ */

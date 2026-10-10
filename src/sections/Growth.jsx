@@ -10,8 +10,11 @@ import { numeralOf } from '../data/navigation'
 const PANEL = 'w-[var(--pw)] h-[calc(var(--pw)*1.3)]'
 const PANEL_SIZE = { '--pw': 'clamp(7.75rem, 5rem + 9vw, 14rem)' }
 // Tablets: four cards across the container width (the row spans 4.6 card widths at 1.2 spacing).
-const PANEL_TABLET = '[--pw:clamp(7.75rem,5rem+9vw,14rem)] md:[--pw:min(15rem,calc((100vw_-_4rem)/4.6))] desk:[--pw:clamp(7.75rem,5rem+9vw,14rem)]'
+// Phones held sideways (squat): a row too, sized to fit the width.
+const PANEL_TABLET = '[--pw:clamp(7.75rem,5rem+9vw,14rem)] md:[--pw:min(15rem,calc((100vw_-_4rem)/4.6))] desk:[--pw:clamp(7.75rem,5rem+9vw,14rem)] squat:[--pw:min(7.75rem,calc((100vw_-_4rem)/4.8))]'
 const DESK = '(min-width: 1024px) and (orientation: landscape), (min-width: 1280px)'
+// Phones held sideways have the width for a row but not the height for the 2×2 grid.
+const ROW = '(min-width: 768px), (orientation: landscape) and (max-height: 480px)'
 
 /** Scattered starting poses, as fractions of the viewport (x, y) plus depth and rotation. */
 const SCATTER = [
@@ -93,7 +96,7 @@ function GrowthScroll() {
       const panels = q('[data-input]')
       const pluses = q('[data-plus]')
       const output = q('[data-output]')[0]
-      const wide = () => window.matchMedia('(min-width: 768px)').matches
+      const wide = () => window.matchMedia(ROW).matches
       const pw = () => panels[0].offsetWidth
       const ph = () => panels[0].offsetHeight
 
@@ -173,9 +176,14 @@ function GrowthScroll() {
         const label = stage.current.querySelector('p.label')
         return label.offsetTop + label.offsetHeight + 28
       }
-      const lockScale = () => Math.min(0.78, (promiseTop() - 40 - labelBottom()) / ph())
+      // Room between the section label and the promise, in card heights. On very low screens
+      // (phones held sideways) there is none — it went negative and flipped the card over the
+      // promise — so there the card steps aside and the promise lands on its own.
+      const room = () => (promiseTop() - 40 - labelBottom()) / ph()
+      const fits = () => room() >= 0.3
+      const lockScale = () => (fits() ? Math.min(0.78, room()) : 0.3)
       const lockY = () => promiseTop() - 40 - stage.current.clientHeight / 2 - (ph() * lockScale()) / 2
-      tl.to(q('[data-group]'), { y: lockY, scale: lockScale, duration: 0.12, ease: 'power2.inOut' }, 0.66)
+      tl.to(q('[data-group]'), { y: lockY, scale: lockScale, autoAlpha: () => (fits() ? 1 : 0), duration: 0.12, ease: 'power2.inOut' }, 0.66)
       tl.to(q('[data-promise]'), { autoAlpha: 1, y: 0, duration: 0.1, ease: 'power2.out' }, 0.72)
       tl.to(q('[data-proves]'), { autoAlpha: 1, y: 0, duration: 0.08, ease: 'power2.out' }, 0.84)
     }, stage)
@@ -218,14 +226,14 @@ function GrowthScroll() {
           </div>
         </div>
 
-        <p data-equation aria-hidden className="container-page absolute inset-x-0 bottom-[14%] text-center label text-ink-soft">
+        <p data-equation aria-hidden className="container-page absolute inset-x-0 bottom-[14%] text-center label text-ink-soft short:bottom-[10%]">
           {GROWTH_INPUTS.map((g) => g.label).join(' → ')} <span className="text-terracotta-deep">→ {GROWTH_OUTPUT}</span>
         </p>
 
         {/* Final composition: one column, so nothing can collide at any height */}
         <div
           data-promise
-          className="container-page absolute inset-x-0 bottom-[20svh] flex flex-col items-center gap-6 md:bottom-[22svh] md:gap-8 desk:bottom-[max(1.5rem,5svh)]"
+          className="container-page absolute inset-x-0 bottom-[20svh] flex flex-col items-center gap-6 md:bottom-[22svh] md:gap-8 desk:bottom-[max(1.5rem,5svh)] short:landscape:bottom-[max(1rem,4svh)] squat:gap-3"
         >
           <Promise />
           <GapClosed />
@@ -245,12 +253,14 @@ function GrowthStatic() {
     <section id="growth" aria-labelledby="growth-title" className="bg-blush section-y" style={PANEL_SIZE}>
       <div className="container-page">
         <SectionLabel numeral={numeralOf('growth')} name="The growth system" className="[&>span:first-child]:text-terracotta-deep" />
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-4 md:mt-16 md:gap-6">
+        {/* A 2×2 grid until a single row (with its arrows) fits — the same arrangement as the
+            animated version on phones, so the flow never breaks mid-line. */}
+        <div className="mx-auto mt-12 grid w-fit grid-cols-2 gap-4 md:mt-16 md:gap-6 lg:flex lg:w-auto lg:items-center lg:justify-center">
           {GROWTH_INPUTS.map((input, i) => (
             <Fragment key={input.id}>
               <Panel id={input.id} label={input.label} index={i} className="relative" />
               {i < GROWTH_INPUTS.length - 1 && (
-                <span aria-hidden className="font-display text-3xl text-terracotta">→</span>
+                <span aria-hidden className="hidden font-display text-3xl text-terracotta lg:inline">→</span>
               )}
             </Fragment>
           ))}

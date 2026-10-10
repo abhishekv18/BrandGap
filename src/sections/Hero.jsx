@@ -193,7 +193,7 @@ export function Hero() {
     >
       <div
         ref={stage}
-        className={`${isStatic ? 'relative min-h-svh' : 'sticky top-0 h-svh'} overflow-hidden`}
+        className={`${isStatic ? 'relative flex min-h-svh flex-col' : 'sticky top-0 h-svh'} overflow-hidden`}
       >
         {/* Soft studio light behind the composition — tone only, no image */}
         <div aria-hidden data-hero-light className="hero-light pointer-events-none absolute inset-0" />
@@ -315,8 +315,11 @@ export function Hero() {
         {/* Editorial frame: print crop marks and two quiet captions — tablet and up */}
         {!isStatic && (
           <div data-hero-frame aria-hidden className="pointer-events-none absolute inset-0 hidden md:block">
-            {/* Corner arms sit just outside the content edge, so they frame the page without touching type */}
-            <div className="container-page absolute inset-x-0 top-24 bottom-5">
+            {/* Corner arms sit just outside the content edge, so they frame the page without touching type.
+                xl: the page's gap rail (fixed at the right edge) appears from 1280px. Where the content is
+                full width (small laptops) the right arms would sit on it, so they step in to leave a clear
+                gutter; once the content is centred with room to spare (~1500px+) nothing changes. */}
+            <div className="container-page absolute inset-x-0 top-24 bottom-5 xl:pr-[max(3rem,min(4.75rem,calc(4.75rem_-_(100vw_-_90rem)/2)))]">
               <div className="relative h-full">
                 {[
                   'top-0 -left-3 border-t border-l',
@@ -328,7 +331,8 @@ export function Hero() {
                 ))}
               </div>
             </div>
-            <p className="container-page absolute inset-x-0 bottom-8 flex items-end justify-end">
+            {/* Same right inset as the frame above, so the caption stays inside its corner */}
+            <p className="container-page absolute inset-x-0 bottom-8 flex items-end justify-end xl:pr-[max(3rem,min(4.75rem,calc(4.75rem_-_(100vw_-_90rem)/2)))]">
               <span className="label text-[0.6875rem] text-ink-soft">{HERO.line}</span>
             </p>
           </div>
@@ -343,37 +347,39 @@ export function Hero() {
           </div>
         )}
 
-        {/* Lockup: mark beside the wordmark, as the guidelines specify */}
+        {/* Lockup: mark beside the wordmark, as the guidelines specify.
+            short: on low screens (iPhone SE, phones held sideways) the lockup tightens so the mark
+            and the wordmark stay clear of the navigation instead of overflowing behind it. */}
         <div
-          className={`${isStatic ? 'relative pt-28 pb-16' : 'absolute inset-0 pt-16 wide:pt-0'} container-page flex flex-col justify-center gap-8 md:gap-10 wide:flex-row wide:items-center wide:gap-[clamp(2.5rem,5vw,6rem)]`}
+          className={`${isStatic ? 'relative flex-1 pt-28 pb-16' : 'absolute inset-0 pt-16 wide:pt-0 short:pt-16 squat:pt-[4.5rem]'} container-page flex flex-col justify-center gap-8 md:gap-10 wide:flex-row wide:items-center wide:gap-[clamp(2.5rem,5vw,6rem)] short:gap-5 squat:flex-row squat:items-center squat:gap-5`}
         >
           <div
             ref={markTarget}
-            className="h-[clamp(4.5rem,100svh-34rem,20svh)] self-center md:h-[24svh] wide:h-[min(38svh,24vw)] wide:shrink-0 wide:self-center"
+            className="h-[clamp(4.5rem,100svh-34rem,20svh)] self-center md:h-[24svh] wide:h-[min(38svh,24vw)] wide:shrink-0 wide:self-center squat:h-[min(32svh,6rem)] squat:shrink-0"
             style={{ aspectRatio: `${MARK_VIEWBOX.w} / ${MARK_VIEWBOX.h}` }}
           >
             {isStatic && <BrandMark className="h-full w-full" />}
           </div>
-          <div className="text-center wide:max-w-[38rem] wide:text-left xl:max-w-[44rem]">
+          <div className="text-center wide:max-w-[38rem] wide:text-left xl:max-w-[44rem] squat:text-left">
             {/* The wordmark leads the lockup; the page's one h1 is the core message beneath it. */}
-            <div className="font-display text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)] leading-[0.92] tracking-[-0.02em] md:text-[4.5rem] wide:text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)]">
+            <div className="font-display text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)] leading-[0.92] tracking-[-0.02em] md:text-[4.5rem] wide:text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)] short:text-[clamp(2.25rem,1rem+3.6vw,3.25rem)] squat:text-[1.875rem]">
               <p aria-hidden className="line-mask">
                 <span data-hero-line className="block">
                   Brand<span className="text-terracotta">Gap</span>
                 </span>
               </p>
-              <h1 className="line-mask mx-auto mt-3 max-w-[22rem] md:mt-5 md:max-w-[26rem] wide:mx-0 xl:max-w-[30rem]">
-                <span data-hero-line className="block text-[clamp(1.375rem,1.05rem+1.2vw,2.125rem)] leading-[1.1] italic text-ink-soft">
+              <h1 className="line-mask mx-auto mt-3 max-w-[22rem] md:mt-5 md:max-w-[26rem] wide:mx-0 xl:max-w-[30rem] short:mt-2 squat:mx-0 squat:max-w-none">
+                <span data-hero-line className="block text-[clamp(1.375rem,1.05rem+1.2vw,2.125rem)] leading-[1.1] italic text-ink-soft short:text-[1.1875rem] squat:text-[1.0625rem]">
                   {HERO.title}
                 </span>
               </h1>
             </div>
-            <p data-hero-fade className="mx-auto mt-5 max-w-md text-lead text-ink-soft md:mt-7 wide:mx-0 xl:max-w-lg">
+            <p data-hero-fade className="mx-auto mt-5 max-w-md text-lead text-ink-soft md:mt-7 wide:mx-0 xl:max-w-lg short:mt-3 short:text-[0.875rem] short:leading-[1.55] squat:mx-0 squat:max-w-none squat:text-[0.8125rem]">
               {HERO.body}
             </p>
             <div
               data-hero-fade
-              className="mt-8 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-8 md:mt-10 wide:justify-start"
+              className="mt-8 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-8 md:mt-10 wide:justify-start short:mt-4 squat:flex-row squat:flex-wrap squat:justify-start squat:gap-x-5 squat:gap-y-0"
             >
               <MagneticButton href="/contact" cursor="start" trackAs="hero_start_project">
                 {HERO.primary}
@@ -382,7 +388,7 @@ export function Hero() {
                 {HERO.secondary}
               </MagneticButton>
             </div>
-            <p data-hero-fade className="label mt-5 text-[0.75rem] text-ink [-webkit-text-stroke:0.35px_currentColor] md:hidden">
+            <p data-hero-fade className="label mt-5 text-[0.75rem] text-ink [-webkit-text-stroke:0.35px_currentColor] md:hidden short:mt-3 squat:hidden">
               {HERO.line}
             </p>
           </div>
