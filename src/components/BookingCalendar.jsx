@@ -1,6 +1,6 @@
 import { m } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { BOOKING, CONTACT, WHATSAPP } from '../data/contact'
 import { track } from '../utils/analytics'
 import { leadsConnected, submitLead } from '../utils/leads'
@@ -51,13 +51,25 @@ export function BookingCalendar() {
   const [errors, setErrors] = useState({})
   const [state, setState] = useState('idle') // idle | sending | sent | opened | error
 
+  // After a request is received, show the thank-you, then return to an empty calendar.
+  useEffect(() => {
+    if (state !== 'sent') return
+    const t = setTimeout(() => {
+      setDay(null)
+      setTime(null)
+      setErrors({})
+      setState('idle')
+    }, 4500)
+    return () => clearTimeout(t)
+  }, [state])
+
   const cells = useMemo(() => monthCells(month), [month])
   const canPrev = month > new Date(first.getFullYear(), first.getMonth(), 1)
   const canNext = new Date(month.getFullYear(), month.getMonth() + 1, 1) <= last
   const when = day && time ? `${fmtDay.format(day)} · ${time} (${BOOKING.timezone})` : null
 
   const message = (name) =>
-    [`Hi BrandGap, I'd like to book a 20-min strategy call.`, `Preferred: ${fmtFull.format(day)}, ${time.toLowerCase()} (${BOOKING.timezone}).`, `Name: ${name}`].join('\n')
+    [`Hi BrandGap, I'd like to book a 30-min strategy call.`, `Preferred: ${fmtFull.format(day)}, ${time.toLowerCase()} (${BOOKING.timezone}).`, `Name: ${name}`].join('\n')
 
   const request = async (e) => {
     const form = e.currentTarget.closest('form') ?? document.getElementById('booking-form')

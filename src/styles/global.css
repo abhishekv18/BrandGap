@@ -142,6 +142,26 @@
   p {
     text-wrap: pretty;
   }
+  /* Native controls (radios, checkboxes, range) use the brand accent, never the browser's blue. */
+  html {
+    accent-color: var(--color-terracotta);
+  }
+  /* Browser autofill paints saved emails/names a pale blue. Keep each field's own ground and
+     text colour instead (cream boxes, transparent underlines, light text on dark footers):
+     the background change is delayed indefinitely and the text keeps the field's colour. */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active,
+  textarea:-webkit-autofill,
+  select:-webkit-autofill {
+    -webkit-text-fill-color: currentColor;
+    caret-color: currentColor;
+    transition: background-color 600000s 0s, color 600000s 0s;
+  }
+  input:autofill {
+    background-color: transparent;
+  }
   ::selection {
     background: var(--color-terracotta);
     color: var(--color-cream);

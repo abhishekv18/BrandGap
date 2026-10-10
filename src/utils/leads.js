@@ -13,7 +13,10 @@ import { getUtm, newEventId, track } from './analytics'
  *
  * If both are set, email wins. While neither is set, nothing is sent and the UI says so.
  */
-const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || ''
+// Web3Forms access keys are public by design (meant for client-side code), so the
+// account key (brandsgap@gmail.com) is the fallback: forms work on any deploy even
+// without the env var. Set VITE_WEB3FORMS_KEY to override it.
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || 'ac31b0df-c082-4aa2-abe1-50e776bc112b'
 const ENDPOINT = import.meta.env.VITE_LEADS_ENDPOINT || ''
 
 export const leadsConnected = Boolean(WEB3FORMS_KEY || ENDPOINT)

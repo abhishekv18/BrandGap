@@ -1,55 +1,59 @@
+import { EditorialBlocks } from './EditorialBlocks'
 import { MagneticButton } from './MagneticButton'
-import { Breadcrumb } from './PageHero'
-import { MaskReveal, Reveal } from './Reveal'
-import { SectionLabel } from './SectionLabel'
-import { useSeo } from '../hooks/useSeo'
+import { PageHero } from './PageHero'
+import { breadcrumbLd, useSeo } from '../hooks/useSeo'
+import { FinalCta } from '../sections/FinalCta'
 
 /**
- * A page that is built but not launched yet. Shown in place of the full page
- * while its LAUNCHED switch is false (see the page file). Kept out of search
- * results until it goes live.
+ * A tool page that is built but not launched yet, shown while its LAUNCHED switch
+ * is false (see the page file). It follows every inner page: the page header with
+ * a "Coming soon" status, what the tool will do, where to go until then (on blush),
+ * and the closing CTA. Kept out of search results until it goes live.
+ * Content: COMING_SOON in data/tools.js.
  */
-export function ComingSoon({ name, path, line, note }) {
-  useSeo({ title: `${name} — Coming soon`, description: line, path, noindex: true })
+export function ComingSoon({ page }) {
+  const { name, path, lead, emphasis, intro, features, links } = page
+  useSeo({
+    title: `${name} — Coming soon`,
+    description: intro,
+    path,
+    noindex: true,
+    jsonLd: breadcrumbLd([{ name, path }]),
+  })
+
+  const blocks = [
+    { type: 'pillars', label: features.label, headline: features.headline, emphasis: features.emphasis, items: features.items },
+    {
+      type: 'links',
+      label: 'Until then',
+      headline: 'Closing the gap',
+      emphasis: 'doesn’t have to wait.',
+      intro: `${name} is on its way. In the meantime, here’s where to start.`,
+      items: links,
+      ground: 'blush',
+    },
+  ]
 
   return (
-    <section aria-labelledby="soon-title" className="container-page flex min-h-[78svh] flex-col justify-center pt-28 pb-16 text-center md:pt-36 md:pb-24 md:text-left">
-      <div className="flex justify-center md:justify-start">
-        <Breadcrumb items={[{ name, path }]} />
-      </div>
+    <>
+      <PageHero crumbs={[{ name, path }]} lead={lead} emphasis={emphasis} intro={intro} deep>
+        <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-8 md:justify-start">
+          <p className="label inline-flex min-h-11 items-center gap-2.5 rounded-full border border-line px-4 text-[0.6875rem] text-ink">
+            <span aria-hidden className="relative flex size-2">
+              <span className="absolute inset-0 animate-ping rounded-full bg-terracotta/60 motion-reduce:animate-none" />
+              <span className="relative size-2 rounded-full bg-terracotta" />
+            </span>
+            Coming soon
+          </p>
+          <MagneticButton href="/contact" cursor="start" trackAs={`coming_soon_${path.slice(1)}_contact`}>
+            Start a conversation
+          </MagneticButton>
+        </div>
+      </PageHero>
 
-      <SectionLabel numeral={null} name="Coming soon" className="mt-10 md:mt-14" />
-      <h1 id="soon-title" className="mt-5 text-h2 md:mt-7">
-        <MaskReveal>{name}</MaskReveal>
-        <MaskReveal delay={0.08} className="italic text-terracotta">
-          is on its way.
-        </MaskReveal>
-      </h1>
+      <EditorialBlocks blocks={blocks} />
 
-      <Reveal as="p" delay={0.15} className="mx-auto mt-6 max-w-xl text-lead text-ink-soft md:mx-0 md:mt-8">
-        {line}
-      </Reveal>
-      {note && (
-        <Reveal as="p" delay={0.2} className="mx-auto mt-3 max-w-xl text-sm text-ink-muted md:mx-0">
-          {note}
-        </Reveal>
-      )}
-
-      <Reveal delay={0.25} className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-8 md:justify-start">
-        <MagneticButton href="/contact" cursor="start" trackAs={`coming_soon_${path.slice(1)}_contact`}>
-          Start a conversation
-        </MagneticButton>
-        <MagneticButton href="/" variant="text">
-          Back to home
-        </MagneticButton>
-      </Reveal>
-
-      {/* The gap, waiting to close */}
-      <div aria-hidden className="relative mt-14 h-2.5 md:mt-20">
-        <span className="absolute top-1/2 right-1.5 left-1.5 h-px bg-line" />
-        <span className="absolute top-0 left-0 size-2.5 rounded-full bg-terracotta" />
-        <span className="absolute top-0 right-0 size-2.5 rounded-full bg-ink" />
-      </div>
-    </section>
+      <FinalCta numeral={null} />
+    </>
   )
 }

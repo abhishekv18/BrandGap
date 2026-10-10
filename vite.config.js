@@ -8,7 +8,7 @@ import { SERVICE_PAGES } from './src/data/servicePages.js'
 
 // Every indexable route. Case studies and articles come from src/data, so a
 // new published entry is in the sitemap on the next build.
-// '/gap-score' and '/free-audit' are left out while those tools show "Coming soon" —
+// '/gap-score', '/free-audit' and '/roas-calculator' are left out while those tools show "Coming soon" —
 // add them back here when their LAUNCHED switch is turned on.
 // const STATIC_ROUTES = ['/', '/portfolio', '/services', '/about', '/insights', '/gap-score', '/free-audit', '/contact', '/faq', '/privacy', '/terms']
 const STATIC_ROUTES = ['/', '/portfolio', '/services', '/about', '/insights', '/contact', '/faq', '/privacy', '/terms']

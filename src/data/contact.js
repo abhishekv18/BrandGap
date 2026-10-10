@@ -17,10 +17,9 @@ export const CONTACT = {
   email: { label: 'contact@brandgap.co', href: 'mailto:contact@brandgap.co' },
   phone: { label: '+91 9625802011', href: 'tel:+919625802011' },
   // `note` is the one-line description on the contact page's "Follow BrandGap" list.
+  // BrandGap's one social channel. Add more here later and they appear in the footer, CTA and contact page.
   socials: [
-    { id: 'instagram', label: 'Instagram', href: null, placeholder: '[Instagram URL]', note: 'Behind the work, ideas and creative thinking.' },
-    { id: 'linkedin', label: 'LinkedIn', href: null, placeholder: '[LinkedIn URL]', note: 'Strategy, growth and BrandGap thinking.' },
-    { id: 'youtube', label: 'YouTube', href: null, placeholder: '[YouTube URL]', note: 'Ad breakdowns, walkthroughs and growth, explained.' },
+    { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/company/brand-gap/', note: 'Strategy, growth and BrandGap thinking.' },
   ],
 }
 
@@ -39,8 +38,9 @@ export const WHATSAPP = {
  * While null the page shows a labelled placeholder panel.
  */
 export const BOOKING = {
-  title: 'Book a 20-min strategy call',
-  url: null,
+  title: 'Book a 30-min strategy call',
+  // Calendly inline embed, themed to the site: cream ground, ink text, terracotta accents.
+  url: 'https://calendly.com/brandsgap/30min?embed_type=Inline&embed_domain=brand-gap.vercel.app&hide_gdpr_banner=1&hide_event_type_details=1&hide_landing_page_details=1&background_color=f4e9e1&text_color=1a1a1a&primary_color=a8483a',
   placeholder: '[Booking calendar — Calendly / Cal.com embed URL]',
   // Until `url` is set, the page shows its own calendar: visitors pick a day and a
   // time of day, and send it as a request that BrandGap confirms. No slots are

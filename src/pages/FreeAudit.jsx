@@ -7,7 +7,7 @@ import { RoasCalculator } from '../components/RoasCalculator'
 import { MaskReveal, Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
 import { AUDIT_OFFER } from '../data/contact'
-import { ROAS_CALCULATOR } from '../data/tools'
+import { COMING_SOON, ROAS_CALCULATOR } from '../data/tools'
 import { breadcrumbLd, useSeo } from '../hooks/useSeo'
 
 /**
@@ -26,12 +26,7 @@ export default function FreeAudit() {
   return LAUNCHED ? (
     <FreeAuditLive />
   ) : (
-    <ComingSoon
-      name="Free audit"
-      path="/free-audit"
-      line="A free Meta Ads and brand audit, plus a ROAS calculator to check your numbers. Both are launching soon."
-      note="Want a second pair of eyes before then? Start a conversation and we’ll take a look."
-    />
+    <ComingSoon page={COMING_SOON.freeAudit} />
   )
 }
 

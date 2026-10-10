@@ -1,6 +1,6 @@
 import { AnimatePresence, m } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { CONTACT } from '../data/contact'
 import { submitLead } from '../utils/leads'
 import { ContactLink } from './ContactLink'
@@ -23,14 +23,18 @@ const TONE = {
 const inputBase =
   'w-full rounded-none border-b bg-transparent py-2.5 text-base outline-none transition-colors duration-300 aria-[invalid=true]:border-terracotta'
 
+/** `boxed`: a filled field with a full border and a soft focus ring, for long forms that must read as forms. */
+const inputBoxed =
+  'w-full rounded-[0.625rem] border border-ink/15 bg-cream/70 px-4 py-3 text-base text-ink outline-none transition-[border-color,background-color,box-shadow] duration-300 placeholder:text-ink-muted/60 hover:border-ink/30 focus:border-terracotta focus:bg-white focus:shadow-[0_0_0_4px_rgb(168_72_58/0.12)] aria-[invalid=true]:border-terracotta aria-[invalid=true]:bg-white'
+
 /** A labelled text input with an inline error. Editorial: a single underline, no boxes. */
-export function Field({ name, id: idProp, label, type = 'text', required, error, hint, tone = 'dark', className = '', ...rest }) {
+export function Field({ name, id: idProp, label, type = 'text', required, error, hint, tone = 'dark', boxed = false, className = '', ...rest }) {
   const t = TONE[tone]
   const id = idProp ?? `f-${name}`
   const describedBy = [error && `${id}-error`, hint && `${id}-hint`].filter(Boolean).join(' ') || undefined
   return (
     <div className={`flex flex-col text-left ${className}`}>
-      <label htmlFor={id} className={`label text-[0.6875rem] ${t.label}`}>
+      <label htmlFor={id} className={`label text-[0.6875rem] ${t.label} ${boxed ? 'mb-2' : ''}`}>
         {label}
         {required && (
           <span aria-hidden className="text-terracotta">
@@ -46,7 +50,7 @@ export function Field({ name, id: idProp, label, type = 'text', required, error,
         required={required}
         aria-invalid={error ? 'true' : undefined}
         aria-describedby={describedBy}
-        className={`${inputBase} ${t.input}`}
+        className={boxed ? inputBoxed : `${inputBase} ${t.input}`}
         {...rest}
       />
       {hint && (
@@ -110,12 +114,12 @@ export function SelectField({ name, id: idProp, label, options, required, error,
 }
 
 /** A labelled multi-line field, styled to match Field. */
-export function TextAreaField({ name, id: idProp, label, required, error, tone = 'dark', rows = 3, className = '', ...rest }) {
+export function TextAreaField({ name, id: idProp, label, required, error, tone = 'dark', rows = 3, boxed = false, className = '', ...rest }) {
   const t = TONE[tone]
   const id = idProp ?? `f-${name}`
   return (
     <div className={`flex flex-col text-left ${className}`}>
-      <label htmlFor={id} className={`label text-[0.6875rem] ${t.label}`}>
+      <label htmlFor={id} className={`label text-[0.6875rem] ${t.label} ${boxed ? 'mb-2' : ''}`}>
         {label}
       </label>
       <textarea
@@ -124,7 +128,7 @@ export function TextAreaField({ name, id: idProp, label, required, error, tone =
         rows={rows}
         required={required}
         aria-invalid={error ? 'true' : undefined}
-        className={`${inputBase} ${t.input} resize-y`}
+        className={`${boxed ? inputBoxed : `${inputBase} ${t.input}`} resize-y`}
         {...rest}
       />
     </div>
@@ -149,14 +153,33 @@ export function validate(form, extra) {
  * Submits a form through utils/leads.js.
  * status: idle | sending | sent | pending (no endpoint yet) | error
  */
-export function useLeadForm(type, { extraValidate, onDone } = {}) {
+// How long the "sent" confirmation stays before the form clears itself for the next entry.
+const RESET_AFTER = 4500
+
+export function useLeadForm(type, { extraValidate, onDone, onReset, resetAfter = RESET_AFTER } = {}) {
   const [status, setStatus] = useState('idle')
   const [errors, setErrors] = useState({})
+  const formRef = useRef(null)
+  const resetRef = useRef(onReset)
+  resetRef.current = onReset
+
+  // After a successful send: show the thank-you, then empty the form and hide the message.
+  useEffect(() => {
+    if (status !== 'sent' || !resetAfter) return
+    const t = setTimeout(() => {
+      formRef.current?.reset()
+      setErrors({})
+      setStatus('idle')
+      resetRef.current?.()
+    }, resetAfter)
+    return () => clearTimeout(t)
+  }, [status, resetAfter])
 
   const onSubmit = useCallback(
     async (e) => {
       e.preventDefault()
       const form = e.currentTarget
+      formRef.current = form
       const found = validate(form, extraValidate)
       setErrors(found)
       if (Object.keys(found).length) {

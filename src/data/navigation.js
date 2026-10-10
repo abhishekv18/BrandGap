@@ -13,7 +13,7 @@ export const NAV_CTA = { to: '/contact', label: 'Start a project' }
 export const NAV_TOOLS = [
   { to: '/gap-score', label: 'Gap Score' },
   { to: '/free-audit', label: 'Free audit' },
-  { to: '/free-audit#calculator', label: 'ROAS calculator' },
+  { to: '/roas-calculator', label: 'ROAS calculator' },
   { to: '/faq', label: 'FAQ' },
 ]
 

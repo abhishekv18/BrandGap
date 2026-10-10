@@ -25,6 +25,7 @@ const pages = {
   Article: () => import('./pages/Article'),
   GapScore: () => import('./pages/GapScore'),
   FreeAudit: () => import('./pages/FreeAudit'),
+  RoasCalculatorPage: () => import('./pages/RoasCalculatorPage'),
   ContactPage: () => import('./pages/ContactPage'),
   Faq: () => import('./pages/Faq'),
   Legal: () => import('./pages/Legal'),
@@ -39,6 +40,7 @@ const Insights = lazy(pages.Insights)
 const Article = lazy(pages.Article)
 const GapScore = lazy(pages.GapScore)
 const FreeAudit = lazy(pages.FreeAudit)
+const RoasCalculatorPage = lazy(pages.RoasCalculatorPage)
 const ContactPage = lazy(pages.ContactPage)
 const Faq = lazy(pages.Faq)
 const Legal = lazy(pages.Legal)
@@ -72,6 +74,7 @@ function AppRoutes() {
       <Route path="/insights/:slug" element={<Article />} />
       <Route path="/gap-score" element={<GapScore />} />
       <Route path="/free-audit" element={<FreeAudit />} />
+      <Route path="/roas-calculator" element={<RoasCalculatorPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/faq" element={<Faq />} />
       <Route path="/privacy" element={<Legal kind="privacy" />} />

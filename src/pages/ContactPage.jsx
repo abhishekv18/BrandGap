@@ -68,7 +68,8 @@ function Choices({ name, legend, options, required, hint, error }) {
         {options.map((option) => (
           <label key={option} className="relative">
             <input type="radio" name={name} value={option} aria-invalid={error ? 'true' : undefined} className="peer absolute inset-0 opacity-0" />
-            <span className="label inline-flex min-h-11 items-center rounded-full border border-ink/25 px-4 text-[0.6875rem] text-ink transition-[background-color,border-color,color] duration-300 peer-hover:border-ink peer-checked:border-ink peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-terracotta peer-aria-[invalid=true]:border-terracotta/60">
+            <span className="label inline-flex min-h-11 items-center gap-2 rounded-full border border-ink/15 bg-cream/70 px-4 text-[0.6875rem] text-ink transition-[background-color,border-color,color] duration-300 peer-hover:border-ink/40 peer-hover:bg-white peer-checked:border-ink peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-terracotta peer-aria-[invalid=true]:border-terracotta/60 [&>svg]:hidden peer-checked:[&>svg]:block">
+              <Check aria-hidden strokeWidth={2.25} className="size-3.5" />
               {option}
             </span>
           </label>
@@ -87,23 +88,22 @@ function Choices({ name, legend, options, required, hint, error }) {
 function Step({ index, done, children }) {
   const step = STEPS[index]
   return (
-    <fieldset className="min-w-0 border-t border-line pt-6 md:pt-8">
+    <fieldset className={`min-w-0 ${index ? 'border-t border-line pt-7 md:pt-9' : ''}`}>
       <legend className="sr-only">
         Step {index + 1} of {STEPS.length}: {step.title}
       </legend>
-      <div aria-hidden className="flex items-baseline justify-between gap-4">
-        <p className="flex items-baseline gap-3">
-          <span className="label tabular-nums text-terracotta">0{index + 1}</span>
-          <span className="font-display text-h3 tracking-[-0.02em]">{step.title}</span>
-        </p>
+      <div aria-hidden className="flex items-center gap-4 text-left">
         <span
-          className={`flex size-6 items-center justify-center rounded-full border transition-colors duration-500 ${done ? 'border-terracotta bg-terracotta text-cream' : 'border-line text-transparent'}`}
+          className={`label flex size-9 shrink-0 items-center justify-center rounded-full border text-[0.6875rem] tabular-nums transition-colors duration-500 ${done ? 'border-terracotta bg-terracotta text-cream' : 'border-ink/20 bg-white text-terracotta'}`}
         >
-          <Check strokeWidth={2} className="size-3" />
+          {done ? <Check strokeWidth={2.25} className="size-4" /> : `0${index + 1}`}
+        </span>
+        <span>
+          <span className="block font-display text-h3 leading-tight tracking-[-0.02em]">{step.title}</span>
+          <span className="mt-0.5 block text-sm text-ink-muted">{step.note}</span>
         </span>
       </div>
-      <p className="mt-1 text-sm text-ink-muted">{step.note}</p>
-      <div className="mt-6 grid gap-6 sm:grid-cols-2">{children}</div>
+      <div className="mt-6 grid gap-5 sm:grid-cols-2 md:gap-6">{children}</div>
     </fieldset>
   )
 }
@@ -208,7 +208,13 @@ export default function ContactPage() {
   const [tried, setTried] = useState(false)
   const [live, setLive] = useState(null)
   const [done, setDone] = useState([false, false, false])
-  const { status, errors, onSubmit } = useLeadForm('project-enquiry', { extraValidate: check })
+  // ~4.5s after a send the thank-you gives way to a fresh, empty form (progress and errors cleared too).
+  const onReset = useCallback(() => {
+    setTried(false)
+    setLive(null)
+    setDone([false, false, false])
+  }, [])
+  const { status, errors, onSubmit } = useLeadForm('project-enquiry', { extraValidate: check, onReset })
   const wa = whatsappHref()
   const hrefClick = useHrefClick()
   const shown = live ?? errors
@@ -300,29 +306,38 @@ export default function ContactPage() {
                   onSubmit={submit}
                   onInput={onInput}
                   exit={{ opacity: 0, y: -8, transition: { duration: 0.3 } }}
-                  className="mt-8 flex flex-col gap-10 md:mt-10"
+                  className="mt-8 overflow-hidden rounded-[1rem] border border-ink/10 bg-white/55 shadow-[0_40px_80px_-50px_rgba(28,18,22,0.35)] md:mt-10"
                   aria-describedby="form-required"
                 >
-                  {/* Where you are in the form */}
-                  <div aria-hidden className="flex items-center gap-4">
-                    {STEPS.map((s, i) => (
-                      <span key={s.title} className={`label flex items-center gap-2 text-[0.625rem] transition-colors duration-500 ${done[i] ? 'text-ink' : 'text-ink-muted'}`}>
-                        <span className={`size-1.5 rounded-full transition-colors duration-500 ${done[i] ? 'bg-terracotta' : 'bg-ink/20'}`} />
-                        0{i + 1}
-                        <span className="hidden sm:inline">{s.title}</span>
-                      </span>
-                    ))}
-                    <span className="relative h-px min-w-8 flex-1 bg-line">
-                      <span
-                        className="absolute inset-0 origin-left bg-terracotta transition-transform duration-700 ease-(--ease-out-expo)"
-                        style={{ transform: `scaleX(${done.filter(Boolean).length / STEPS.length})` }}
-                      />
-                    </span>
+                  {/* Card header: what this is, how long it takes, and where you are */}
+                  <div className="border-b border-line bg-blush/45 px-5 py-5 sm:px-8 md:px-10">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 text-left">
+                      <p className="label text-ink">Project enquiry</p>
+                      <p className="label text-[0.6875rem] text-ink-muted">3 short steps · about 2 minutes</p>
+                    </div>
+                    <div aria-hidden className="mt-4 grid grid-cols-3 gap-2">
+                      {STEPS.map((s, i) => (
+                        <span key={s.title} className="flex flex-col gap-2">
+                          <span className="relative h-1 overflow-hidden rounded-full bg-ink/10">
+                            <span
+                              className="absolute inset-0 origin-left rounded-full bg-terracotta transition-transform duration-700 ease-(--ease-out-expo)"
+                              style={{ transform: `scaleX(${done[i] ? 1 : 0})` }}
+                            />
+                          </span>
+                          <span className={`label text-left text-[0.625rem] transition-colors duration-500 ${done[i] ? 'text-ink' : 'text-ink-muted'}`}>
+                            0{i + 1}
+                            <span className="hidden sm:inline"> · {s.title}</span>
+                          </span>
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
+                  <div className="flex flex-col gap-7 px-5 py-7 sm:px-8 md:gap-9 md:px-10 md:py-10">
+
                   <Step index={0} done={done[0]}>
-                    <Field name="name" label="Your name" autoComplete="name" required error={shown.name} />
-                    <Field name="email" label="Email" type="email" autoComplete="email" inputMode="email" required error={shown.email} />
+                    <Field name="name" label="Your name" autoComplete="name" required error={shown.name} boxed />
+                    <Field name="email" label="Email" type="email" autoComplete="email" inputMode="email" required error={shown.email} boxed />
                     <Field
                       name="phone"
                       label={
@@ -334,6 +349,7 @@ export default function ContactPage() {
                       type="tel"
                       autoComplete="tel"
                       inputMode="tel"
+                      boxed
                     />
                   </Step>
 
@@ -347,6 +363,7 @@ export default function ContactPage() {
                       error={shown.brand}
                       hint="Your website helps us understand where the brand is today."
                       className="sm:col-span-2"
+                      boxed
                     />
                     {FORM_OPTIONS.stages ? (
                       <Choices name="stage" legend="Brand stage" options={FORM_OPTIONS.stages} />
@@ -361,6 +378,7 @@ export default function ContactPage() {
                         }
                         hint="In a few words — where is the brand right now?"
                         className="sm:col-span-2"
+                        boxed
                       />
                     )}
                   </Step>
@@ -383,23 +401,32 @@ export default function ContactPage() {
                           <Optional />
                         </>
                       }
+                      rows={4}
+                      placeholder="e.g. Our ads get clicks but not sales, or we’re launching and need a plan."
                       className="sm:col-span-2"
+                      boxed
                     />
                   </Step>
 
-                  <div className="flex flex-col items-center gap-4 border-t border-line pt-8 sm:items-start">
-                    {tried && errorCount > 0 && (
-                      <p role="alert" className="text-sm text-terracotta-deep">
-                        {errorCount === 1 ? 'One thing to check above before we can start.' : `${errorCount} things to check above before we can start.`}
+                  </div>
+
+                  <div className="flex flex-col items-center gap-4 border-t border-line bg-cream/60 px-5 py-6 sm:flex-row sm:justify-between sm:px-8 md:px-10">
+                    <div className="order-2 text-center sm:order-1 sm:text-left">
+                      {tried && errorCount > 0 && (
+                        <p role="alert" className="mb-1 text-sm text-terracotta-deep">
+                          {errorCount === 1 ? 'One thing to check above before we can start.' : `${errorCount} things to check above before we can start.`}
+                        </p>
+                      )}
+                      <p id="form-required" className="text-xs text-ink-muted">
+                        Fields marked <span className="text-terracotta">*</span> are required. We only use your details to reply.
                       </p>
-                    )}
-                    <MagneticButton type="submit" disabled={status === 'sending'} cursor="start" trackAs="contact_submit">
-                      {status === 'sending' ? 'Sending…' : 'Start the conversation'}
-                    </MagneticButton>
-                    <p id="form-required" className="text-xs text-ink-muted">
-                      Fields marked <span className="text-terracotta">*</span> are required.
-                    </p>
-                    <FormStatus status={status === 'sent' ? 'idle' : status} />
+                      <FormStatus status={status === 'sent' ? 'idle' : status} />
+                    </div>
+                    <div className="order-1 shrink-0">
+                      <MagneticButton type="submit" disabled={status === 'sending'} cursor="start" trackAs="contact_submit">
+                        {status === 'sending' ? 'Sending…' : 'Start the conversation'}
+                      </MagneticButton>
+                    </div>
                   </div>
                 </m.form>
               )}
@@ -482,7 +509,7 @@ export default function ContactPage() {
           </div>
           <div className="lg:col-span-8">
             {BOOKING.url ? (
-              <iframe src={BOOKING.url} title={BOOKING.title} loading="lazy" className="h-[40rem] w-full rounded-[0.625rem] border border-line bg-cream" />
+              <iframe src={BOOKING.url} title={BOOKING.title} loading="lazy" className="h-[40rem] w-full rounded-[0.625rem] border border-line bg-cream md:h-[44rem]" />
             ) : (
               <BookingCalendar />
             )}

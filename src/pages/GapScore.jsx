@@ -7,7 +7,7 @@ import { Field, FormStatus } from '../components/Form'
 import { MagneticButton } from '../components/MagneticButton'
 import { Breadcrumb } from '../components/PageHero'
 import { MaskReveal, Reveal } from '../components/Reveal'
-import { GAP_SCORE } from '../data/tools'
+import { COMING_SOON, GAP_SCORE } from '../data/tools'
 import { breadcrumbLd, useSeo } from '../hooks/useSeo'
 import { track } from '../utils/analytics'
 import { scoreGap } from '../utils/gapScore'
@@ -35,12 +35,7 @@ export default function GapScore() {
   return LAUNCHED ? (
     <GapScoreLive />
   ) : (
-    <ComingSoon
-      name="Gap Score"
-      path="/gap-score"
-      line="A quick diagnostic to find where your brand is losing growth. We’re putting the finishing touches on it."
-      note="In the meantime, tell us where your brand is today — we’ll take it from there."
-    />
+    <ComingSoon page={COMING_SOON.gapScore} />
   )
 }
 
@@ -199,7 +194,7 @@ function GapScoreLive() {
                         Close the gap
                       </MagneticButton>
                       <MagneticButton href="/contact#booking" variant="text" trackAs="gap_score_book_call">
-                        Book a 20-min call
+                        Book a 30-min call
                       </MagneticButton>
                     </div>
                   </div>
