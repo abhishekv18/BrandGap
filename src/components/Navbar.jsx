@@ -70,27 +70,27 @@ export function Navbar() {
     <>
       <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
         <div className="container-page flex justify-center pt-3 md:pt-5">
-          {/* At the top of the page the bar is open and transparent. On scroll it condenses into an
-              ink pill (the marquee's #1A1A1A), with the mark and wordmark in one cream container. */}
+          {/* At the top of the page the bar is open and transparent. On scroll it condenses into a
+              slim, deep-ink pill (#140D10, a shade under the mark's own near-black), lightly frosted,
+              with a hairline edge. The logo switches to its on-dark version (cream g), as the
+              guidelines specify, so it sits on the bar without a container. */}
           <nav
             aria-label="Primary"
             {...(condensed ? { 'data-theme': 'dark' } : {})}
-            className={`pointer-events-auto flex w-full items-center justify-between gap-4 rounded-full py-1.5 transition-[max-width,background-color,box-shadow,padding] duration-700 ease-(--ease-out-expo) ${
+            className={`pointer-events-auto flex w-full items-center justify-between gap-4 rounded-full transition-[max-width,background-color,box-shadow,padding] duration-700 ease-(--ease-out-expo) ${
               condensed
-                ? 'max-w-4xl bg-[#1A1A1A] pr-1.5 pl-1.5 shadow-[0_18px_40px_-24px_rgba(26,26,26,0.6),inset_0_0_0_1px_rgb(244_233_225/0.08)]'
-                : 'max-w-[90rem] bg-transparent pr-0 pl-0'
+                ? 'max-w-4xl bg-[#140D10]/95 py-1 pr-1 pl-5 shadow-[0_20px_45px_-22px_rgba(20,13,16,0.7),inset_0_0_0_1px_rgb(244_233_225/0.09)] backdrop-blur-md'
+                : 'max-w-[90rem] bg-transparent py-1.5 pr-0 pl-0'
             }`}
           >
             <a
               href="/"
               onClick={(e) => go(e, '/')}
-              className={`flex min-h-11 items-center gap-2.5 rounded-full py-1.5 transition-[background-color,padding] duration-700 ease-(--ease-out-expo) ${
-                condensed ? 'bg-cream pr-4 pl-2.5 hover:bg-white' : 'bg-transparent pr-0 pl-0'
-              }`}
+              className="flex min-h-11 items-center gap-2.5 transition-opacity duration-300 hover:opacity-85"
               aria-label="BrandGap — home"
             >
-              <BrandMark className="h-7 w-auto" />
-              <Wordmark className="text-[1.3125rem] leading-none" />
+              <BrandMark tone={condensed ? 'dark' : 'light'} className={`w-auto transition-[height] duration-700 ease-(--ease-out-expo) ${condensed ? 'h-7' : 'h-9'}`} />
+              <Wordmark tone={condensed ? 'dark' : 'light'} className={`leading-none transition-[font-size] duration-700 ease-(--ease-out-expo) ${condensed ? 'text-[1.3125rem] [&>span:last-child]:text-[#D9806F]' : 'text-[1.5rem]'}`} />
             </a>
 
             <ul className="hidden items-center md:flex">
@@ -119,7 +119,7 @@ export function Navbar() {
                     go(e, NAV_CTA.to)
                   }}
                   data-cursor="start"
-                  className={`label flex min-h-11 items-center rounded-full px-4 text-[0.6875rem] whitespace-nowrap transition-colors duration-500 lg:px-5 lg:text-[0.75rem] ${
+                  className={`label flex min-h-11 items-center rounded-full px-4 text-[0.6875rem] whitespace-nowrap transition-colors duration-500 lg:px-5 lg:text-[0.6875rem] ${
                     condensed ? 'bg-terracotta text-cream hover:bg-cream hover:text-ink' : 'bg-ink text-cream hover:bg-terracotta'
                   }`}
                 >
