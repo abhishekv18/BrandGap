@@ -60,16 +60,17 @@ export default function Home() {
       <Performance />
       <Dashboard />
       <Work />
-      <Brands />
+      {/* <Brands /> */}
       <Marquee words={MARQUEE_WORDS} reverse tone="blush" />
       <CreativePerformance />
       <Growth />
-      <Why />
+       <Capabilities />
       <div className="relative isolate">
         <Ground tone="blush" />
         <About />
       </div>
-      <Capabilities />
+     
+        <Why />
       <Clients />
       <FinalCta />
     </>
