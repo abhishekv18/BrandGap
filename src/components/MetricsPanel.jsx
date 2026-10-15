@@ -1,3 +1,4 @@
+import { SYMBOL_NOW, fromRupees, isLocal, localize } from '../utils/currency'
 import { useId, useLayoutEffect, useMemo, useRef } from 'react'
 import { gsap } from '../animations/gsap'
 import { useCapabilities } from '../hooks/useCapabilities'
@@ -7,8 +8,11 @@ import { Reveal } from './Reveal'
 const W = 1000
 const H = 300
 // Values are in lakh: ₹1Cr = 100L; under ₹1L they read in thousands.
-const tick = (v) => (v === 0 ? '₹0' : v >= 100 ? `₹${v / 100}Cr` : v < 1 ? `₹${Math.round(v * 100)}K` : `₹${v}L`)
-const money = (v) => (v >= 100 ? `₹${(v / 100).toFixed(2)}Cr` : v < 1 ? `₹${(v * 100).toFixed(1)}K` : `₹${v.toFixed(2)}L`)
+// Outside India the same figures read in the visitor's currency (utils/currency.js).
+const tick = (v) =>
+  !isLocal ? (v === 0 ? `${SYMBOL_NOW}0` : fromRupees(v * 1e5)) : v === 0 ? '₹0' : v >= 100 ? `₹${v / 100}Cr` : v < 1 ? `₹${Math.round(v * 100)}K` : `₹${v}L`
+const money = (v) =>
+  !isLocal ? fromRupees(v * 1e5) : v >= 100 ? `₹${(v / 100).toFixed(2)}Cr` : v < 1 ? `₹${(v * 100).toFixed(1)}K` : `₹${v.toFixed(2)}L`
 const countTick = (v) => (v >= 1000 ? `${v / 1000}K` : String(v))
 const count = (v) => Math.round(v).toLocaleString('en-IN')
 // Figure grid by count, so no row ever ends on an empty cell.
@@ -139,7 +143,7 @@ export function MetricsPanel({ title, kpis, graph, caption, summary, roasDigits 
   const breakEven = graph ? graph.breakEven ?? !counts : false
   const fmtY = (v) => (counts ? count(v) : money(v))
   const yTick = (v) => (counts ? countTick(v) : tick(v))
-  const roas = (x, y) => (graph?.ratio === 'cost' ? (y ? `₹${((x * 100000) / y).toFixed(2)}` : '—') : `${(y / x).toFixed(roasDigits)}X`)
+  const roas = (x, y) => (graph?.ratio === 'cost' ? (y ? localize(`₹${((x * 100000) / y).toFixed(2)}`) : '—') : `${(y / x).toFixed(roasDigits)}X`)
 
   useLayoutEffect(() => {
     if (reducedMotion || !g) return

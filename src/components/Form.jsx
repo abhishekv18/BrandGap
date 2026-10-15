@@ -190,7 +190,9 @@ export function useLeadForm(type, { extraValidate, onDone, onReset, resetAfter =
         return
       }
       setStatus('sending')
-      const data = Object.fromEntries(new FormData(form).entries())
+      // Checkbox groups send every ticked value, joined into one readable answer.
+      const fd = new FormData(form)
+      const data = Object.fromEntries([...new Set(fd.keys())].map((k) => [k, fd.getAll(k).join(', ')]))
       const res = await submitLead(type, data)
       const next = res.ok ? 'sent' : res.pending ? 'pending' : 'error'
       setStatus(next)

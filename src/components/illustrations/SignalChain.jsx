@@ -209,11 +209,14 @@ const OBJECTS = [HookPhone, OfferTag, Storyboard, Landing, Receipt]
 /** The leak: a break in the thread, a few drops, and an editorial (not statistical) note. */
 function Leak({ x, y, noteX, noteY, size, labelSize = size * 0.7, anchor = 'middle' }) {
   return (
-    <g data-callout>
+    <g data-leak>
+      {/* Where the observation line meets the thread: a ringed terracotta point */}
+      <circle cx={x} cy={y - 14} r={15} fill="none" stroke={C.terra} strokeWidth={1.25} vectorEffect="non-scaling-stroke" opacity={0.6} />
+      <circle cx={x} cy={y - 14} r={6.5} fill={C.terra} />
       <circle cx={x - 4} cy={y + 16} r={2.2} fill={C.terra} />
       <circle cx={x + 3} cy={y + 30} r={1.8} fill={C.terra} opacity={0.7} />
       <circle cx={x - 2} cy={y + 42} r={1.4} fill={C.terra} opacity={0.45} />
-      <path d={`M${x} ${y - 12} L${noteX} ${noteY + 14}`} stroke={C.ink} strokeWidth={0.75} strokeDasharray="3 4" vectorEffect="non-scaling-stroke" fill="none" />
+      <path d={`M${x} ${y - 42} L${noteX} ${noteY + 14}`} stroke={C.ink} strokeWidth={0.75} strokeDasharray="3 4" vectorEffect="non-scaling-stroke" fill="none" />
       <Label x={noteX} y={noteY - size * 1.55} anchor={anchor} size={labelSize} fill={C.terra}>
         Observation
       </Label>
@@ -230,7 +233,8 @@ function Leak({ x, y, noteX, noteY, size, labelSize = size * 0.7, anchor = 'midd
  */
 export function SignalChain({ className = '' }) {
   const thread = 560
-  const xs = [250, 560, 875, 1195, 1500]
+  // The creative and the landing page sit further apart, so the observation line runs clear between them.
+  const xs = [215, 510, 800, 1235, 1530]
   const bases = [520, 520, 520, 520, 520]
   const breakAt = (xs[2] + xs[3]) / 2 + 6
   return (

@@ -362,24 +362,24 @@ export function Hero() {
           </div>
           <div className="text-center wide:max-w-[38rem] wide:text-left xl:max-w-[44rem] squat:text-left">
             {/* The wordmark leads the lockup; the page's one h1 is the core message beneath it. */}
-            <div className="font-display text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)] leading-[0.92] tracking-[-0.02em] md:text-[4.5rem] wide:text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)] short:text-[clamp(2.25rem,1rem+3.6vw,3.25rem)] squat:text-[1.875rem]">
+            <div className="font-display text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)] leading-[0.92] tracking-[-0.02em] md:text-[4.5rem] wide:text-[clamp(2.75rem,0.9rem+5.4vw,6.5rem)] short:portrait:text-[clamp(2.25rem,1rem+3.6vw,3.25rem)] squat:text-[1.875rem]">
               <p aria-hidden className="line-mask">
                 <span data-hero-line className="block">
                   Brand<span className="text-terracotta">Gap</span>
                 </span>
               </p>
-              <h1 className="line-mask mx-auto mt-3 max-w-[22rem] md:mt-5 md:max-w-[26rem] wide:mx-0 xl:max-w-[30rem] short:mt-2 squat:mx-0 squat:max-w-none">
-                <span data-hero-line className="block text-[clamp(1.375rem,1.05rem+1.2vw,2.125rem)] leading-[1.1] italic text-ink-soft short:text-[1.1875rem] squat:text-[1.0625rem]">
+              <h1 className="line-mask mx-auto mt-3 max-w-[22rem] md:mt-5 md:max-w-[26rem] wide:mx-0 xl:max-w-[30rem] short:portrait:mt-2 squat:mx-0 squat:max-w-none">
+                <span data-hero-line className="block text-[clamp(1.375rem,1.05rem+1.2vw,2.125rem)] leading-[1.1] italic text-ink-soft short:portrait:text-[1.1875rem] squat:text-[1.0625rem]">
                   {HERO.title}
                 </span>
               </h1>
             </div>
-            <p data-hero-fade className="mx-auto mt-5 max-w-md text-lead text-ink-soft md:mt-7 wide:mx-0 xl:max-w-lg short:mt-3 short:text-[0.875rem] short:leading-[1.55] squat:mx-0 squat:max-w-none squat:text-[0.8125rem]">
+            <p data-hero-fade className="mx-auto mt-5 max-w-md text-lead text-ink-soft md:mt-7 wide:mx-0 xl:max-w-lg short:portrait:mt-3 short:portrait:text-[0.875rem] short:portrait:leading-[1.55] squat:mx-0 squat:max-w-none squat:text-[0.8125rem]">
               {HERO.body}
             </p>
             <div
               data-hero-fade
-              className="mt-8 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-8 md:mt-10 wide:justify-start short:mt-4 squat:flex-row squat:flex-wrap squat:justify-start squat:gap-x-5 squat:gap-y-0"
+              className="mt-8 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-8 md:mt-10 wide:justify-start short:portrait:mt-4 squat:flex-row squat:flex-wrap squat:justify-start squat:gap-x-5 squat:gap-y-0"
             >
               <MagneticButton href="/contact" cursor="start" trackAs="hero_start_project">
                 {HERO.primary}

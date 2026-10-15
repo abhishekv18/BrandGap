@@ -1,7 +1,7 @@
 import { ArrowUp } from 'lucide-react'
 import { useLayoutEffect, useRef } from 'react'
 import { gsap } from '../animations/gsap'
-import { BrandMark } from '../components/BrandMark'
+import { BrandMark, Wordmark } from '../components/BrandMark'
 import { ContactLink } from '../components/ContactLink'
 import { Copy } from '../components/Copy'
 import { NewsletterForm } from '../components/NewsletterForm'
@@ -10,6 +10,7 @@ import { CONTACT, FOOTER } from '../data/contact'
 import { NAV_LEGAL, NAV_TOOLS } from '../data/navigation'
 import { useCapabilities } from '../hooks/useCapabilities'
 import { useHrefClick } from '../hooks/useHrefClick'
+import { CURRENCY, RATES_NOTE, isLocal } from '../utils/currency'
 
 // Content Brief §14 — footer columns.
 const COLUMNS = [
@@ -59,8 +60,21 @@ export function Footer() {
       <div className="container-page pt-12 pb-6 md:pt-16">
         <div className="flex flex-col items-center gap-9 text-center md:grid md:grid-cols-12 md:items-start md:gap-6 md:text-left">
           <div className="flex flex-col items-center md:col-span-6 md:items-start lg:col-span-4">
-            <BrandMark tone="dark" title="BrandGap" className="h-11 w-auto" />
+            {/* The mark and the name together */}
+            <span className="flex items-center gap-3">
+              <BrandMark tone="dark" title="BrandGap" className="h-11 w-auto" />
+              <Wordmark tone="dark" className="text-[1.75rem] leading-none" />
+            </span>
             <p className="mt-4 max-w-xs font-display text-xl italic text-cream/80">{FOOTER.tagline}</p>
+            <a
+              href={CONTACT.email.href}
+              className="group mt-5 inline-flex min-h-11 items-center gap-2 text-sm text-cream transition-colors hover:text-[#D9806F]"
+            >
+              <span className="label text-[0.625rem] text-cream/55">Email</span>
+              <span className="underline decoration-cream/30 underline-offset-4 transition-colors group-hover:decoration-[#D9806F]">
+                {CONTACT.email.label}
+              </span>
+            </a>
             <p className="label mt-4 flex items-center gap-3 text-[0.6875rem] text-cream/70">
               <span aria-hidden className="size-1.5 rounded-full bg-terracotta" />
               <Copy value={FOOTER.availability} tone="light" />
@@ -129,7 +143,15 @@ export function Footer() {
         </p>
 
         <div className="mt-4 flex flex-col items-center gap-2 border-t border-line-light pt-4 text-center text-xs text-cream/60 md:flex-row md:justify-between md:text-left">
-          <p>© {FOOTER.year} BrandGap. All Rights Reserved.</p>
+          <p>
+            © {FOOTER.year} BrandGap. All Rights Reserved.
+            {/* Outside India, figures are converted from INR — say so, once */}
+            {!isLocal && (
+              <span className="mt-1 block text-cream/45 md:mt-0 md:ml-2 md:inline">
+                Figures shown in {CURRENCY}, converted from INR at {RATES_NOTE}.
+              </span>
+            )}
+          </p>
           <p className="label text-[0.6875rem]">{FOOTER.line}</p>
           <ul className="flex items-center gap-4">
             {NAV_LEGAL.map((l) => (

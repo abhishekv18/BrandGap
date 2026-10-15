@@ -1,3 +1,4 @@
+import { SYMBOL_NOW, isLocal } from '../utils/currency'
 /**
  * Contact, conversion and footer details. Anything not supplied by BrandGap
  * is a placeholder: fill in the value (or `href`) to go live — no component
@@ -63,7 +64,10 @@ export const NEWSLETTER = {
 export const FORM_OPTIONS = {
   title: 'Let’s start with the essentials.',
   intro: 'Tell us a little about your brand, your goals and where you’re stuck. It only takes a few minutes.',
-  budgets: ['Under ₹25K', '₹25K–₹50K', '₹50K–₹1L', '₹1L–₹5L', '₹5L+'],
+  // Monthly budget ranges in the visitor's currency (utils/currency.js).
+  budgets: isLocal
+    ? ['Under ₹25K', '₹25K–₹50K', '₹50K–₹1L', '₹1L–₹5L', '₹5L+']
+    : [`Under ${SYMBOL_NOW}500`, `${SYMBOL_NOW}500–${SYMBOL_NOW}1K`, `${SYMBOL_NOW}1K–${SYMBOL_NOW}2.5K`, `${SYMBOL_NOW}2.5K–${SYMBOL_NOW}10K`, `${SYMBOL_NOW}10K+`],
   services: ['Brand Strategy', 'Performance Marketing', 'Content & Creative', 'E-commerce Growth', 'Social Growth'],
   /**
    * Brand-stage choices — not supplied yet. While null, the form asks for the

@@ -137,11 +137,12 @@ function GrowthScroll() {
           trigger: section.current,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 0.7,
+          scrub: 0.45,
           invalidateOnRefresh: true,
         },
       })
-      tl.set({}, {}, 1)
+      // No padding to 1: the timeline ends on its last move, so the pin releases as soon as the
+      // promise has landed — no idle stretch of scrolling after the animation.
 
       // Cream → blush: the page warms as brand turns to growth.
       tl.fromTo(stage.current, { backgroundColor: '#F4E9E1' }, { backgroundColor: '#EFD6CC', duration: 0.1 }, 0)
@@ -183,15 +184,15 @@ function GrowthScroll() {
       const fits = () => room() >= 0.3
       const lockScale = () => (fits() ? Math.min(0.78, room()) : 0.3)
       const lockY = () => promiseTop() - 40 - stage.current.clientHeight / 2 - (ph() * lockScale()) / 2
-      tl.to(q('[data-group]'), { y: lockY, scale: lockScale, autoAlpha: () => (fits() ? 1 : 0), duration: 0.12, ease: 'power2.inOut' }, 0.66)
-      tl.to(q('[data-promise]'), { autoAlpha: 1, y: 0, duration: 0.1, ease: 'power2.out' }, 0.72)
-      tl.to(q('[data-proves]'), { autoAlpha: 1, y: 0, duration: 0.08, ease: 'power2.out' }, 0.84)
+      tl.to(q('[data-group]'), { y: lockY, scale: lockScale, autoAlpha: () => (fits() ? 1 : 0), duration: 0.1, ease: 'power2.inOut' }, 0.63)
+      tl.to(q('[data-promise]'), { autoAlpha: 1, y: 0, duration: 0.08, ease: 'power2.out' }, 0.67)
+      tl.to(q('[data-proves]'), { autoAlpha: 1, y: 0, duration: 0.06, ease: 'power2.out' }, 0.73)
     }, stage)
     return () => ctx.revert()
   }, [])
 
   return (
-    <section id="growth" ref={section} aria-labelledby="growth-title" className="relative h-[300svh] md:h-[270svh] desk:h-[360svh]">
+    <section id="growth" ref={section} aria-labelledby="growth-title" className="relative h-[255svh] md:h-[230svh] desk:h-[290svh]">
       <div ref={stage} className={`sticky top-0 h-svh overflow-hidden ${PANEL_TABLET}`}>
         <SectionLabel numeral={numeralOf('growth')} name="The growth system" className="container-page absolute inset-x-0 top-24 md:top-28 [&>span:first-child]:text-terracotta-deep" />
 

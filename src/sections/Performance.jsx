@@ -26,11 +26,13 @@ export function Performance() {
 
       // The figure below: its thread draws through the five steps the same way, callouts following.
       gsap.utils.toArray('[data-chain] svg').forEach((svg) => {
-        const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: svg, start: 'top 80%', end: 'bottom 70%', scrub: 0.6 } })
+        const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: svg, start: 'top 85%', end: 'center 55%', scrub: 0.5 } })
         tl.fromTo(svg.querySelectorAll('[data-draw]'), { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.55 }, 0)
         const late = svg.querySelectorAll('[data-draw-late]')
-        if (late.length) tl.fromTo(late, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.4 }, 0.6)
-        tl.fromTo(svg.querySelectorAll('[data-callout]'), { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.12, stagger: 0.17 }, 0.02)
+        if (late.length) tl.fromTo(late, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.3 }, 0.45)
+        tl.fromTo(svg.querySelectorAll('[data-callout]'), { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.12, stagger: 0.12 }, 0.02)
+        // The observation and its marker arrive with the figure, not after the last step.
+        tl.fromTo(svg.querySelectorAll('[data-leak]'), { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0)
       })
     }, root)
     return () => ctx.revert()
@@ -124,7 +126,7 @@ export function Performance() {
       </figure>
 
       {/* The philosophy */}
-      <div className="space-subblock grid gap-columns border-t border-line pt-8 md:grid-cols-12 md:pt-10">
+      {/* <div className="space-subblock grid gap-columns border-t border-line pt-8 md:grid-cols-12 md:pt-10">
         <Reveal className="md:col-span-7">
           <h3 className="font-display text-h3 tracking-[-0.02em]">
             {PHILOSOPHY.lead} <span className="italic text-terracotta">{PHILOSOPHY.emphasis}</span>
@@ -147,7 +149,7 @@ export function Performance() {
             ))}
           </ul>
         </Reveal>
-      </div>
+      </div> */}
     </section>
   )
 }

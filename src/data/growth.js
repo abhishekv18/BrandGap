@@ -1,3 +1,4 @@
+import { isLocal, localizeDeep, localizeKpi } from '../utils/currency'
 /**
  * VI — The growth system. Flow and title from the Website Development Brief
  * §4 (section 06); "What it proves" from the brand guidelines p.13.
@@ -19,7 +20,7 @@ export const GROWTH_PROVES = 'Lower CAC, more repeat.'
  * VI — The numbers (Content Brief §06). These figures and the disclaimer are
  * exactly as supplied by BrandGap; the disclaimer must always stay visible.
  */
-export const NUMBERS = {
+export const NUMBERS = localizeDeep({
   lead: 'The numbers',
   emphasis: 'behind the work.',
   panelTitle: 'BrandGap / Meta Ads data',
@@ -50,4 +51,9 @@ export const NUMBERS = {
       { id: 'decorshed', x: 50.03, y: 167.68, name: '+ The Decorshed', value: '₹1.68Cr+', roas: '3.4X blended' },
     ],
   },
-}
+})
+
+// Count-up figures recorded in rupees (and crore counts) in the visitor's currency and units.
+NUMBERS.kpis = NUMBERS.kpis.map((k) =>
+  !isLocal && k.id === 'impressions' ? { ...k, value: 42, suffix: 'M+', decimals: 0 } : localizeKpi(k),
+)

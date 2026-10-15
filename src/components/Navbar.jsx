@@ -57,26 +57,40 @@ export function Navbar() {
     hrefClick(e, to)
   }
 
+  // At the top: ink links on the page. Once scrolled, on the ink bar: cream links, with the lighter
+  // on-dark terracotta (#D9806F) for hover and the current page.
   const linkClass = ({ isActive }) =>
-    `group relative flex min-h-11 items-center px-2 label lg:px-3 transition-colors hover:text-terracotta md:text-[0.875rem] md:tracking-[0.12em] desk:text-[0.75rem] desk:tracking-[0.18em] xl:px-4 ${
-      isActive ? 'text-terracotta' : 'text-ink'
+    `group relative flex min-h-11 items-center px-2 label lg:px-3 transition-colors duration-500 md:text-[0.875rem] md:tracking-[0.12em] desk:text-[0.75rem] desk:tracking-[0.18em] xl:px-4 ${
+      condensed
+        ? `hover:text-[#D9806F] ${isActive ? 'text-[#D9806F]' : 'text-cream/85'}`
+        : `hover:text-terracotta ${isActive ? 'text-terracotta' : 'text-ink'}`
     }`
 
   return (
     <>
       <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
         <div className="container-page flex justify-center pt-3 md:pt-5">
+          {/* At the top of the page the bar is open and transparent. On scroll it condenses into an
+              ink pill (the marquee's #1A1A1A), with the mark and wordmark in one cream container. */}
           <nav
             aria-label="Primary"
-            className={`pointer-events-auto flex w-full items-center justify-between gap-4 rounded-full transition-[background-color,box-shadow,max-width,padding] duration-700 ease-(--ease-out-expo) ${
+            {...(condensed ? { 'data-theme': 'dark' } : {})}
+            className={`pointer-events-auto flex w-full items-center justify-between gap-4 rounded-full py-1.5 transition-[max-width,background-color,box-shadow,padding] duration-700 ease-(--ease-out-expo) ${
               condensed
-                ? 'max-w-4xl bg-cream/95 py-2 pr-2 pl-4 shadow-[0_0_0_1px_var(--color-line)]'
-                : 'max-w-[90rem] bg-transparent py-2 pr-0 pl-0'
+                ? 'max-w-4xl bg-[#1A1A1A] pr-1.5 pl-1.5 shadow-[0_18px_40px_-24px_rgba(26,26,26,0.6),inset_0_0_0_1px_rgb(244_233_225/0.08)]'
+                : 'max-w-[90rem] bg-transparent pr-0 pl-0'
             }`}
           >
-            <a href="/" onClick={(e) => go(e, '/')} className="flex min-h-11 items-center gap-3" aria-label="BrandGap — home">
-              <BrandMark className="h-8 w-auto" />
-              <Wordmark className="text-[1.375rem] leading-none" />
+            <a
+              href="/"
+              onClick={(e) => go(e, '/')}
+              className={`flex min-h-11 items-center gap-2.5 rounded-full py-1.5 transition-[background-color,padding] duration-700 ease-(--ease-out-expo) ${
+                condensed ? 'bg-cream pr-4 pl-2.5 hover:bg-white' : 'bg-transparent pr-0 pl-0'
+              }`}
+              aria-label="BrandGap — home"
+            >
+              <BrandMark className="h-7 w-auto" />
+              <Wordmark className="text-[1.3125rem] leading-none" />
             </a>
 
             <ul className="hidden items-center md:flex">
@@ -105,7 +119,9 @@ export function Navbar() {
                     go(e, NAV_CTA.to)
                   }}
                   data-cursor="start"
-                  className="label flex min-h-11 items-center rounded-full bg-ink px-4 text-[0.6875rem] whitespace-nowrap text-cream transition-colors duration-300 hover:bg-terracotta lg:px-5 lg:text-[0.75rem]"
+                  className={`label flex min-h-11 items-center rounded-full px-4 text-[0.6875rem] whitespace-nowrap transition-colors duration-500 lg:px-5 lg:text-[0.75rem] ${
+                    condensed ? 'bg-terracotta text-cream hover:bg-cream hover:text-ink' : 'bg-ink text-cream hover:bg-terracotta'
+                  }`}
                 >
                   {NAV_CTA.label}
                 </a>
@@ -118,12 +134,12 @@ export function Navbar() {
               onClick={() => setOpen(true)}
               aria-expanded={open}
               aria-controls="site-menu"
-              className="flex min-h-11 items-center gap-3 rounded-full px-4 label md:hidden"
+              className={`flex min-h-11 items-center gap-3 rounded-full px-4 label transition-colors duration-500 md:hidden ${condensed ? 'text-cream' : 'text-ink'}`}
             >
               Menu
               <span aria-hidden className="flex flex-col gap-1.5">
-                <span className="block h-px w-5 bg-ink" />
-                <span className="block h-px w-3 self-end bg-ink" />
+                <span className={`block h-px w-5 transition-colors duration-500 ${condensed ? 'bg-cream' : 'bg-ink'}`} />
+                <span className={`block h-px w-3 self-end transition-colors duration-500 ${condensed ? 'bg-cream' : 'bg-ink'}`} />
               </span>
             </button>
           </nav>

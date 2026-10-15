@@ -1,3 +1,4 @@
+import { localizeDeep } from '../utils/currency'
 /**
  * Detailed service pages: /services/[slug].
  *
@@ -16,7 +17,7 @@
  * closing CTA and SEO.
  */
 
-export const SERVICE_PAGES = [
+export const SERVICE_PAGES = localizeDeep([
   /* ------------------------------------------------------------------ */
   {
     slug: 'performance-marketing',
@@ -513,7 +514,7 @@ export const SERVICE_PAGES = [
         'BrandGap builds strategic social media systems that help brands attract attention, build communities and grow through content, creative and social marketing.',
     },
   },
-]
+])
 
 export const findServicePage = (slug) => SERVICE_PAGES.find((p) => p.slug === slug)
 

@@ -1,5 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { ScrollTrigger } from '../animations/gsap'
+import { AnimatePresence, m } from 'framer-motion'
+import { MethodPlate } from '../components/illustrations/MethodPlates'
 import { MaskReveal, Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
 import { APPROACH_INTRO, APPROACH_STEPS } from '../data/approach'
@@ -53,17 +55,40 @@ export function Approach({ numeral = numeralOf('approach'), headingLevel = 'h2',
       <div className="mt-8 md:mt-10 desk:mt-12 desk:grid desk:grid-cols-12 desk:gap-8">
         {/* The rolling numeral and the closing gap — tablet and up */}
         <div aria-hidden className="hidden desk:sticky desk:top-[22svh] desk:col-span-5 desk:block desk:self-start">
-          <div className="line-mask font-display text-[clamp(5rem,2rem+6vw,8.5rem)] leading-[0.85] text-terracotta">
-            <div className="h-[0.85em] overflow-hidden">
-              <div
-                className="transition-transform duration-[900ms] ease-(--ease-out-expo)"
-                style={{ transform: `translateY(${-active * 0.85}em)` }}
-              >
-                {APPROACH_STEPS.map((s) => (
-                  <div key={s.id} className="h-[0.85em] tabular-nums">
-                    {s.index}
-                  </div>
-                ))}
+          {/* The numeral rolls to the step being read; its name settles in beside it */}
+          <div className="flex items-end gap-5">
+            <div className="line-mask font-display text-[clamp(5rem,2rem+6vw,8.5rem)] leading-[0.85] text-terracotta">
+              <div className="h-[0.85em] overflow-hidden">
+                <div
+                  className="transition-transform duration-[900ms] ease-(--ease-out-expo)"
+                  style={{ transform: `translateY(${-active * 0.85}em)` }}
+                >
+                  {APPROACH_STEPS.map((s) => (
+                    <div key={s.id} className="h-[0.85em] tabular-nums">
+                      {s.index}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="mb-2 min-w-0">
+              <p className="label text-[0.625rem] text-ink-muted">
+                Step <span className="tabular-nums">{APPROACH_STEPS[active].index}</span> of{' '}
+                <span className="tabular-nums">{String(APPROACH_STEPS.length).padStart(2, '0')}</span>
+              </p>
+              <div className="line-mask mt-1.5">
+                <AnimatePresence mode="wait" initial={false}>
+                  <m.p
+                    key={APPROACH_STEPS[active].id}
+                    className="font-display text-[clamp(1.5rem,1rem+1vw,2rem)] leading-none italic text-ink"
+                    initial={reducedMotion ? false : { y: '110%' }}
+                    animate={{ y: '0%' }}
+                    exit={reducedMotion ? { opacity: 0, transition: { duration: 0 } } : { y: '-110%', transition: { duration: 0.3, ease: [0.76, 0, 0.24, 1] } }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {APPROACH_STEPS[active].name}
+                  </m.p>
+                </AnimatePresence>
               </div>
             </div>
           </div>
@@ -89,6 +114,9 @@ export function Approach({ numeral = numeralOf('approach'), headingLevel = 'h2',
               <span>Growth</span>
             </p>
           </div>
+
+          {/* What this step looks like — a small plate that draws itself in as the step arrives */}
+          <MethodPlate step={APPROACH_STEPS[active]} total={APPROACH_STEPS.length} reducedMotion={reducedMotion} className="mt-8 w-full max-w-[min(16rem,40svh)]" />
         </div>
 
         <ol className="md:grid md:grid-cols-2 md:gap-x-8 desk:col-span-6 desk:col-start-7 desk:block">

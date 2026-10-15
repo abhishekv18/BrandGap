@@ -1,3 +1,4 @@
+import { SYMBOL_NOW } from '../utils/currency'
 /**
  * Lead-magnet tools (brief §6). Structure only — BrandGap supplies the
  * question set, scoring logic and calculator assumptions.
@@ -45,10 +46,10 @@ export const ROAS_CALCULATOR = {
   note: 'An arithmetic estimate from your own inputs not a forecast or a BrandGap result.',
   confirmed: false,
   inputs: [
-    { id: 'adSpend', label: 'Monthly ad spend', prefix: '₹', placeholder: 'e.g. 100000', step: 1000 },
-    { id: 'aov', label: 'Average order value (AOV)', prefix: '₹', placeholder: 'e.g. 1500', step: 50 },
+    { id: 'adSpend', label: 'Monthly ad spend', prefix: SYMBOL_NOW, placeholder: 'e.g. 100000', step: 1000 },
+    { id: 'aov', label: 'Average order value (AOV)', prefix: SYMBOL_NOW, placeholder: 'e.g. 1500', step: 50 },
     { id: 'conversionRate', label: 'Conversion rate', suffix: '%', placeholder: 'e.g. 2', step: 0.1 },
-    { id: 'cpc', label: 'Cost per click (assumption)', prefix: '₹', placeholder: 'e.g. 12', step: 0.5 },
+    { id: 'cpc', label: 'Cost per click (assumption)', prefix: SYMBOL_NOW, placeholder: 'e.g. 12', step: 0.5 },
     { id: 'margin', label: 'Gross margin (assumption)', suffix: '%', placeholder: 'e.g. 60', step: 1 },
   ],
 }

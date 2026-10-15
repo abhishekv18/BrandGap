@@ -135,7 +135,7 @@ export function Work() {
               <div
                 key={project.slug}
                 data-card
-                className={`w-[min(34vw,56svh)] shrink-0 ${i % 2 ? 'translate-y-[4svh]' : '-translate-y-[3svh]'}`}
+                className="w-[min(34vw,56svh)] shrink-0"
               >
                 <CaseCard project={project} onExpand={setOpen} {...PLATES[i % PLATES.length]} />
               </div>
@@ -164,7 +164,6 @@ export function Work() {
                 project={project}
                 onExpand={setOpen}
                 frame={!reducedMotion}
-                className={i % 2 ? 'mt-16' : ''}
                 {...PLATES[i % PLATES.length]}
               />
             ))}
@@ -185,11 +184,10 @@ export function Work() {
               project={project}
               onExpand={setOpen}
               frame={!reducedMotion}
-              className={i % 2 ? 'md:mt-16' : ''}
               {...PLATES[i % PLATES.length]}
             />
           ))}
-          <AllWorkCard count={PUBLISHED_PROJECTS.length} className={`min-h-48 ${projects.length % 2 ? 'md:mt-16' : ''}`} />
+          <AllWorkCard count={PUBLISHED_PROJECTS.length} className="min-h-48" />
         </div>
       )}
 

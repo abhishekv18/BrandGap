@@ -1,3 +1,4 @@
+import { localizeDeep } from '../utils/currency'
 /**
  * Case studies: the homepage cards, /portfolio and each /portfolio/[slug] page.
  *
@@ -58,7 +59,8 @@ export const WORK_INTRO = {
 
 const ADS_PERIOD = 'Meta Ads Manager account total · 8 Sep 2023 – 8 Oct 2026'
 
-export const PROJECTS = [
+// Rupee figures are shown in the visitor's currency (utils/currency.js).
+export const PROJECTS = localizeDeep([
   /* ------------------------------------------------------------------ */
   {
     slug: 'the-decorshed',
@@ -84,8 +86,8 @@ export const PROJECTS = [
       result: '10,945+ purchases from ₹37.64L+ Meta ad spend, with 28.89M+ impressions and 13.21M+ reach (Ads Manager account total).',
     },
     image: {
-      src: '/work/decorshed-main-1600.webp',
-      srcSet: '/work/decorshed-main-800.webp 800w, /work/decorshed-main-1600.webp 1600w',
+      src: '/work/decorshed-main-v2-1600.webp',
+      srcSet: '/work/decorshed-main-v2-800.webp 800w, /work/decorshed-main-v2-1600.webp 1600w',
       width: 1600,
       height: 900,
       position: 'top',
@@ -184,20 +186,6 @@ export const PROJECTS = [
           alt: 'Meta Ads Manager — The Decorshed campaigns, with an account total of ₹37,64,141.80 spent, 28,891,728 impressions, 13,215,042 reach and 10,945 purchases.',
         },
         caption: 'Meta Ads Manager — campaign view with the account-level total row (8 Sep 2023 – 8 Oct 2026). Supplied by BrandGap.',
-      },
-      {
-        type: 'cards',
-        label: 'Campaign winners',
-        headline: 'Scale and efficiency,',
-        emphasis: 'campaign by campaign.',
-        intro: 'Campaign-level figures from the supplied campaign export.',
-        items: [
-          { kicker: '5.84x ROAS', title: 'Lookalike Audience', meta: '85 purchases · ₹14.54K spend · ₹84.97K attributed value', body: 'One of the strongest efficiency performers in the account, generating 5.84x return while acquiring 85 purchases from ₹14.5K in spend.' },
-          { kicker: '5.20x ROAS', title: 'Advantage+ Sales', meta: '196 purchases · ₹95.05K spend · ₹4.94L attributed value', body: 'An automated acquisition structure generated 196 purchases at a 5.20x ROAS, showing the value of combining scale-oriented automation with strong product demand.' },
-          { kicker: '4.25x ROAS', title: 'Retargeting', meta: '568 purchases · ₹2.28L spend · ₹9.69L attributed value', body: 'Dedicated retargeting converted high-intent users efficiently, generating 568 purchases at a 4.25x ROAS.' },
-          { kicker: '3.70x ROAS', title: 'Lookalike CBO', meta: '1,404 purchases · ₹4.31L spend · ₹15.93L attributed value', body: 'One of the strongest scale stories in the account, delivering 1,404 purchases while maintaining a 3.70x ROAS.' },
-          { kicker: '3.14x ROAS', title: 'Customer Audience', meta: '1,432 purchases · ₹3.50L spend · ₹10.98L attributed value', body: 'The highest-purchase campaign in the supplied export, generating 1,432 purchases at a 3.14x ROAS.' },
-        ],
       },
       {
         type: 'intro',
@@ -299,12 +287,12 @@ export const PROJECTS = [
       result: '3,689+ purchases and ₹41.68L+ Meta-attributed purchase value from ₹12.23L+ ad spend — 3.41x purchase ROAS (Ads Manager account snapshot).',
     },
     image: {
-      src: '/work/vibha-cover-1600.webp',
-      srcSet: '/work/vibha-cover-800.webp 800w, /work/vibha-cover-1600.webp 1600w',
+      src: '/work/vibha-cover-v2-1600.webp',
+      srcSet: '/work/vibha-cover-v2-800.webp 800w, /work/vibha-cover-v2-1600.webp 1600w',
       width: 1600,
       height: 900,
       position: 'center',
-      alt: 'Vibha Designs website — Rakshak, a guided Hanuman Chalisa journal',
+      alt: 'Vibha Designs website — the Hanuman Sadhna Kit: journals, practice and devotion',
     },
     gallery: [
       {
@@ -411,23 +399,6 @@ export const PROJECTS = [
         },
         caption:
           'Meta Ads Manager — campaign view with the account-level total row (4 Sep 2023 – 4 Oct 2026). Supplied by BrandGap. The campaign cards below come from a later campaign export, so individual rows differ slightly.',
-      },
-      {
-        type: 'cards',
-        label: 'Campaign winners',
-        headline: 'Where scale and efficiency',
-        emphasis: 'met.',
-        intro: 'Campaign-level figures from the supplied campaign export.',
-        items: [
-          { kicker: '3.80x ROAS', title: 'Likhit Japa', meta: '1,068 purchases · ₹2.22L spend · ₹8.44L attributed value', body: 'The largest purchase-volume campaign in the supplied export, turning a focused product proposition into more than 1,000 purchases.' },
-          { kicker: '3.82x ROAS', title: 'Rakshak', meta: '732 purchases · ₹3.05L spend · ₹11.64L attributed value', body: 'A major scale driver, producing 732 purchases and more than ₹11.6L in Meta-attributed purchase value at 3.82x ROAS.' },
-          { kicker: '4.02x ROAS', title: 'Shop All', meta: '547 purchases · ₹2.03L spend · ₹8.19L attributed value', body: 'One of the strongest scale performers in the account, delivering 547 purchases while maintaining a 4.02x ROAS.' },
-          { kicker: '3.96x ROAS', title: 'Re-Targeting', meta: '357 purchases · ₹1.36L spend · ₹5.40L attributed value', body: 'Retargeting brought high-intent users back into the purchase journey, generating 357 purchases at 3.96x ROAS.' },
-          { kicker: '4.16x ROAS', title: 'Jayanti Sales', meta: '23 purchases · ₹11,022.88 spend · ₹45,824.50 attributed value', body: 'A seasonal sales campaign built around a relevant cultural moment, producing 23 purchases at more than 4x ROAS.' },
-          { kicker: '6.86x ROAS', title: 'Rakshak · Mother’s Day', meta: '7 purchases · ₹2,269.84 spend · ₹15,576.25 attributed value', body: 'A small but highly efficient thematic campaign, showing how a relevant product moment can unlock strong purchase economics.' },
-          { kicker: '3.30x ROAS', title: 'Shivaank ABO', meta: '38 purchases · ₹22.92K spend · ₹75.70K attributed value', body: 'A focused product campaign for Shivaank generated 38 purchases at 3.30x ROAS.' },
-          { kicker: '3.17x ROAS', title: 'Likhit Japa (earlier)', meta: '144 purchases · ₹55.31K spend · ₹1.75L attributed value', body: 'An earlier Likhit Japa campaign also delivered 144 purchases at 3.17x ROAS, showing repeatability around the product.' },
-        ],
       },
       {
         type: 'ledger',
@@ -860,7 +831,7 @@ export const PROJECTS = [
     },
     tone: 'ink',
   },
-]
+])
 
 /** Content Brief §07 — "More work" cards. No metrics are given for these, so none are shown. */
 export const MORE_WORK = [

@@ -4,6 +4,7 @@ import { useParams } from 'react-router'
 import { gsap } from '../animations/gsap'
 import { BrowserFrame } from '../components/BrowserFrame'
 import { EditorialBlocks } from '../components/EditorialBlocks'
+import { CASE_REVIEWS } from '../data/testimonials'
 import { Copy, isPlaceholder } from '../components/Copy'
 import { MetricsPanel, toKpi } from '../components/MetricsPanel'
 import { PageHero } from '../components/PageHero'
@@ -26,6 +27,7 @@ export default function CaseStudy() {
 }
 
 /** "Visit website" — a real link once the URL is set, a marked placeholder until then. */
+// eslint-disable-next-line no-unused-vars -- kept for later: no longer shown in the case header
 function VisitWebsite({ project }) {
   if (project.website === null) return null
   const live = project.website && !isPlaceholder(project.website)
@@ -109,6 +111,12 @@ function Case({ project }) {
     return () => ctx.revert()
   }, [reducedMotion])
 
+  const review = CASE_REVIEWS[project.slug]
+  // The review sits after the fifth numbered chapter of the story.
+  const story = project.story ?? []
+  let seen = 0
+  const at = story.findIndex((b) => b.label && ++seen === 5)
+  const cut = at === -1 ? story.length : at + 1
   const i = PUBLISHED_PROJECTS.indexOf(project)
   const next = PUBLISHED_PROJECTS[(i + 1) % PUBLISHED_PROJECTS.length]
 
@@ -122,9 +130,9 @@ function Case({ project }) {
         ]}
         lead={<Copy value={project.client} tone="inherit" />}
         line={project.statement}
-        intro={<Copy value={project.summary} />}
+        className="pb-6! md:pb-8!"
       >
-        <div className="mt-8 flex flex-col items-center gap-5 md:flex-row md:items-center md:justify-between">
+        <div className="mt-6 flex flex-col items-center gap-5 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap justify-center gap-2 md:justify-start">
             <span className="label rounded-full border border-line px-3 py-1 text-[0.6875rem] text-ink-soft">
               <Copy value={project.category} tone="inherit" />
@@ -135,14 +143,27 @@ function Case({ project }) {
               </span>
             ))}
           </div>
-          <VisitWebsite project={project} />
         </div>
       </PageHero>
 
       {/* 2 — The main visual: the real website. Cases without approved imagery go straight to the figures. */}
       {project.image && (
         <div className="container-page">
-          <BrowserFrame image={project.image} address={address} sizes="(min-width: 1440px) 1344px, 100vw" priority />
+          {/* The banner opens the client's live website */}
+          {project.website && !isPlaceholder(project.website) ? (
+            <a
+              href={project.website}
+              target="_blank"
+              rel="noreferrer"
+              data-cursor="view"
+              aria-label={`Visit ${project.client}'s website (opens in a new tab)`}
+              className="group block transition-transform duration-700 ease-(--ease-out-expo) hover:-translate-y-1"
+            >
+              <BrowserFrame image={project.image} address={address} sizes="(min-width: 1440px) 1344px, 100vw" priority />
+            </a>
+          ) : (
+            <BrowserFrame image={project.image} address={address} sizes="(min-width: 1440px) 1344px, 100vw" priority />
+          )}
         </div>
       )}
 
@@ -177,7 +198,10 @@ function Case({ project }) {
       </section>
 
       {/* 4 — The story, from the case-study handoff */}
-      <EditorialBlocks blocks={project.story ?? []} />
+      {/* The story, with the client's word after its fifth chapter */}
+      <EditorialBlocks blocks={story.slice(0, cut)} />
+      {review && <CaseReview review={review} />}
+      <EditorialBlocks blocks={story.slice(cut)} start={5} />
 
       {/* 5 — The website, when real screenshots exist: the page's ink showcase, a gallery wall */}
       {gallery.length > 0 && (
@@ -216,5 +240,34 @@ function Case({ project }) {
 
       <FinalCta numeral={null} headline={project.closing?.headline} body={project.closing?.body} />
     </div>
+  )
+}
+
+/** The client's word: a small quote card on a white ground, between the story's chapters. */
+function CaseReview({ review }) {
+  return (
+    <section aria-label="Client review" className="container-page pb-12 md:pb-16">
+      <Reveal as="figure" className="relative mx-auto max-w-3xl rounded-[0.625rem] border border-line bg-white px-6 py-7 text-center shadow-[0_30px_60px_-45px_rgba(28,18,22,0.35)] md:px-12 md:py-10">
+        <span aria-hidden className="block font-display text-[3.5rem] leading-[0.6] text-terracotta">
+          &ldquo;
+        </span>
+        <blockquote className="mx-auto mt-4 max-w-[46ch] font-display text-h3 leading-[1.3] tracking-[-0.015em] text-ink">
+          {review.quote}
+        </blockquote>
+        <figcaption className="mt-6 flex flex-col items-center gap-1">
+          <span aria-hidden className="mb-3 h-px w-10 bg-terracotta" />
+          <span className="font-display text-lg">{review.name}</span>
+          <span className="label text-[0.625rem] text-ink-muted">
+            {review.role} · {review.company}
+          </span>
+          {review.demo && (
+            <span className="label mt-3 flex items-center gap-2 text-[0.5625rem] text-ink-muted/80">
+              <span aria-hidden className="size-1 rounded-full bg-terracotta" />
+              Draft — awaiting client approval
+            </span>
+          )}
+        </figcaption>
+      </Reveal>
+    </section>
   )
 }

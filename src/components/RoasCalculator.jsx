@@ -1,3 +1,4 @@
+import { SYMBOL_NOW } from '../utils/currency'
 import { useMemo, useState } from 'react'
 import { ROAS_CALCULATOR } from '../data/tools'
 import { calculateRoas } from '../utils/roas'
@@ -14,7 +15,7 @@ export function RoasCalculator() {
   const set = (id) => (e) => setValues((v) => ({ ...v, [id]: e.target.value }))
 
   const results = [
-    { id: 'revenue', label: 'Estimated revenue', value: out.revenue != null ? `₹${inr(out.revenue)}` : null },
+    { id: 'revenue', label: 'Estimated revenue', value: out.revenue != null ? `${SYMBOL_NOW}${inr(out.revenue)}` : null },
     { id: 'roas', label: 'Estimated ROAS', value: out.roas != null ? `${inr(out.roas, 2)}X` : null },
     { id: 'orders', label: 'Estimated orders', value: out.orders != null ? inr(out.orders) : null },
     { id: 'breakEven', label: 'Break-even ROAS', value: out.breakEvenRoas != null ? `${inr(out.breakEvenRoas, 2)}X` : null },

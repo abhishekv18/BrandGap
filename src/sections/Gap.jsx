@@ -172,7 +172,7 @@ function GapScroll() {
         <SectionLabel numeral={numeralOf('gap')} name="The gap" className="container-page absolute inset-x-0 top-20 md:top-28 md:!justify-center desk:!justify-start" />
 
         {/* Opening statement */}
-        <div data-statement className="container-page absolute inset-0 flex flex-col justify-start pt-32 text-center md:pt-48 desk:justify-center desk:pt-0 desk:text-left">
+        <div data-statement className="container-page absolute inset-0 flex flex-col justify-start pt-32 text-center md:pt-48 desk:justify-center desk:pt-36 desk:pb-8 desk:text-left">
           <Statement />
           <GapDiagram className="mt-6 md:mt-8" />
           <Between className="mt-6 text-sm md:mt-8 md:text-base" />

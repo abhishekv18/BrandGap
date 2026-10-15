@@ -46,5 +46,28 @@ export const TESTIMONIALS = [
   },
 ]
 
+/**
+ * The client's word on each case-study page (by project slug). DRAFT — proposed wording,
+ * shown with an "awaiting client approval" note while `demo: true`.
+ */
+export const CASE_REVIEWS = {
+  'the-decorshed': { ...TESTIMONIALS[0] },
+  'vibha-designs': { ...TESTIMONIALS[1] },
+  'healer-priya-agrawal': {
+    demo: true,
+    quote: 'BrandGap helped us build a real presence from zero, with content, a community and a store that all work together.',
+    name: 'Priya Agrawal',
+    role: 'Founder',
+    company: 'Healer of the Ages',
+  },
+  'ambaji-marble-house': {
+    demo: true,
+    quote: 'Our ads finally brought real enquiries. Customers now message us directly about the stone they want.',
+    name: 'Ambaji Marble House',
+    role: 'Owner',
+    company: 'Marble & Granite',
+  },
+}
+
 /** True while any testimonial is still draft content. */
 export const HAS_DEMO_TESTIMONIALS = TESTIMONIALS.some((t) => t.demo)

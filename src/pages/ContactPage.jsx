@@ -1,5 +1,5 @@
 import { AnimatePresence, m } from 'framer-motion'
-import { ArrowRight, ArrowUpRight, Check } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, CalendarDays, Check, Mail, Phone } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { BookingCalendar } from '../components/BookingCalendar'
 import { Copy } from '../components/Copy'
@@ -9,7 +9,7 @@ import { MagneticButton } from '../components/MagneticButton'
 import { PageHero } from '../components/PageHero'
 import { Reveal } from '../components/Reveal'
 import { SectionLabel } from '../components/SectionLabel'
-import { whatsappHref } from '../components/WhatsAppButton'
+import { WhatsAppGlyph, whatsappHref } from '../components/WhatsAppButton'
 import { BOOKING, CONTACT, FORM_OPTIONS, NEXT_STEPS } from '../data/contact'
 import { useHrefClick } from '../hooks/useHrefClick'
 import { breadcrumbLd, useSeo } from '../hooks/useSeo'
@@ -20,12 +20,8 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 // Missing client details show as labelled placeholders while developing, and stay hidden on the live site.
 const SHOW_PLACEHOLDERS = import.meta.env.DEV
 
-/** The three parts of the form, and the required fields that complete each. */
-const STEPS = [
-  { title: 'About you', note: 'So we know who we’re talking to.', fields: ['name', 'email'] },
-  { title: 'Your brand', note: 'Where the brand is today.', fields: ['brand'] },
-  { title: 'What you need', note: 'What you’d like help with, and the scope.', fields: ['service', 'budget'] },
-]
+/** The required answers — the progress line fills as each one is given. */
+const REQUIRED = ['name', 'email', 'service', 'budget']
 
 /** Human messages for the required fields. Nothing the visitor typed is ever cleared. */
 function check(form) {
@@ -34,8 +30,7 @@ function check(form) {
   if (!v('name')) errors.name = 'Please tell us your name.'
   if (!v('email')) errors.email = 'Please add your email address.'
   else if (!EMAIL.test(v('email'))) errors.email = 'Please enter a valid email address.'
-  if (!v('brand')) errors.brand = 'Please add your brand name or website.'
-  if (!v('service')) errors.service = 'Please choose a service.'
+  if (!form.querySelector('input[name="service"]:checked')) errors.service = 'Please choose at least one service.'
   if (!v('budget')) errors.budget = 'Please choose a budget range.'
   return errors
 }
@@ -43,7 +38,7 @@ function check(form) {
 const Optional = () => <span className="tracking-normal normal-case text-ink-muted"> (optional)</span>
 
 /** A set of choices as quiet pills — native radios underneath, so keyboard and screen readers just work. */
-function Choices({ name, legend, options, required, hint, error }) {
+function Choices({ name, legend, options, required, hint, error, multiple = false }) {
   const id = `f-${name}`
   const describedBy = [hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(' ') || undefined
   return (
@@ -67,7 +62,7 @@ function Choices({ name, legend, options, required, hint, error }) {
       <div className="mt-3 flex flex-wrap gap-2">
         {options.map((option) => (
           <label key={option} className="relative">
-            <input type="radio" name={name} value={option} aria-invalid={error ? 'true' : undefined} className="peer absolute inset-0 opacity-0" />
+            <input type={multiple ? 'checkbox' : 'radio'} name={name} value={option} aria-invalid={error ? 'true' : undefined} className="peer absolute inset-0 opacity-0" />
             <span className="label inline-flex min-h-11 items-center gap-2 rounded-full border border-ink/15 bg-cream/70 px-4 text-[0.6875rem] text-ink transition-[background-color,border-color,color] duration-300 peer-hover:border-ink/40 peer-hover:bg-white peer-checked:border-ink peer-checked:bg-ink peer-checked:text-cream peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-terracotta peer-aria-[invalid=true]:border-terracotta/60 [&>svg]:hidden peer-checked:[&>svg]:block">
               <Check aria-hidden strokeWidth={2.25} className="size-3.5" />
               {option}
@@ -80,30 +75,6 @@ function Choices({ name, legend, options, required, hint, error }) {
           {error}
         </p>
       )}
-    </fieldset>
-  )
-}
-
-/** One part of the form: a numbered heading, a one-line reason, then its fields. */
-function Step({ index, done, children }) {
-  const step = STEPS[index]
-  return (
-    <fieldset className={`min-w-0 ${index ? 'border-t border-line pt-7 md:pt-9' : ''}`}>
-      <legend className="sr-only">
-        Step {index + 1} of {STEPS.length}: {step.title}
-      </legend>
-      <div aria-hidden className="flex items-center gap-4 text-left">
-        <span
-          className={`label flex size-9 shrink-0 items-center justify-center rounded-full border text-[0.6875rem] tabular-nums transition-colors duration-500 ${done ? 'border-terracotta bg-terracotta text-cream' : 'border-ink/20 bg-white text-terracotta'}`}
-        >
-          {done ? <Check strokeWidth={2.25} className="size-4" /> : `0${index + 1}`}
-        </span>
-        <span>
-          <span className="block font-display text-h3 leading-tight tracking-[-0.02em]">{step.title}</span>
-          <span className="mt-0.5 block text-sm text-ink-muted">{step.note}</span>
-        </span>
-      </div>
-      <div className="mt-6 grid gap-5 sm:grid-cols-2 md:gap-6">{children}</div>
     </fieldset>
   )
 }
@@ -154,14 +125,41 @@ function Sent({ wa }) {
   )
 }
 
-/** A row in "Other ways to connect" / "Follow BrandGap": name, what it's best for, and the way in. */
-function WayRow({ name, best, action, href, external, onClick, placeholder, plain = false }) {
+/** LinkedIn's mark (lucide carries no brand icons). */
+function LinkedInGlyph({ className = '' }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className={className} fill="currentColor">
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+    </svg>
+  )
+}
+
+const WAY_ICONS = {
+  whatsapp: <WhatsAppGlyph className="size-[1.125rem]" />,
+  email: <Mail strokeWidth={1.5} className="size-[1.125rem]" />,
+  phone: <Phone strokeWidth={1.5} className="size-[1.125rem]" />,
+  booking: <CalendarDays strokeWidth={1.5} className="size-[1.125rem]" />,
+  linkedin: <LinkedInGlyph className="size-4" />,
+}
+
+/** A row in "Other ways to connect" / "Follow BrandGap": icon and name, what it's best for, and the way in. */
+function WayRow({ id, name, best, action, href, external, onClick, placeholder, plain = false }) {
   const hrefClick = useHrefClick()
   const body = (
     <>
-      <span className="font-display text-h3 tracking-[-0.02em] md:col-span-3">{name}</span>
-      <span className="text-ink-soft md:col-span-5">{best}</span>
-      <span className="flex items-center gap-3 break-all md:col-span-4 md:justify-end">
+      <span className="flex items-center justify-center gap-4 md:col-span-3 md:justify-start">
+        {WAY_ICONS[id] && (
+          <span
+            aria-hidden
+            className="flex size-11 shrink-0 items-center justify-center rounded-full border border-line text-terracotta transition-[background-color,border-color,color] duration-500 group-hover:border-terracotta group-hover:bg-terracotta group-hover:text-cream"
+          >
+            {WAY_ICONS[id]}
+          </span>
+        )}
+        <span className="font-display text-h3 tracking-[-0.02em]">{name}</span>
+      </span>
+      <span className="text-ink-soft md:order-3 md:col-span-4 md:col-start-9">{best}</span>
+      <span className="flex items-center justify-center gap-3 break-all md:order-2 md:col-span-4 md:col-start-5 md:justify-start">
         {placeholder ? (
           <span className="text-sm text-ink-muted">
             <Copy value={placeholder} />
@@ -180,7 +178,7 @@ function WayRow({ name, best, action, href, external, onClick, placeholder, plai
       </span>
     </>
   )
-  const row = 'group grid gap-2 border-b border-line py-6 text-center md:grid-cols-12 md:items-baseline md:gap-6 md:text-left'
+  const row = 'group grid items-center gap-3 border-b border-line py-5 text-center md:grid-cols-12 md:gap-6 md:text-left'
   if (placeholder) return <li className={`${row} opacity-70`}>{body}</li>
   return (
     <li>
@@ -207,12 +205,12 @@ function WayRow({ name, best, action, href, external, onClick, placeholder, plai
 export default function ContactPage() {
   const [tried, setTried] = useState(false)
   const [live, setLive] = useState(null)
-  const [done, setDone] = useState([false, false, false])
+  const [done, setDone] = useState(0)
   // ~4.5s after a send the thank-you gives way to a fresh, empty form (progress and errors cleared too).
   const onReset = useCallback(() => {
     setTried(false)
     setLive(null)
-    setDone([false, false, false])
+    setDone(0)
   }, [])
   const { status, errors, onSubmit } = useLeadForm('project-enquiry', { extraValidate: check, onReset })
   const wa = whatsappHref()
@@ -245,7 +243,7 @@ export default function ContactPage() {
   const onInput = useCallback(
     (e) => {
       const found = check(e.currentTarget)
-      setDone(STEPS.map((s) => s.fields.every((f) => !found[f])))
+      setDone(REQUIRED.filter((f) => !found[f]).length)
       if (tried) setLive(found)
     },
     [tried],
@@ -309,33 +307,24 @@ export default function ContactPage() {
                   className="mt-8 overflow-hidden rounded-[1rem] border border-ink/10 bg-white/55 shadow-[0_40px_80px_-50px_rgba(28,18,22,0.35)] md:mt-10"
                   aria-describedby="form-required"
                 >
-                  {/* Card header: what this is, how long it takes, and where you are */}
+                  {/* Card header: what this is, how long it takes, and how far along you are */}
                   <div className="border-b border-line bg-blush/45 px-5 py-5 sm:px-8 md:px-10">
                     <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 text-left">
                       <p className="label text-ink">Project enquiry</p>
-                      <p className="label text-[0.6875rem] text-ink-muted">3 short steps · about 2 minutes</p>
+                      <p className="label text-[0.6875rem] text-ink-muted">
+                        About 2 minutes · <span className="tabular-nums text-terracotta">{done}</span>/{REQUIRED.length} required
+                      </p>
                     </div>
-                    <div aria-hidden className="mt-4 grid grid-cols-3 gap-2">
-                      {STEPS.map((s, i) => (
-                        <span key={s.title} className="flex flex-col gap-2">
-                          <span className="relative h-1 overflow-hidden rounded-full bg-ink/10">
-                            <span
-                              className="absolute inset-0 origin-left rounded-full bg-terracotta transition-transform duration-700 ease-(--ease-out-expo)"
-                              style={{ transform: `scaleX(${done[i] ? 1 : 0})` }}
-                            />
-                          </span>
-                          <span className={`label text-left text-[0.625rem] transition-colors duration-500 ${done[i] ? 'text-ink' : 'text-ink-muted'}`}>
-                            0{i + 1}
-                            <span className="hidden sm:inline"> · {s.title}</span>
-                          </span>
-                        </span>
-                      ))}
-                    </div>
+                    <span aria-hidden className="relative mt-4 block h-1 overflow-hidden rounded-full bg-ink/10">
+                      <span
+                        className="absolute inset-0 origin-left rounded-full bg-terracotta transition-transform duration-700 ease-(--ease-out-expo)"
+                        style={{ transform: `scaleX(${done / REQUIRED.length})` }}
+                      />
+                    </span>
                   </div>
 
-                  <div className="flex flex-col gap-7 px-5 py-7 sm:px-8 md:gap-9 md:px-10 md:py-10">
+                  <div className="grid gap-5 px-5 py-7 sm:grid-cols-2 sm:px-8 md:gap-x-6 md:gap-y-7 md:px-10 md:py-10">
 
-                  <Step index={0} done={done[0]}>
                     <Field name="name" label="Your name" autoComplete="name" required error={shown.name} boxed />
                     <Field name="email" label="Email" type="email" autoComplete="email" inputMode="email" required error={shown.email} boxed />
                     <Field
@@ -343,7 +332,7 @@ export default function ContactPage() {
                       label={
                         <>
                           Phone / WhatsApp
-                          <Optional />
+                          {/* <Optional /> */}
                         </>
                       }
                       type="tel"
@@ -351,18 +340,17 @@ export default function ContactPage() {
                       inputMode="tel"
                       boxed
                     />
-                  </Step>
-
-                  <Step index={1} done={done[1]}>
                     <Field
                       name="brand"
-                      label="Brand name or website"
+                      label={
+                        <>
+                          Brand name or website
+                          <Optional />
+                        </>
+                      }
                       autoComplete="url"
                       placeholder="yourbrand.com"
-                      required
-                      error={shown.brand}
                       hint="Your website helps us understand where the brand is today."
-                      className="sm:col-span-2"
                       boxed
                     />
                     {FORM_OPTIONS.stages ? (
@@ -381,10 +369,7 @@ export default function ContactPage() {
                         boxed
                       />
                     )}
-                  </Step>
-
-                  <Step index={2} done={done[2]}>
-                    <Choices name="service" legend="Service needed" options={FORM_OPTIONS.services} required error={shown.service} />
+                    <Choices name="service" legend="Services needed" options={FORM_OPTIONS.services} required multiple hint="Choose all that apply." error={shown.service} />
                     <Choices
                       name="budget"
                       legend="Monthly budget range"
@@ -406,8 +391,6 @@ export default function ContactPage() {
                       className="sm:col-span-2"
                       boxed
                     />
-                  </Step>
-
                   </div>
 
                   <div className="flex flex-col items-center gap-4 border-t border-line bg-cream/60 px-5 py-6 sm:flex-row sm:justify-between sm:px-8 md:px-10">
@@ -528,7 +511,7 @@ export default function ContactPage() {
           </div>
           <ul className="mt-6 border-t border-line md:mt-8">
             {socials.map((s) => (
-              <WayRow key={s.id} name={s.label} best={s.note ?? ''} action="Follow" href={s.href} external placeholder={s.href ? null : s.placeholder} />
+              <WayRow key={s.id} id={s.id} name={s.label} best={s.note ?? ''} action="Follow" href={s.href} external placeholder={s.href ? null : s.placeholder} />
             ))}
           </ul>
         </section>
