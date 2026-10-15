@@ -96,11 +96,21 @@ export function WhatsAppButton() {
             {...props}
             onClick={onClick}
             aria-label="Chat with BrandGap on WhatsApp"
-            className="group flex h-13 items-center gap-0 overflow-hidden rounded-full bg-[#25D366] pr-3.5 pl-3.5 text-white shadow-[0_14px_30px_-12px_rgba(18,140,126,0.55),0_0_0_1px_rgb(255_255_255/0.25)] transition-[background-color,gap,padding,box-shadow] duration-500 ease-(--ease-out-expo) hover:gap-2 hover:bg-[#1EBE5A] hover:pr-5 focus-visible:gap-2 focus-visible:pr-5"
+            className="group relative flex items-center"
           >
-            <WhatsAppGlyph className="size-6 shrink-0" />
-            <span className="label max-w-0 overflow-hidden text-[0.6875rem] whitespace-nowrap transition-[max-width] duration-500 ease-(--ease-out-expo) group-hover:max-w-24 group-focus-visible:max-w-24">
-              WhatsApp
+            {/* Hover: a small ink label slides out to the left, in the site's own type */}
+            <span
+              aria-hidden
+              className="label pointer-events-none absolute right-[calc(100%+0.75rem)] flex items-center gap-2 rounded-full bg-[#140D10] px-4 py-2.5 text-[0.625rem] whitespace-nowrap text-cream opacity-0 shadow-[0_12px_28px_-14px_rgba(20,13,16,0.6)] transition-[opacity,translate] duration-500 ease-(--ease-out-expo) translate-x-2 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
+            >
+              <span className="size-1.5 rounded-full bg-[#25D366]" />
+              Chat on WhatsApp
+            </span>
+            {/* The button: WhatsApp's green, recognisable at a glance, set in a cream ring so it sits on the paper */}
+            <span className="relative flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_0_0_4px_rgb(244_233_225/0.9),0_16px_32px_-12px_rgba(20,13,16,0.45)] transition-[transform,background-color] duration-500 ease-(--ease-out-expo) group-hover:scale-105 group-hover:bg-[#1FBF5B]">
+              {/* A slow, quiet pulse — off for reduced motion */}
+              <span aria-hidden className="absolute inset-0 animate-[wa-pulse_2.8s_ease-out_infinite] rounded-full border border-[#25D366] motion-reduce:hidden" />
+              <WhatsAppGlyph className="size-7" />
             </span>
           </Tag>
         </m.div>
