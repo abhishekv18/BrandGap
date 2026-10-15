@@ -107,10 +107,10 @@ export function WhatsAppButton() {
               Chat on WhatsApp
             </span>
             {/* The button: WhatsApp's green, recognisable at a glance, set in a cream ring so it sits on the paper */}
-            <span className="relative flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_0_0_4px_rgb(244_233_225/0.9),0_16px_32px_-12px_rgba(20,13,16,0.45)] transition-[transform,background-color] duration-500 ease-(--ease-out-expo) group-hover:scale-105 group-hover:bg-[#1FBF5B]">
+            <span className="relative flex size-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_0_0_4px_rgb(244_233_225/0.9),0_16px_32px_-12px_rgba(20,13,16,0.45)] transition-[transform,background-color] duration-500 ease-(--ease-out-expo) group-hover:scale-105 group-hover:bg-[#1FBF5B]">
               {/* A slow, quiet pulse — off for reduced motion */}
               <span aria-hidden className="absolute inset-0 animate-[wa-pulse_2.8s_ease-out_infinite] rounded-full border border-[#25D366] motion-reduce:hidden" />
-              <WhatsAppGlyph className="size-7" />
+              <WhatsAppGlyph className="size-6" />
             </span>
           </Tag>
         </m.div>
