@@ -112,14 +112,14 @@ function Readout({ label, value, name, accent = false, compact = false, classNam
 /**
  * The dark numbers panel, shared by the homepage and every case study:
  * a title bar, headline figures that count up, and a graph of cumulative
- * ad spend against purchase value that draws itself upward as you scroll,
+ * ad spend against total sales that draws itself upward as you scroll,
  * with a live readout riding the tip of the line. The caption is always
  * visible.
  *
  *   title       title-bar text
  *   kpis        [{ id, label, value: number, prefix, suffix, decimals }]
  *   graph       { title, xMax, yMax, xTicks, yTicks, points: [{ id, x, y, name?, value?, roas? }] }, or null for figures only.
- *               Options: valueLabel ('Purchase value'), yFormat 'money' | 'count',
+ *               Options: valueLabel ('Total sales'), yFormat 'money' | 'count',
  *               ratio 'roas' | 'cost' (₹ per unit of y), breakEven (true)
  *   caption     the disclaimer under the panel
  *   summary     a sentence describing the graph, for screen readers
@@ -138,7 +138,7 @@ export function MetricsPanel({ title, kpis, graph, caption, summary, roasDigits 
   const fillId = `fill-${uid}`
   const clipId = `reveal-${uid}`
   const counts = graph?.yFormat === 'count'
-  const valueLabel = graph?.valueLabel ?? 'Purchase value'
+  const valueLabel = graph?.valueLabel ?? 'Total sales'
   const ratioLabel = graph?.ratio === 'cost' ? 'Cost / contact' : 'ROAS'
   const breakEven = graph ? graph.breakEven ?? !counts : false
   const fmtY = (v) => (counts ? count(v) : money(v))

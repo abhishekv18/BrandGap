@@ -22,7 +22,7 @@ export const TESTIMONIALS = [
     name: 'The Decorshed',
     role: 'Founder',
     company: 'Home Décor & Lifestyle',
-    result: '3.33X ROAS',
+    result: '5.93X ROAS',
   },
   {
     id: 't-vibha',
@@ -32,7 +32,7 @@ export const TESTIMONIALS = [
     name: 'Vibha Designs',
     role: 'Founder',
     company: 'Spiritual & Devotional D2C',
-    result: '3.41X ROAS',
+    result: '7.32X ROAS',
   },
   {
     id: 't-global-ayurveda',

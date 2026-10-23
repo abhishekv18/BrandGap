@@ -27,7 +27,7 @@ export function Dashboard() {
         kpis={NUMBERS.kpis}
         graph={NUMBERS.graph}
         caption={NUMBERS.disclaimer}
-        summary={localize("Vibha Designs: ₹12.24L+ ad spend, ₹41.68L+ purchase value, 3.41X ROAS. With The Decorshed added: ₹50L+ ad spend, ₹1.68Cr+ purchase value, 3.4X blended ROAS.")}
+        summary={localize("Vibha Designs: ₹12.84L ad spend, ₹93.96L total sales, 7.32X ROAS. With The Decorshed added: ₹50L+ ad spend, ₹3.17Cr+ total sales, 6.3X blended ROAS.")}
       />
     </section>
   )

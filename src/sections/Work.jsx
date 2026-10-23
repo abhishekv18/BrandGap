@@ -105,9 +105,10 @@ export function Work() {
   }, [reducedMotion, horizontal])
 
   return (
-    // On the homepage the work sits on blush: a warm change after the numbers' dark chart panel.
+    // The highlight reel: a warm sand ground (opening and closing as a panel, so it blends into the
+    // cream sections either side), with each case set on a paper sheet for easy reading.
     <section id="work" ref={root} aria-labelledby="work-title" className="isolate section-y">
-      <Ground tone="blush" />
+      <Ground tone="sand" />
       <header className="container-page grid gap-heading-row text-center md:text-left lg:grid-cols-12">
         <div className="lg:col-span-8">
           <SectionLabel numeral={numeralOf('work')} name="Case studies" />
@@ -118,9 +119,9 @@ export function Work() {
             </MaskReveal>
           </h2>
         </div>
-        {WORK_INTRO.line && (
-          <Reveal as="p" delay={0.1} className="self-end font-display text-h3 italic text-ink-soft md:max-w-xl lg:col-span-4">
-            {WORK_INTRO.line}
+        {WORK_INTRO.intro && (
+          <Reveal as="p" delay={0.1} className="mx-auto max-w-xl self-end text-lead text-ink-soft md:mx-0 lg:col-span-4">
+            {WORK_INTRO.intro}
           </Reveal>
         )}
       </header>
@@ -129,7 +130,7 @@ export function Work() {
         <div data-strip className="relative mt-6 h-svh overflow-hidden">
           <div
             data-track
-            className="flex h-full w-max items-center gap-[4vw] pt-16 pb-20 pr-[8vw] pl-[max(3rem,calc((100vw_-_90rem)/2_+_3rem))]"
+            className="flex h-full w-max items-center gap-[2.5vw] pt-16 pb-20 pr-[8vw] pl-[max(3rem,calc((100vw_-_90rem)/2_+_3rem))]"
           >
             {projects.map((project, i) => (
               <div

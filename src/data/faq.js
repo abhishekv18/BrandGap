@@ -112,7 +112,7 @@ export const FAQ_GROUPS = [
         id: 'proof',
         question: 'Are the numbers in your case studies real?',
         answer:
-          'Yes. Our case-study figures come from Meta Ads Manager account totals and campaign exports, labelled with their source. For example, [The Decorshed](/portfolio/the-decorshed) recorded 10,945+ purchases and [Vibha Designs](/portfolio/vibha-designs) a 3.41x purchase ROAS.',
+          'Yes. Our case-study figures come from Meta Ads Manager data and updated performance reports, each labelled with its source. For example, [The Decorshed](/portfolio/the-decorshed) recorded ₹2.23Cr in total sales from 10,300 orders, and [Vibha Designs](/portfolio/vibha-designs) a 7.32x ROAS.',
       },
     ],
   },

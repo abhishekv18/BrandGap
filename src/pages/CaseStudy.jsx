@@ -130,10 +130,12 @@ function Case({ project }) {
         ]}
         lead={<Copy value={project.client} tone="inherit" />}
         line={project.statement}
+        rule={false}
         className="pb-6! md:pb-8!"
       >
-        <div className="mt-6 flex flex-col items-center gap-5 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-wrap justify-center gap-2 md:justify-start">
+        {/* The tags, set to the right under the statement */}
+        <div className="mt-6 flex flex-col items-center gap-5 md:flex-row md:items-center md:justify-end">
+          <div className="flex flex-wrap justify-center gap-2 md:justify-end">
             <span className="label rounded-full border border-line px-3 py-1 text-[0.6875rem] text-ink-soft">
               <Copy value={project.category} tone="inherit" />
             </span>

@@ -3,7 +3,7 @@ import { ScrollTrigger, easeInOutCubic, range } from '../animations/gsap'
 import { useReducedMotion } from '../hooks/useMediaQuery'
 
 // Ink is a literal: inside an ink ground the --color-ink token is remapped to cream (see global.css).
-const TONES = { ink: 'bg-[#1A1A1A]', blush: 'bg-blush' }
+const TONES = { ink: 'bg-[#1A1A1A]', blush: 'bg-blush', sand: 'bg-[#E9D9CE]' }
 const EDGE = 48 // px the ground's top and bottom edges sit in while it's arriving or leaving
 const SIDE = 2.5 // % of the width the sides sit in
 const RADIUS = 28 // px corner radius at the start of the reveal

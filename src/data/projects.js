@@ -54,7 +54,7 @@ export const WORK_INTRO = {
   title: 'Real campaigns.',
   emphasis: 'Real growth. Real numbers.',
   intro:
-    'Four brands, four growth challenges from e-commerce and D2C to personal branding and local leads. All figures are backed by Meta Ads data or client websites.',
+    'Four brands, four growth challenges from e-commerce and D2C to personal branding and local leads. Every figure comes from Meta Ads data, updated performance reports or the client’s own website.',
 }
 
 const ADS_PERIOD = 'Meta Ads Manager account total · 8 Sep 2023 – 8 Oct 2026'
@@ -71,27 +71,28 @@ export const PROJECTS = localizeDeep([
     category: 'Performance Marketing × Social Media',
     industries: ['E-commerce', 'Home Décor'],
     summary:
-      'How BrandGap used performance marketing, audience strategy and campaign iteration to generate 10,945+ purchases from ₹37.64L+ in Meta ad spend across a multi-product ecommerce business.',
+      'How BrandGap used performance marketing, audience strategy and campaign iteration to drive ₹2.23Cr in total sales and 10,300 orders from ₹37.64L+ in Meta ad spend — a 5.93x ROAS across a multi-product ecommerce business.',
     metrics: [
-      { label: 'Purchases', value: '10,945+', note: ADS_PERIOD },
+      { label: 'Total sales', value: '₹2.23Cr', note: 'Updated performance report supplied by BrandGap' },
       { label: 'Ad spend', value: '₹37.64L+', note: ADS_PERIOD },
+      { label: 'Orders', value: '10,300', note: 'Updated performance report supplied by BrandGap' },
+      { label: 'ROAS', value: '5.93X', note: 'Updated performance report supplied by BrandGap' },
       { label: 'Impressions', value: '28.89M+', note: ADS_PERIOD },
-      { label: 'Reach', value: '13.21M+', note: ADS_PERIOD },
     ],
-    highlights: [0, 1, 2],
+    highlights: [0, 2, 3],
     strategy: ['Product-led campaigns', 'Audience testing & expansion', 'Retargeting', 'Continuous iteration', 'Seasonal campaigns', 'Social media management'],
     flow: {
       problem: 'Turning traffic into predictable revenue across a broad home, garden and décor catalogue.',
       strategy: 'Product-led campaigns · Audience testing & expansion · Retargeting · Continuous iteration',
-      result: '10,945+ purchases from ₹37.64L+ Meta ad spend, with 28.89M+ impressions and 13.21M+ reach (Ads Manager account total).',
+      result: '₹2.23Cr total sales and 10,300 orders from ₹37.64L+ Meta ad spend — 5.93x ROAS, ₹2,165 average order value.',
     },
     image: {
-      src: '/work/decorshed-main-v2-1600.webp',
-      srcSet: '/work/decorshed-main-v2-800.webp 800w, /work/decorshed-main-v2-1600.webp 1600w',
+      src: '/work/decorshed-main-v3-1600.webp',
+      srcSet: '/work/decorshed-main-v3-800.webp 800w, /work/decorshed-main-v3-1600.webp 1600w',
       width: 1600,
       height: 900,
       position: 'top',
-      alt: 'The Decorshed website — festive season home décor collection',
+      alt: 'The Decorshed website — premium garden fountains: Bring Nature’s Calm Home',
     },
     gallery: [
       {
@@ -130,11 +131,11 @@ export const PROJECTS = localizeDeep([
       ],
     },
     panelCaption:
-      'Figures: Meta Ads Manager account totals, 8 Sep 2023 – 8 Oct 2026. Graph: the five featured campaigns from the supplied campaign export, cumulative.',
+      'Total sales, orders and ROAS: updated performance report supplied by brandgap. Ad spend and impressions: Meta Ads Manager account totals, 8 Sep 2023 – 8 Oct 2026. Graph: the five featured campaigns from the supplied campaign export, cumulative.',
     seo: {
       title: 'The Decorshed Case Study | Meta Ads & Ecommerce Growth',
       description:
-        'See how BrandGap helped The Decorshed drive 10,945+ purchases, ₹37.6L+ in Meta ad spend and 28.89M+ impressions through performance marketing, audience strategy and campaign testing.',
+        'See how BrandGap helped The Decorshed drive ₹2.23Cr in total sales and 10,300 orders from ₹37.64L+ in Meta ad spend — a 5.93x ROAS — through performance marketing, audience strategy and campaign testing.',
     },
     story: [
       {
@@ -167,25 +168,29 @@ export const PROJECTS = localizeDeep([
         emphasis: 'in numbers.',
         columns: ['Metric', 'Value'],
         rows: [
-          ['Ad spend', '₹37,64,141.80'],
-          ['Purchases', '10,945'],
+          ['Total sales', '₹2.23 Cr'],
+          ['Ad spend', '₹37.64 Lakh+'],
+          ['Orders', '10,300'],
+          ['ROAS', '5.93x'],
+          ['Cost per purchase', '₹365.44'],
+          ['Average order value', '₹2,165.05'],
+          ['Ad spend as % of sales', '16.88%'],
           ['Impressions', '28,891,728'],
           ['Reach', '13,215,042'],
-          ['CPM', '₹130.28'],
-          ['Visible active campaign ROAS range', '2.98x – 5.84x'],
+          ['Campaign ROAS', '2.98x – 5.84x'],
         ],
-        note: 'Meta Ads Manager account-level totals, 8 Sep 2023 – 8 Oct 2026. Purchases can include repeat orders from the same customer.',
+        note: 'Total sales, orders, cost per purchase, AOV and ROAS: updated performance report supplied by brandgap. Ad spend, impressions and reach: Meta Ads Manager account totals, 8 Sep 2023 – 8 Oct 2026. Campaign ROAS: the range across the account’s active campaigns.',
       },
       {
         type: 'proof',
         image: {
-          src: '/work/decorshed-ads-manager-1600.webp',
-          srcSet: '/work/decorshed-ads-manager-800.webp 800w, /work/decorshed-ads-manager-1600.webp 1510w',
-          width: 1510,
-          height: 615,
-          alt: 'Meta Ads Manager — The Decorshed campaigns, with an account total of ₹37,64,141.80 spent, 28,891,728 impressions, 13,215,042 reach and 10,945 purchases.',
+          src: '/work/decorshed-ads-manager-v2-1600.webp',
+          srcSet: '/work/decorshed-ads-manager-v2-800.webp 800w, /work/decorshed-ads-manager-v2-1600.webp 1655w',
+          width: 1655,
+          height: 643,
+          alt: 'Meta Ads Manager — The Decorshed campaigns (campaign names blurred), with an account total of ₹37,65,269.67 spent, 28,895,196 impressions and 13,215,042 reach.',
         },
-        caption: 'Meta Ads Manager — campaign view with the account-level total row (8 Sep 2023 – 8 Oct 2026). Supplied by BrandGap.',
+        caption: 'Meta Ads Manager — campaign view with the account-level total row (8 Sep 2023 – 8 Oct 2026). Campaign names blurred for confidentiality. Supplied by BrandGap.',
       },
       {
         type: 'intro',
@@ -213,10 +218,10 @@ export const PROJECTS = localizeDeep([
         emphasis: 'It’s scale and efficiency together.',
         columns: ['Proof point', 'Result', 'Campaign', 'Supporting metric'],
         rows: [
-          ['Highest featured ROAS', '5.84x', 'Lookalike ABO', '85 purchases'],
+          ['Highest featured ROAS', '5.84x', 'Lookalike ABO', '85 orders'],
           ['Largest purchase volume', '1,432', 'Customer Audience', '3.14x ROAS'],
-          ['Large-scale acquisition', '1,404 purchases', 'Lookalike CBO', '3.70x ROAS'],
-          ['Retargeting', '568 purchases', 'Sales Re-Target', '4.25x ROAS'],
+          ['Large-scale acquisition', '1,404 orders', 'Lookalike CBO', '3.70x ROAS'],
+          ['Retargeting', '568 orders', 'Sales Re-Target', '4.25x ROAS'],
         ],
         line: 'The objective wasn’t to chase the highest ROAS on a tiny budget. It was to find repeatable combinations of scale, efficiency and purchase volume.',
       },
@@ -226,9 +231,9 @@ export const PROJECTS = localizeDeep([
         headline: 'Five',
         emphasis: 'learnings.',
         items: [
-          { title: 'Scale does not automatically mean sacrificing efficiency.', body: 'Several campaigns generated hundreds or more than a thousand purchases while remaining above 3x ROAS.' },
+          { title: 'Scale does not automatically mean sacrificing efficiency.', body: 'Several campaigns generated hundreds or more than a thousand orders while remaining above 3x ROAS.' },
           { title: 'Product-specific campaigns created new growth pockets.', body: 'The campaign history shows that individual product themes could be isolated, tested and scaled.' },
-          { title: 'Retargeting remained a valuable conversion layer.', body: 'The Sales Re-Target campaign delivered 568 purchases at 4.25x ROAS.' },
+          { title: 'Retargeting remained a valuable conversion layer.', body: 'The Sales Re-Target campaign delivered 568 orders at 4.25x ROAS.' },
           { title: 'Audience structure mattered.', body: 'Lookalike, broad, customer-audience and Advantage+ structures each produced different performance profiles.' },
           { title: 'Testing created the winners.', body: 'The account accumulated performance through repeated iteration rather than depending on one permanent campaign.' },
         ],
@@ -272,19 +277,19 @@ export const PROJECTS = localizeDeep([
     category: 'Performance Marketing × Social Media',
     industries: ['D2C', 'E-commerce', 'Spiritual'],
     summary:
-      'How BrandGap used Meta Ads, product-led campaigns, audience testing and retargeting to generate 3,689+ purchases from ₹12.23L+ in ad spend, with a 3.41x purchase ROAS in the account snapshot.',
+      'How BrandGap used Meta Ads, product-led campaigns, audience testing and retargeting to drive ₹93.96L in total sales and 5,220 orders from ₹12.84L in ad spend — a 7.32x ROAS.',
     metrics: [
-      { label: 'Purchases', value: '3,689+', note: 'Meta Ads Manager total' },
-      { label: 'Ad spend', value: '₹12.23L+', note: 'Meta Ads Manager total' },
-      { label: 'Purchase value', value: '₹41.68L+', note: 'Meta-attributed conversion value' },
-      { label: 'Purchase ROAS', value: '3.41X', note: 'Meta Ads Manager average' },
+      { label: 'Total sales', value: '₹93.96L', note: 'Updated performance report supplied by BrandGap' },
+      { label: 'Ad spend', value: '₹12.84L', note: 'Updated performance report supplied by BrandGap' },
+      { label: 'Orders', value: '5,220', note: 'Updated performance report supplied by BrandGap' },
+      { label: 'ROAS', value: '7.32X', note: 'Updated performance report supplied by BrandGap' },
     ],
-    highlights: [2, 0, 3],
+    highlights: [0, 2, 3],
     strategy: ['Product-led acquisition', 'Full-funnel Meta activity', 'Audience testing', 'Seasonal & thematic campaigns', 'Scale the winners', 'Social media management'],
     flow: {
       problem: 'Turning meaning-led products into repeatable demand.',
       strategy: 'Product-led acquisition · Full-funnel Meta activity · Audience testing · Seasonal & thematic campaigns · Scale the winners',
-      result: '3,689+ purchases and ₹41.68L+ Meta-attributed purchase value from ₹12.23L+ ad spend — 3.41x purchase ROAS (Ads Manager account snapshot).',
+      result: '₹93.96L total sales and 5,220 orders from ₹12.84L ad spend — 7.32x ROAS, ₹1,800 average order value.',
     },
     image: {
       src: '/work/vibha-cover-v2-1600.webp',
@@ -330,11 +335,11 @@ export const PROJECTS = localizeDeep([
       ],
     },
     panelCaption:
-      'Figures: Meta Ads Manager account totals, 4 Sep 2023 – 4 Oct 2026. Graph: the four highest-volume campaigns from the supplied campaign export, cumulative.',
+      'Figures: updated performance report supplied by brandgap. Graph: the four highest-volume campaigns from the supplied campaign export, cumulative.',
     seo: {
       title: 'Vibha Designs Case Study | Meta Ads & Ecommerce Growth',
       description:
-        'See how BrandGap helped Vibha Designs generate 3,689+ purchases with ₹12.23L+ in Meta ad spend and a 3.41x purchase ROAS through product-led performance marketing.',
+        'See how BrandGap helped Vibha Designs drive ₹93.96L in total sales and 5,220 orders from ₹12.84L in ad spend — a 7.32x ROAS — through product-led performance marketing.',
     },
     story: [
       {
@@ -379,26 +384,26 @@ export const PROJECTS = localizeDeep([
         emphasis: 'in numbers.',
         columns: ['Metric', 'Value'],
         rows: [
-          ['Total spend', '₹12,23,510.00'],
-          ['Purchases', '3,689'],
-          ['Purchase conversion value', '₹41,68,366.95'],
-          ['Purchase ROAS', '3.41x'],
-          ['Cost per purchase', '₹331.66'],
-          ['Adds-to-cart conversion value', '₹6,07,719.48'],
+          ['Total sales', '₹93.96 Lakh'],
+          ['Total ad spend', '₹12,84,120'],
+          ['Orders', '5,220'],
+          ['ROAS', '7.32x'],
+          ['Cost per purchase', '₹246'],
+          ['Average order value', '₹1,800'],
         ],
-        note: 'Meta Ads Manager account-level totals, 4 Sep 2023 – 4 Oct 2026. Purchases can include repeat orders from the same customer.',
+        note: 'Updated performance report supplied by BrandGap.',
       },
       {
         type: 'proof',
         image: {
-          src: '/work/vibha-ads-manager-1600.webp',
-          srcSet: '/work/vibha-ads-manager-800.webp 800w, /work/vibha-ads-manager-1600.webp 1546w',
-          width: 1546,
-          height: 627,
-          alt: 'Meta Ads Manager — Vibha Designs campaigns, with an account total of 3,689 purchases, ₹41,68,366.95 purchase conversion value and 3.41 purchase ROAS.',
+          src: '/work/vibha-ads-manager-v2-1600.webp',
+          srcSet: '/work/vibha-ads-manager-v2-800.webp 800w, /work/vibha-ads-manager-v2-1600.webp 1659w',
+          width: 1659,
+          height: 642,
+          alt: 'Meta Ads Manager — Vibha Designs campaigns (campaign names blurred), with an account total of ₹12,47,888.81 spent, 3,753 orders and 3.43 average ROAS.',
         },
         caption:
-          'Meta Ads Manager — campaign view with the account-level total row (4 Sep 2023 – 4 Oct 2026). Supplied by BrandGap. The campaign cards below come from a later campaign export, so individual rows differ slightly.',
+          'Meta Ads Manager — campaign view with the account-level total row (8 Sep 2023 – 8 Oct 2026). Campaign names blurred for confidentiality. Supplied by BrandGap.',
       },
       {
         type: 'ledger',
@@ -407,11 +412,11 @@ export const PROJECTS = localizeDeep([
         emphasis: 'carry the growth.',
         columns: ['Scale proof', 'Campaign', 'ROAS'],
         rows: [
-          ['1,068 purchases', 'Sales_Likhit_Japa_27/08/26', '3.80x'],
-          ['732 purchases', 'Sales || Rakshak || 15/05', '3.82x'],
-          ['622 purchases', 'Sales Journal_09/12/25', '2.86x'],
-          ['547 purchases', 'Sales || Shop All || 15/05/26', '4.02x'],
-          ['357 purchases', 'Sales || Re-Target || 09/05', '3.96x'],
+          ['1,068 orders', 'Sales_Likhit_Japa_27/08/26', '3.80x'],
+          ['732 orders', 'Sales || Rakshak || 15/05', '3.82x'],
+          ['622 orders', 'Sales Journal_09/12/25', '2.86x'],
+          ['547 orders', 'Sales || Shop All || 15/05/26', '4.02x'],
+          ['357 orders', 'Sales || Re-Target || 09/05', '3.96x'],
         ],
         line: 'The goal wasn’t simply to find the campaign with the highest ROAS. It was to identify products and audiences that could maintain healthy economics while generating meaningful purchase volume.',
       },
@@ -439,7 +444,7 @@ export const PROJECTS = localizeDeep([
         items: [
           { title: 'Product specificity matters.', body: 'Likhit Japa and Rakshak both produced high-volume campaigns with healthy ROAS, showing the value of giving strong products dedicated acquisition structures.' },
           { title: 'Retargeting is a major conversion layer.', body: 'The 357-purchase retargeting campaign delivered 3.96x ROAS, bringing high-intent users back into the buying journey.' },
-          { title: 'Scale and efficiency can coexist.', body: 'Shop All, Rakshak and Likhit Japa all produced hundreds or more than a thousand purchases while remaining around 3.8–4.0x ROAS.' },
+          { title: 'Scale and efficiency can coexist.', body: 'Shop All, Rakshak and Likhit Japa all produced hundreds or more than a thousand orders while remaining around 3.8–4.0x ROAS.' },
           { title: 'Full-funnel activity supports the brand.', body: 'Awareness, traffic and follower campaigns created touchpoints beyond direct purchase campaigns.' },
           { title: 'Thematic relevance can improve efficiency.', body: 'Campaigns tied to relevant moments such as Jayanti and Mother’s Day produced strong performance in the supplied dataset.' },
         ],
@@ -776,6 +781,17 @@ export const PROJECTS = localizeDeep([
           ['Awareness cost per 1,000 reached', '₹5.66'],
         ],
         note: 'Meta Ads Manager account-level totals, 8 Sep 2023 – 8 Oct 2026. Messaging contacts are platform-attributed conversations — not qualified leads or customers.',
+      },
+      {
+        type: 'proof',
+        image: {
+          src: '/work/ambaji-ads-manager-1600.webp',
+          srcSet: '/work/ambaji-ads-manager-800.webp 800w, /work/ambaji-ads-manager-1600.webp 1658w',
+          width: 1658,
+          height: 264,
+          alt: 'Meta Ads Manager — Ambaji Marble House campaigns (campaign names blurred), with ₹1,30,867.88 spent, 21,774,971 impressions and 1,089 messaging contacts.',
+        },
+        caption: 'Meta Ads Manager — campaign view with the account-level total row (8 Sep 2023 – 8 Oct 2026). Campaign names blurred for confidentiality. Supplied by BrandGap.',
       },
       {
         type: 'ledger',

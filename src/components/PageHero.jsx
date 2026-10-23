@@ -47,7 +47,7 @@ export function Breadcrumb({ items }) {
  * emphasis), an intro set against it, and the measured hairline — a b-dot and
  * a g-dot — drawing across beneath.
  */
-export function PageHero({ crumbs, lead, emphasis, line, intro, children, deep = false, className = '' }) {
+export function PageHero({ crumbs, lead, emphasis, line, intro, children, deep = false, rule = true, className = '' }) {
   const reduced = useReducedMotion()
   return (
     <header className={`container-page pt-24 text-center md:pt-36 md:text-left ${deep ? 'pb-12 md:pb-18' : 'pb-8 md:pb-12'} ${className}`}>
@@ -74,6 +74,7 @@ export function PageHero({ crumbs, lead, emphasis, line, intro, children, deep =
         )}
       </div>
       {children}
+      {rule && (
       <div aria-hidden className="relative mt-8 h-2.5 md:mt-10">
         <m.span
           className="absolute top-1/2 right-1.5 left-1.5 h-px origin-left bg-line"
@@ -89,6 +90,7 @@ export function PageHero({ crumbs, lead, emphasis, line, intro, children, deep =
           transition={{ duration: 0.4, delay: 1.4 }}
         />
       </div>
+      )}
     </header>
   )
 }
