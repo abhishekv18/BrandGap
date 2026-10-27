@@ -26,7 +26,7 @@ function Line({ d, delay = 0, opacity = 1, dash, still, accent = false, width, f
       opacity={opacity}
       initial={still || dash ? false : { pathLength: 0 }}
       animate={{ pathLength: 1 }}
-      transition={{ duration: 0.9, delay: 0.15 + delay, ease: EASE }}
+      transition={{ duration: 0.55, delay: 0.05 + delay * 0.5, ease: EASE }}
     />
   )
 }
@@ -42,7 +42,7 @@ function Dot({ x, y, r = 2, accent = false, delay = 0, still }) {
       initial={still ? false : { scale: 0 }}
       animate={{ scale: 1 }}
       style={{ transformOrigin: `${x}px ${y}px`, transformBox: 'view-box' }}
-      transition={{ duration: 0.5, delay: 0.35 + delay, ease: EASE }}
+      transition={{ duration: 0.35, delay: 0.15 + delay * 0.5, ease: EASE }}
     />
   )
 }
@@ -59,7 +59,7 @@ function Tag({ x, y, children, anchor = 'middle', accent = false, delay = 0, sti
       style={SANS}
       initial={still ? false : { opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, delay: 0.55 + delay }}
+      transition={{ duration: 0.3, delay: 0.25 + delay * 0.5 }}
     >
       {children.toUpperCase()}
     </m.text>
@@ -208,8 +208,8 @@ export function MethodPlate({ step, total, reducedMotion = false, className = ''
             aria-hidden
             initial={reducedMotion ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={reducedMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: -6, transition: { duration: 0.25 } }}
-            transition={{ duration: 0.5, ease: EASE }}
+            exit={reducedMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: -6, transition: { duration: 0.15 } }}
+            transition={{ duration: 0.3, ease: EASE }}
           >
             {draw(reducedMotion)}
           </m.svg>

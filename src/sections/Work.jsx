@@ -136,7 +136,7 @@ export function Work() {
               <div
                 key={project.slug}
                 data-card
-                className="w-[min(34vw,56svh)] shrink-0"
+                className="w-[min(32vw,46svh)] shrink-0"
               >
                 <CaseCard project={project} onExpand={setOpen} {...PLATES[i % PLATES.length]} />
               </div>

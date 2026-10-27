@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { CONTACT } from '../data/contact'
 import { submitLead } from '../utils/leads'
 import { ContactLink } from './ContactLink'
+import { toast } from './Toast'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -156,7 +157,7 @@ export function validate(form, extra) {
 // How long the "sent" confirmation stays before the form clears itself for the next entry.
 const RESET_AFTER = 4500
 
-export function useLeadForm(type, { extraValidate, onDone, onReset, resetAfter = RESET_AFTER } = {}) {
+export function useLeadForm(type, { extraValidate, onDone, onReset, resetAfter = RESET_AFTER, sentToast } = {}) {
   const [status, setStatus] = useState('idle')
   const [errors, setErrors] = useState({})
   const formRef = useRef(null)
@@ -195,10 +196,19 @@ export function useLeadForm(type, { extraValidate, onDone, onReset, resetAfter =
       const data = Object.fromEntries([...new Set(fd.keys())].map((k) => [k, fd.getAll(k).join(', ')]))
       const res = await submitLead(type, data)
       const next = res.ok ? 'sent' : res.pending ? 'pending' : 'error'
-      setStatus(next)
       onDone?.(next, data)
+      // With a toast: confirm in the corner and hand back an empty form straight away.
+      if (next === 'sent' && sentToast) {
+        toast(sentToast.title, sentToast.body)
+        form.reset()
+        setErrors({})
+        setStatus('idle')
+        resetRef.current?.()
+        return
+      }
+      setStatus(next)
     },
-    [type, extraValidate, onDone],
+    [type, extraValidate, onDone, sentToast],
   )
 
   return { status, errors, onSubmit }

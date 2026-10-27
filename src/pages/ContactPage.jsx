@@ -16,6 +16,7 @@ import { breadcrumbLd, useSeo } from '../hooks/useSeo'
 import { track } from '../utils/analytics'
 
 const EASE = [0.16, 1, 0.3, 1]
+const CONTACT_TOAST = { title: 'Thank you — we’ve got it.', body: 'We’ll review your details and get back to you shortly.' }
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 // Missing client details show as labelled placeholders while developing, and stay hidden on the live site.
 const SHOW_PLACEHOLDERS = import.meta.env.DEV
@@ -212,7 +213,7 @@ export default function ContactPage() {
     setLive(null)
     setDone(0)
   }, [])
-  const { status, errors, onSubmit } = useLeadForm('project-enquiry', { extraValidate: check, onReset })
+  const { status, errors, onSubmit } = useLeadForm('project-enquiry', { extraValidate: check, onReset, sentToast: CONTACT_TOAST })
   const wa = whatsappHref()
   const hrefClick = useHrefClick()
   const shown = live ?? errors
@@ -492,7 +493,7 @@ export default function ContactPage() {
           </div>
           <div className="lg:col-span-8">
             {BOOKING.url ? (
-              <iframe src={BOOKING.url} title={BOOKING.title} loading="lazy" className="h-[40rem] w-full rounded-[0.625rem] border border-line bg-cream md:h-[44rem]" />
+              <iframe src={BOOKING.url} title={BOOKING.title} loading="lazy" className="mx-auto block h-[38rem] w-full max-w-[38rem] rounded-[0.625rem] border border-line bg-cream lg:ml-auto lg:mr-0" />
             ) : (
               <BookingCalendar />
             )}

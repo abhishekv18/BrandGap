@@ -3,10 +3,13 @@ import { NEWSLETTER } from '../data/contact'
 import { track } from '../utils/analytics'
 import { Field, FormStatus, useLeadForm } from './Form'
 
+const NEWSLETTER_TOAST = { title: 'You’re on the list.', body: 'The Gap Weekly will land in your inbox.' }
+
 /** "The Gap Weekly" signup (brief §7) — footer and Insights. */
 export function NewsletterForm({ tone = 'dark', id = 'newsletter', className = '' }) {
   const { status, errors, onSubmit } = useLeadForm('newsletter', {
     onDone: (s) => s === 'sent' && track('newsletter_signup'),
+    sentToast: NEWSLETTER_TOAST,
   })
   const light = tone === 'light'
 

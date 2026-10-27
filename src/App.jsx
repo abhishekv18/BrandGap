@@ -2,6 +2,7 @@ import { AnimatePresence, LazyMotion, MotionConfig } from 'framer-motion'
 import { lazy, Suspense, useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from 'react-router'
 import { CookieConsent } from './components/CookieConsent'
+import { ToastHost } from './components/Toast'
 import { CustomCursor } from './components/CustomCursor'
 import { ExitIntent } from './components/ExitIntent'
 import { IntroLoader } from './components/IntroLoader'
@@ -126,6 +127,7 @@ function Shell() {
       {/* {desktop && finePointer && <ExitIntent />} */}
        {desktop && finePointer}
       <CookieConsent />
+      <ToastHost />
     </SmoothScroll>
   )
 }
