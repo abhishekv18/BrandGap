@@ -54,7 +54,7 @@ export const WORK_INTRO = {
   title: 'Real campaigns.',
   emphasis: 'Real growth. Real numbers.',
   intro:
-    'Four brands, four growth challenges from e-commerce and D2C to personal branding and local leads. Every figure comes from Meta Ads data, updated performance reports or the client’s own website.',
+    'Four brands, four growth challenges across e-commerce, D2C, personal branding, and local leads. Every figure comes from Meta Ads or client websites.',
 }
 
 const ADS_PERIOD = 'Meta Ads Manager account total · 8 Sep 2023 – 8 Oct 2026'

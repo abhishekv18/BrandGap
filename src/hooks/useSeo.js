@@ -34,7 +34,7 @@ export const absoluteUrl = (path = '/') => `${SITE.url}${path}`
 export function useSeo({ title, description = SITE.description, path = '/', image = SITE.ogImage, type = 'website', jsonLd, noindex = false }) {
   const ld = jsonLd ? JSON.stringify(jsonLd) : ''
   useEffect(() => {
-    const fullTitle = title ? `${title} — ${SITE.name}` : DEFAULT_TITLE
+    const fullTitle = title ? `${title} | ${SITE.name}` : DEFAULT_TITLE
     const url = absoluteUrl(path)
     document.title = fullTitle
     setMeta('name', 'description', description)

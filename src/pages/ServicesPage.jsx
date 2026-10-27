@@ -79,7 +79,7 @@ export default function ServicesPage() {
       <section aria-label="Service areas" className="container-page pb-8 md:grid md:grid-cols-12 md:gap-6 md:pb-16">
         {/* Index — follows the reader on tablet and up */}
         <nav aria-label="Service areas" className="hidden md:sticky md:top-32 md:col-span-3 md:block md:self-start">
-          <ol className="border-t border-line">
+          <ol>
             {SERVICES.map((s, i) => (
               <li key={s.id} className="border-b border-line">
                 <a
@@ -103,7 +103,7 @@ export default function ServicesPage() {
               id={s.id}
               data-service
               aria-labelledby={`${s.id}-title`}
-              className="grid scroll-mt-28 items-center gap-7 border-t border-line py-10 text-center md:grid-cols-9 md:gap-6 md:py-14 md:text-left"
+              className="grid scroll-mt-28 items-center gap-7 border-t border-line py-10 text-center first:border-t-0 first:pt-2 md:grid-cols-9 md:gap-6 md:py-14 md:text-left md:first:pt-2"
             >
               <div className={`md:col-span-5 ${i % 2 ? 'md:order-2 md:col-start-5' : ''}`}>
                 <p className="font-display text-numeral text-terracotta">0{i + 1}</p>

@@ -14,7 +14,7 @@ export const ABOUT_STATEMENT = {
 // Content Brief §12 — the story, in its own words.
 export const ABOUT_STORY = {
   between:
-    'Somewhere between where a business is today and where it wants to be. Between how a brand looks and how it is perceived. Between attention and conversion. Between marketing activity and measurable growth.',
+    'Somewhere between where a business is today and where it wants to be. Between how a brand looks and how it is perceived.',
   exists: 'BrandGap exists to close that gap.',
   body: [
     'We are a growth focused digital agency combining strategy, creative, performance marketing and technology to help ambitious brands build stronger digital businesses. Our team works across performance advertising, e-commerce, social media, content, creative strategy, websites and conversion optimization.',

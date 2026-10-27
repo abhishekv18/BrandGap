@@ -36,7 +36,7 @@ export const SERVICE_PAGES = localizeDeep([
         label: 'The problem',
         headline: 'More spend doesn’t automatically',
         emphasis: 'mean more growth.',
-        body: 'Anyone can launch a campaign. The difficult part is knowing who should see it, what they should see, why they should care, where they should land, what should happen next — and what to change when the numbers don’t work.',
+        body: 'Anyone can launch a campaign. The difficult part is knowing who should see it, what they should see, why they should care, where they should land, what should happen next and what to change when the numbers don’t work.',
         bad: ['Spend', 'Clicks', 'Hope'],
         good: ['Audience', 'Creative', 'Media', 'Conversion', 'Data', 'Iteration'],
       },

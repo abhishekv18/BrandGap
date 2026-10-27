@@ -598,7 +598,7 @@ export function EditorialBlocks({ blocks, slots = {}, start = 0 }) {
         aria-label={b.label ?? undefined}
         className={`container-page scroll-mt-24 pb-12 md:pb-16 ${afterGround ? 'pt-12 md:pt-16' : ''}`}
       >
-        <div className={b.type === 'proof' || afterGround ? '' : 'border-t border-line pt-10 md:pt-12'}>
+        <div className={b.type === 'proof' || afterGround || i === 0 ? '' : 'border-t border-line pt-10 md:pt-12'}>
           <Block b={b} n={n} />
         </div>
       </section>

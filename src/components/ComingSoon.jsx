@@ -14,7 +14,7 @@ import { FinalCta } from '../sections/FinalCta'
 export function ComingSoon({ page }) {
   const { name, path, lead, emphasis, intro, features, links } = page
   useSeo({
-    title: `${name} — Coming soon`,
+    title: `${name}: Coming soon`,
     description: intro,
     path,
     noindex: true,
