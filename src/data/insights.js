@@ -543,7 +543,7 @@ export const ARTICLES = [
             'The first one to three seconds would stop you mid-scroll.',
             'It names a problem the viewer recognises, in their words.',
             'It shows the outcome, not just the product.',
-            'There’s proof — a demonstration, reviews, or someone credible.',
+            'There’s proof a demonstration, reviews, or someone credible.',
             'The offer is clear and easy to understand.',
             'The CTA and the landing page continue the same story.',
             'You know which funnel stage it’s for and which metric will judge it.',
