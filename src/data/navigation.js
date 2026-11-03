@@ -31,14 +31,16 @@ export const CHAPTERS = [
   { id: 'performance', numeral: 'V', name: 'Performance marketing' },
   { id: 'numbers', numeral: 'VI', name: 'The numbers' },
   { id: 'work', numeral: 'VII', name: 'Case studies' },
-  { id: 'brands', numeral: 'VIII', name: 'Selected brands' },
-  { id: 'creative-performance', numeral: 'IX', name: 'Creative × Performance' },
-  { id: 'growth', numeral: 'X', name: 'Growth system' },
-  { id: 'why', numeral: 'XI', name: 'Why BrandGap' },
-  { id: 'about', numeral: 'XII', name: 'About BrandGap' },
-  { id: 'capabilities', numeral: 'XIII', name: 'Capabilities' },
+  // { id: 'brands', numeral: 'VIII', name: 'Selected brands' }, // section currently hidden on Home
+  { id: 'creative-performance', numeral: 'VIII', name: 'Creative × Performance' },
+  { id: 'growth', numeral: 'IX', name: 'Growth system' },
+  { id: 'capabilities', numeral: 'X', name: 'Capabilities' },
+  { id: 'about', numeral: 'XI', name: 'About BrandGap' },
+  { id: 'partners', numeral: 'XII', name: 'Technology partners' },
+  { id: 'why', numeral: 'XIII', name: 'Why BrandGap' },
   { id: 'clients', numeral: 'XIV', name: 'Clients' },
-  { id: 'cta', numeral: 'XV', name: 'Close the gap' },
+  { id: 'development-partner', numeral: 'XV', name: 'Development partner' },
+  { id: 'cta', numeral: 'XVI', name: 'Close the gap' },
 ]
 
 /** The numeral for a homepage chapter, by section id. */

@@ -13,12 +13,14 @@ import { Capabilities } from '../sections/Capabilities'
 import { Clients } from '../sections/Clients'
 import { CreativePerformance } from '../sections/CreativePerformance'
 import { Dashboard } from '../sections/Dashboard'
+import { DevelopmentPartner } from '../sections/DevelopmentPartner'
 import { FinalCta } from '../sections/FinalCta'
 import { Gap } from '../sections/Gap'
 import { Growth } from '../sections/Growth'
 import { Hero } from '../sections/Hero'
 import { Performance } from '../sections/Performance'
 import { Services } from '../sections/Services'
+import { TechPartners } from '../sections/TechPartners'
 import { Work } from '../sections/Work'
 import { Why } from '../sections/Why'
 
@@ -70,8 +72,10 @@ export default function Home() {
         <About />
       </div>
      
-        <Why />
+      <TechPartners />
+      <Why />
       <Clients />
+      <DevelopmentPartner />
       <FinalCta />
     </>
   )

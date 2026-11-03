@@ -63,7 +63,8 @@ export default function Insights() {
                   className="group grid items-end gap-8 text-center md:grid-cols-12 md:gap-6 md:text-left"
                 >
                   <div className="md:col-span-7">
-                    <ProjectPlate project={lead} ratio="16 / 10" letter="b" crop="right" label="[Article image]" cursor={undefined} />
+                    {/* full, at the cover's own 16:9: its captions sit at the edges and must not be cropped */}
+                    <ProjectPlate project={lead} ratio="16 / 9" letter="b" crop="right" label="[Article image]" cursor={undefined} full />
                   </div>
                   <div className="md:col-span-5 md:pb-2">
                     <ArticleMeta article={lead} />
@@ -88,7 +89,7 @@ export default function Insights() {
                           className="group grid gap-6 text-center sm:grid-cols-5 sm:text-left"
                         >
                           <div className="sm:col-span-2">
-                            <ProjectPlate project={{ ...a, image: a.card ?? a.image }} ratio="4 / 5" letter={i % 2 ? 'b' : 'g'} crop="left" label="[Article image]" cursor={undefined} />
+                            <ProjectPlate project={{ ...a, image: a.card ?? a.image }} ratio="4 / 5" letter={i % 2 ? 'b' : 'g'} crop="left" label="[Article image]" cursor={undefined} full />
                           </div>
                           <div className="sm:col-span-3">
                             <ArticleMeta article={a} />

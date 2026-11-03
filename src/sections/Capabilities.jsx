@@ -27,7 +27,8 @@ export function Capabilities() {
               {group.name}
               <span className="text-terracotta">.</span>
             </h3>
-            <ul className="mt-4 flex flex-col items-center gap-1 text-sm text-ink-soft md:items-start">
+            {/* Centred as a block on phones, so the rules line up down the left */}
+            <ul className="mx-auto mt-4 flex w-fit flex-col items-start gap-1 text-left text-sm text-ink-soft md:mx-0">
               {group.items.map((item) => (
                 <li key={item} className="flex items-center gap-3">
                   <span aria-hidden className="h-px w-3 bg-terracotta" />

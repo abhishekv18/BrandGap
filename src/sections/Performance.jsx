@@ -95,13 +95,14 @@ export function Performance() {
                     {stage.name}
                     {last && <span className="text-terracotta">.</span>}
                   </h3>
-                  <ul className="mt-4 flex flex-wrap justify-center gap-x-3 gap-y-1 text-sm text-ink-soft md:justify-start desk:flex-col">
+                  {/* Phones: one item a line, so no separator is ever left hanging at the end of a wrapped row */}
+                  <ul className="mt-4 flex flex-col items-center gap-x-3 gap-y-1 text-sm text-ink-soft md:flex-row md:flex-wrap md:justify-start desk:flex-col desk:items-start">
                     {stage.items.map((item, k) => (
                       <li key={item} className="flex items-center gap-3">
                         <span aria-hidden className="hidden h-px w-3 bg-terracotta desk:block" />
                         {item}
                         {k < stage.items.length - 1 && (
-                          <span aria-hidden className="text-ink-muted desk:hidden">
+                          <span aria-hidden className="hidden text-ink-muted md:inline desk:hidden">
                             ·
                           </span>
                         )}

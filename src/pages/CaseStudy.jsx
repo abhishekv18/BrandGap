@@ -188,7 +188,7 @@ function Case({ project }) {
           )}
         </div>
         <MetricsPanel
-          className="space-heading-content mx-auto max-w-5xl"
+          className="space-heading-content"
           title={`${project.client} / ${project.graph ? 'Meta Ads data' : 'Brand proof points'}`}
           kpis={(project.panelMetrics ?? project.metrics).map(toKpi)}
           graph={project.graph}

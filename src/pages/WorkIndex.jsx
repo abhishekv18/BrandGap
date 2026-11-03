@@ -6,7 +6,6 @@ import { CaseDrawer } from '../components/CaseDrawer'
 import { Copy } from '../components/Copy'
 import { CountUp } from '../components/CountUp'
 import { FilterChips } from '../components/FilterChips'
-import { LogoStrip } from '../components/LogoStrip'
 import { MagneticButton } from '../components/MagneticButton'
 import { PageHero } from '../components/PageHero'
 import { Ground } from '../components/Ground'
@@ -211,8 +210,6 @@ export default function WorkIndex() {
         </AnimatePresence>
       </section>
 
-      {/* The brands behind the work */}
-      <LogoStrip />
 
       {/* The rest of the work: brands we have worked with, without published numbers */}
       <section aria-label="More work" className="relative isolate section-y">

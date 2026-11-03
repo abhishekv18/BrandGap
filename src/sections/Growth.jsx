@@ -145,7 +145,9 @@ function GrowthScroll() {
       // promise has landed — no idle stretch of scrolling after the animation.
 
       // Cream → blush: the page warms as brand turns to growth.
-      tl.fromTo(stage.current, { backgroundColor: '#F4E9E1' }, { backgroundColor: '#EFD6CC', duration: 0.1 }, 0)
+      // The section warms with it: when a phone's address bar collapses the screen outgrows the
+      // svh-tall stage, and the section's own background is what shows in that extra strip.
+      tl.fromTo([stage.current, section.current], { backgroundColor: '#F4E9E1' }, { backgroundColor: '#EFD6CC', duration: 0.1 }, 0)
 
       // Separate → rotate → align
       panels.forEach((p, i) => {
