@@ -854,7 +854,7 @@ export const MORE_WORK = [
   { id: 'petsway', client: 'Petsway', industry: 'Pet E-commerce', services: 'Performance Marketing, Meta Ads, Content' },
   { id: 'rugs-and-roses', client: 'Rugs & Roses', industry: 'Home Décor & Carpets', services: 'Performance, Social, Creative Strategy' },
   { id: 'omni-infra-heights', client: 'Omni Infra Heights', industry: 'Real Estate', services: 'Lead Gen, Meta Ads, Funnel Strategy' },
-  { id: 'global-ayurveda', client: 'Global Ayurveda', industry: 'Wellness / D2C', services: 'Performance, Product Campaigns' },
+  { id: 'global-ayurveda', client: 'Ramys Professional', industry: 'Wellness / D2C', services: 'Performance, Product Campaigns' },
   { id: 'immigrationpointer', client: 'ImmigrationPointer', industry: 'Immigration Services', services: 'Digital Marketing, SEO, Lead Gen' },
 ]
 

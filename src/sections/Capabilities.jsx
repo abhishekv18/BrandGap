@@ -72,27 +72,27 @@ function ToolsMarquee() {
       </li>
     ))
 
-  return (
-    <Reveal className="space-subblock border-y border-line py-5 md:py-6">
-      <div className="flex flex-col items-center gap-4 md:flex-row md:gap-8">
-        <h3 id="tools-title" className="label shrink-0 font-sans text-ink-muted">
-          Tools we work in
-        </h3>
-        <div
-          ref={root}
-          data-running="true"
-          className="marquee w-full min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] select-none"
-        >
-          <ul
-            aria-labelledby="tools-title"
-            className="marquee-track flex w-max items-center"
-            style={{ animationDuration: '56s', animationDirection: 'reverse' }}
-          >
-            {run(0)}
-            {run(1)}
-          </ul>
-        </div>
-      </div>
-    </Reveal>
-  )
+  // return (
+  //   <Reveal className="space-subblock border-y border-line py-5 md:py-6">
+  //     {/* <div className="flex flex-col items-center gap-4 md:flex-row md:gap-8">
+  //       <h3 id="tools-title" className="label shrink-0 font-sans text-ink-muted">
+  //         Tools we work in
+  //       </h3>
+  //       <div
+  //         ref={root}
+  //         data-running="true"
+  //         className="marquee w-full min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] select-none"
+  //       >
+  //         <ul
+  //           aria-labelledby="tools-title"
+  //           className="marquee-track flex w-max items-center"
+  //           style={{ animationDuration: '56s', animationDirection: 'reverse' }}
+  //         >
+  //           {run(0)}
+  //           {run(1)}
+  //         </ul>
+  //       </div>
+  //     </div> */}
+  //   </Reveal>
+  // )
 }

@@ -39,7 +39,7 @@ export const TESTIMONIALS = [
     demo: true,
     quote:
       'Clear campaigns, honest reporting and a team focused on growing the business, not the dashboard.',
-    name: 'Global Ayurveda',
+    name: 'Ramys Professional',
     role: 'Founder',
     company: 'Wellness / D2C',
     result: 'Product campaigns',
