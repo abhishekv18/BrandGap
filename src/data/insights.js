@@ -64,7 +64,7 @@ export const ARTICLES = [
     excerpt:
       'An ad that stops performing is rarely a budget problem. Before you raise spend or brief ten new creatives, find out which part of the system actually broke.',
     description:
-      'A practical teardown of why Meta ads stop performing — creative fatigue, audience saturation, offer and landing-page gaps — and a diagnostic framework to use before you increase budget.',
+      'A practical teardown of why Meta ads stop performing creative fatigue, audience saturation, offer and landing-page gaps and a diagnostic framework to use before you increase budget.',
     author: ARTICLE_AUTHOR,
     date: '2026-10-08',
     image: img('meta-ads-teardown', 'An illustrated ad teardown: a social ad on a phone, annotated with notes on the hook, offer, click-through rate and landing page.'),
@@ -205,7 +205,7 @@ export const ARTICLES = [
     seoTitle: 'A Practical Meta Ads Playbook for D2C Brands From Clicks to Customers',
     category: 'Meta Ads playbooks',
     excerpt:
-      'Traffic is easy to buy. Customers are not. A working playbook for structuring Meta Ads around the full funnel — and the numbers that tell you it’s actually growing the business.',
+      'Traffic is easy to buy. Customers are not. A working playbook for structuring Meta Ads around the full funnel and the numbers that tell you it’s actually growing the business.',
     description:
       'A practical Meta Ads playbook for D2C and e-commerce brands: funnel structure, creative and offer strategy, audience testing, retargeting, CAC, ROAS, scaling and a weekly review checklist.',
     author: ARTICLE_AUTHOR,
@@ -221,7 +221,7 @@ export const ARTICLES = [
     },
     body: [
       'Traffic is not growth.',
-      'It’s possible to run Meta Ads that look busy — cheap clicks, rising reach, a steady flow of sessions — and still not build a profitable business. Clicks are an input. Customers who come back are the outcome.',
+      'It’s possible to run Meta Ads that look busy cheap clicks, rising reach, a steady flow of sessions — and still not build a profitable business. Clicks are an input. Customers who come back are the outcome.',
       'This playbook is how we think about getting from one to the other for D2C and e-commerce brands. It’s not a list of “best settings”. Those don’t exist in any useful sense: what works depends on your product, price, margins, audience, creative and funnel. What does carry across brands is the structure — and the discipline of reading it honestly.',
 
       { h2: 'Start with the business, not the campaign manager' },
@@ -388,12 +388,12 @@ export const ARTICLES = [
     seoTitle: 'Creative That Converts How to Build Ads People Actually Notice',
     category: 'Creative breakdowns',
     excerpt:
-      'Beautiful content can still fail. A practical framework hook, problem, desire, proof, offer, CTA — for building creative that earns attention and moves people to act.',
+      'Beautiful content can still fail. A practical framework hook, problem, desire, proof, offer, CTA for building creative that earns attention and moves people to act.',
     description:
       'How to build ad creative that converts: hooks, the first three seconds, product demonstration, social proof, offers and CTAs plus a practical HOOK → PROBLEM → DESIRE → PROOF → OFFER → CTA framework.',
     author: ARTICLE_AUTHOR,
     date: '2026-10-01',
-    image: img('creative-that-converts', 'An illustrated storyboard of six ad frames — hook, problem, desire, proof, offer and call to action — laid out in sequence.'),
+    image: img('creative-that-converts', 'An illustrated storyboard of six ad frames hook, problem, desire, proof, offer and call to action laid out in sequence.'),
     card: card('creative-that-converts', 'A six-frame storyboard: hook, problem, desire, proof, offer and call to action.'),
     ogImage: '/insights/creative-that-converts-og.jpg',
     tone: 'ink',
@@ -404,7 +404,7 @@ export const ARTICLES = [
     },
     body: [
       'Good-looking content can still fail.',
-      'We’ve all seen it: the polished shoot, the carefully graded video, the ad everyone internally loved — and the numbers barely move. Meanwhile a rough phone video with a sharp opening line outperforms it for weeks.',
+      'We’ve all seen it: the polished shoot, the carefully graded video, the ad everyone internally loved and the numbers barely move. Meanwhile a rough phone video with a sharp opening line outperforms it for weeks.',
       'That isn’t an argument against craft. It’s a reminder of what an ad is for. On a feed, creative has one job before any other: earn the next second of attention. Then it has to turn that attention into a reason to act.',
 
       { h2: 'Creative is now a performance variable' },
@@ -433,13 +433,13 @@ export const ARTICLES = [
       { h3: 'Problem' },
       'Name the tension in the viewer’s language. Not “premium hydration technology”, but “skin that feels tight by 4 pm”. Recognition creates relevance.',
       { h3: 'Desire' },
-      'Show what life looks like with the problem solved. People buy outcomes — the feeling, the time saved, the compliment — more readily than specifications.',
+      'Show what life looks like with the problem solved. People buy outcomes the feeling, the time saved, the compliment — more readily than specifications.',
       { h3: 'Proof' },
       'Make it believable. Demonstrate the product in use, show real reviews and ratings, show before-and-after where it’s honest and appropriate, or let a creator explain it in their own words.',
       { h3: 'Offer' },
       'Give people a reason to act now: a bundle, a first-order incentive, free shipping above a threshold, a guarantee. The offer doesn’t have to be a discount; it has to be clear.',
       { h3: 'CTA' },
-      'Tell people what to do — “Shop the starter kit”, “See the colours” — and make sure the page they land on continues the same story.',
+      'Tell people what to do — “Shop the starter kit”, “See the colours” and make sure the page they land on continues the same story.',
 
       { h2: 'Hook patterns worth testing' },
       'There’s no single best hook, but some patterns reliably earn a second look. Use them as starting points, not templates:',
@@ -448,7 +448,7 @@ export const ARTICLES = [
           '**The result first.** Open on the outcome, then show how you got there.',
           '**The familiar frustration.** Show the moment your customer knows too well.',
           '**The unexpected demonstration.** The product doing something the viewer didn’t expect.',
-          '**The direct question.** “Still using the same … ?” — when it’s genuinely relevant, not clickbait.',
+          '**The direct question.** “Still using the same … ?” when it’s genuinely relevant, not clickbait.',
           '**The comparison.** Before and after, this versus that, old way versus new way.',
         ],
       },
@@ -462,7 +462,7 @@ export const ARTICLES = [
           '**UGC and creator-led video** feels native to the feed and carries built-in proof. It works well for demonstration and objection-handling, as long as the creator genuinely uses and explains the product.',
           '**Reels and short-form video** suit hooks, demonstrations and before-and-after stories. Design for sound-off with captions, and for sound-on as a bonus.',
           '**Static ads** are fast to produce and test. They work well for a clear offer, a single strong benefit, social proof or a recognisable product.',
-          '**Product-focused creative** — close-ups, texture, use in context — carries more weight than lifestyle mood when the product itself is the reason to buy.',
+          '**Product-focused creative** close-ups, texture, use in context carries more weight than lifestyle mood when the product itself is the reason to buy.',
           '**Founder- or team-led creative** can build trust when there’s a genuine story behind the product. It’s an option, not a requirement.',
         ],
       },
@@ -482,7 +482,7 @@ export const ARTICLES = [
                 '**Problem:** Quick cuts of lukewarm coffee left on desks and car seats — the half-drunk cup everyone recognises.',
                 '**Desire:** The same person, mid-afternoon, taking a sip of still-hot coffee between meetings.',
                 '**Proof:** A thermometer reading at intervals, a close-up of the seal, and two short customer reviews on screen.',
-                '**Offer:** “Buy two, get a free cleaning brush” — a reason to buy for a partner or the office.',
+                '**Offer:** “Buy two, get a free cleaning brush” a reason to buy for a partner or the office.',
                 '**CTA:** “Shop the mug” — landing on the product page with the same visual and the bundle already selected.',
               ],
             },
@@ -514,7 +514,7 @@ export const ARTICLES = [
           'It shows the brand’s world but not the viewer’s problem.',
           'It explains features instead of outcomes.',
           'There’s no proof, so the claim feels like an advertisement.',
-          'The offer is unclear — or missing.',
+          'The offer is unclear or missing.',
           'The landing page tells a different story from the ad.',
         ],
       },
@@ -532,7 +532,7 @@ export const ARTICLES = [
           '**Angle:** the one reason this person should care.',
           '**Hook:** the first one to three seconds, written out.',
           '**Proof and offer:** what makes it believable, and why act now.',
-          '**Success metric:** hook rate, CTR or conversion — chosen before launch.',
+          '**Success metric:** hook rate, CTR or conversion chosen before launch.',
         ],
       },
 

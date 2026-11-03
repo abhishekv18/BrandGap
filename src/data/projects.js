@@ -71,7 +71,7 @@ export const PROJECTS = localizeDeep([
     category: 'Performance Marketing × Social Media',
     industries: ['E-commerce', 'Home Décor'],
     summary:
-      'How BrandGap used performance marketing, audience strategy and campaign iteration to drive ₹2.23Cr in total sales and 10,300 orders from ₹37.64L+ in Meta ad spend — a 5.93x ROAS across a multi-product ecommerce business.',
+      'How BrandGap used performance marketing, audience strategy and campaign iteration to drive ₹2.23Cr in total sales and 10,300 orders from ₹37.64L+ in Meta ad spend a 5.93x ROAS across a multi-product ecommerce business.',
     metrics: [
       { label: 'Total sales', value: '₹2.23Cr', note: 'Updated performance report supplied by BrandGap' },
       { label: 'Ad spend', value: '₹37.64L+', note: ADS_PERIOD },
@@ -277,7 +277,7 @@ export const PROJECTS = localizeDeep([
     category: 'Performance Marketing × Social Media',
     industries: ['D2C', 'E-commerce', 'Spiritual'],
     summary:
-      'How BrandGap used Meta Ads, product-led campaigns, audience testing and retargeting to drive ₹93.96L in total sales and 5,220 orders from ₹12.84L in ad spend — a 7.32x ROAS.',
+      'How BrandGap used Meta Ads, product-led campaigns, audience testing and retargeting to drive ₹93.96L in total sales and 5,220 orders from ₹12.84L in ad spend a 7.32x ROAS.',
     metrics: [
       { label: 'Total sales', value: '₹93.96L', note: 'Updated performance report supplied by BrandGap' },
       { label: 'Ad spend', value: '₹12.84L', note: 'Updated performance report supplied by BrandGap' },
@@ -485,7 +485,7 @@ export const PROJECTS = localizeDeep([
     category: 'Social Media × Digital Brand Growth',
     industries: ['Personal Brand', 'Spiritual', 'E-commerce'],
     summary:
-      'How BrandGap built Healer Priya Agrawal’s digital presence from zero — across social media, YouTube, a brand website and an ecommerce store.',
+      'How BrandGap built Healer Priya Agrawal’s digital presence from zero across social media, YouTube, a brand website and an ecommerce store.',
     metrics: [
       { label: 'Starting point', value: '0', note: 'The client-work starting point' },
       { label: 'Social followers', value: '200K+', note: 'Currently reported by the Healer of the Ages website' },
@@ -495,7 +495,7 @@ export const PROJECTS = localizeDeep([
     highlights: [0, 1, 2],
     strategy: ['Social media', 'YouTube content engine', 'Brand website', 'Ecommerce', 'Content strategy'],
     flow: {
-      problem: 'There was no audience to manage — the engagement started from zero.',
+      problem: 'There was no audience to manage the engagement started from zero.',
       strategy: 'Content and publishing system · YouTube content engine · Brand website · Ecommerce · Multi-platform brand',
       result: 'A connected digital brand across YouTube, Instagram, Facebook, website and ecommerce. 200K+ followers are reported by the client’s website today.',
     },
@@ -686,7 +686,7 @@ export const PROJECTS = localizeDeep([
     category: 'Meta Ads × Lead Generation',
     industries: ['Local Business'],
     summary:
-      'How BrandGap combined large-scale Meta reach with messaging-led lead generation to put Ambaji Marble House in front of more than 9.3 million people and generate 1,087 messaging contacts.',
+      'How BrandGap combined large scale Meta reach with messaging led lead generation to put Ambaji Marble House in front of more than 9.3 million people and generate 1,087 messaging contacts.',
     metrics: [
       { label: 'Messaging contacts', value: '1,087', note: 'Account-level total' },
       { label: 'Reach', value: '9.30M+', note: 'Account-level total' },

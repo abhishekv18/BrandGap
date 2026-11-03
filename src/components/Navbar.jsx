@@ -1,3 +1,239 @@
+// import { AnimatePresence, m } from 'framer-motion'
+// import { useEffect, useRef, useState } from 'react'
+// import { NavLink, useLocation } from 'react-router'
+// import { CONTACT } from '../data/contact'
+// import { NAV_CTA, NAV_LINKS, NAV_TOOLS } from '../data/navigation'
+// import { useHrefClick } from '../hooks/useHrefClick'
+// import { track } from '../utils/analytics'
+// import { BrandMark, Wordmark } from './BrandMark'
+// import { trapTab } from './CaseDrawer'
+// import { useSmoothScroll } from './SmoothScroll'
+
+// const EASE = [0.16, 1, 0.3, 1]
+
+// export function Navbar() {
+//   const { stop, start } = useSmoothScroll()
+//   const hrefClick = useHrefClick()
+//   const { pathname } = useLocation()
+//   const [condensed, setCondensed] = useState(false)
+//   const [open, setOpen] = useState(false)
+//   const menuButton = useRef(null)
+//   const firstLink = useRef(null)
+//   // Set when a menu link navigates, so closing the menu doesn't pull focus back to the button.
+//   const navigated = useRef(false)
+
+//   // Condense once the reader has left the opening screen (sooner on inner pages).
+//   useEffect(() => {
+//     const threshold = pathname === '/' ? 0.6 : 0.15
+//     const onScroll = () => setCondensed(window.scrollY > window.innerHeight * threshold)
+//     onScroll()
+//     window.addEventListener('scroll', onScroll, { passive: true })
+//     return () => window.removeEventListener('scroll', onScroll)
+//   }, [pathname])
+
+//   // Menu: lock scroll, close on Escape, trap focus, return focus.
+//   useEffect(() => {
+//     if (!open) return
+//     stop()
+//     document.body.style.overflow = 'hidden'
+//     firstLink.current?.focus()
+//     const onKey = (e) => {
+//       if (e.key === 'Escape') setOpen(false)
+//       trapTab(e, document.getElementById('site-menu'))
+//     }
+//     window.addEventListener('keydown', onKey)
+//     return () => {
+//       start()
+//       document.body.style.overflow = ''
+//       window.removeEventListener('keydown', onKey)
+//       if (!navigated.current) menuButton.current?.focus()
+//       navigated.current = false
+//     }
+//   }, [open, stop, start])
+
+//   const go = (e, to) => {
+//     if (open) navigated.current = true
+//     setOpen(false)
+//     hrefClick(e, to)
+//   }
+
+//   // At the top: ink links on the page. Once scrolled, on the ink bar: cream links, with the lighter
+//   // on-dark terracotta (#D9806F) for hover and the current page.
+//   const linkClass = ({ isActive }) =>
+//     `group relative flex min-h-11 items-center px-2 label lg:px-3 transition-colors duration-500 md:text-[0.875rem] md:tracking-[0.12em] desk:text-[0.75rem] desk:tracking-[0.18em] xl:px-4 ${
+//       condensed
+//         ? `hover:text-[#D9806F] ${isActive ? 'text-[#D9806F]' : 'text-cream/85'}`
+//         : `hover:text-terracotta ${isActive ? 'text-terracotta' : 'text-ink'}`
+//     }`
+
+//   return (
+//     <>
+//       <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
+//         <div className="container-page flex justify-center pt-3 md:pt-5">
+//           {/* At the top of the page the bar is open and transparent. On scroll it condenses into a
+//               slim, deep-ink pill (#140D10, a shade under the mark's own near-black), lightly frosted,
+//               with a hairline edge. The logo switches to its on-dark version (cream g), as the
+//               guidelines specify, so it sits on the bar without a container. */}
+//           <nav
+//             aria-label="Primary"
+//             {...(condensed ? { 'data-theme': 'dark' } : {})}
+//             className={`pointer-events-auto flex w-full items-center justify-between gap-4 rounded-full transition-[max-width,background-color,box-shadow,padding] duration-700 ease-(--ease-out-expo) ${
+//               condensed
+//                 ? 'max-w-4xl bg-[#140D10]/95 py-1 pr-1 pl-5 shadow-[0_20px_45px_-22px_rgba(20,13,16,0.7),inset_0_0_0_1px_rgb(244_233_225/0.09)] backdrop-blur-md'
+//                 : 'max-w-[90rem] bg-transparent py-1.5 pr-0 pl-0'
+//             }`}
+//           >
+//             <a
+//               href="/"
+//               onClick={(e) => go(e, '/')}
+//               className="flex min-h-11 items-center gap-2.5 transition-opacity duration-300 hover:opacity-85"
+//               aria-label="BrandGap — home"
+//             >
+//               <BrandMark tone={condensed ? 'dark' : 'light'} className={`w-auto transition-[height] duration-700 ease-(--ease-out-expo) ${condensed ? 'h-7' : 'h-9'}`} />
+//               <Wordmark tone={condensed ? 'dark' : 'light'} className={`leading-none transition-[font-size] duration-700 ease-(--ease-out-expo) ${condensed ? 'text-[1.3125rem] [&>span:last-child]:text-[#D9806F]' : 'text-[1.5rem]'}`} />
+//             </a>
+
+//             <ul className="hidden items-center md:flex">
+//               {NAV_LINKS.map((l) => (
+//                 <li key={l.to}>
+//                   <NavLink to={l.to} onClick={(e) => go(e, l.to)} className={linkClass}>
+//                     {({ isActive }) => (
+//                       <>
+//                         {l.label}
+//                         <span
+//                           aria-hidden
+//                           className={`absolute bottom-2 left-1/2 size-1 -translate-x-1/2 rounded-full bg-terracotta transition-transform duration-500 ease-(--ease-out-expo) ${
+//                             isActive ? 'scale-100' : 'scale-0'
+//                           }`}
+//                         />
+//                       </>
+//                     )}
+//                   </NavLink>
+//                 </li>
+//               ))}
+//               <li className="ml-1 lg:ml-2">
+//                 <a
+//                   href={NAV_CTA.to}
+//                   onClick={(e) => {
+//                     track('cta_click', { cta: 'nav_start_project', href: NAV_CTA.to })
+//                     go(e, NAV_CTA.to)
+//                   }}
+//                   data-cursor="start"
+//                   className={`label flex min-h-11 items-center rounded-full px-4 text-[0.6875rem] whitespace-nowrap transition-colors duration-500 lg:px-5 lg:text-[0.6875rem] ${
+//                     condensed ? 'bg-terracotta text-cream hover:bg-cream hover:text-ink' : 'bg-ink text-cream hover:bg-terracotta'
+//                   }`}
+//                 >
+//                   {NAV_CTA.label}
+//                 </a>
+//               </li>
+//             </ul>
+
+//             <button
+//               ref={menuButton}
+//               type="button"
+//               onClick={() => setOpen(true)}
+//               aria-expanded={open}
+//               aria-controls="site-menu"
+//               className={`flex min-h-11 items-center gap-3 rounded-full px-4 label transition-colors duration-500 md:hidden ${condensed ? 'text-cream' : 'text-ink'}`}
+//             >
+//               Menu
+//               <span aria-hidden className="flex flex-col gap-1.5">
+//                 <span className={`block h-px w-5 transition-colors duration-500 ${condensed ? 'bg-cream' : 'bg-ink'}`} />
+//                 <span className={`block h-px w-3 self-end transition-colors duration-500 ${condensed ? 'bg-cream' : 'bg-ink'}`} />
+//               </span>
+//             </button>
+//           </nav>
+//         </div>
+//       </header>
+
+//       <AnimatePresence>
+//         {open && (
+//           <m.div
+//             id="site-menu"
+//             role="dialog"
+//             aria-modal="true"
+//             aria-label="Menu"
+//             data-theme="terracotta"
+//             data-lenis-prevent
+//             className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-terracotta text-cream"
+//             initial={{ clipPath: 'inset(0 0 100% 0)' }}
+//             animate={{ clipPath: 'inset(0 0 0% 0)' }}
+//             exit={{ clipPath: 'inset(0 0 100% 0)' }}
+//             transition={{ duration: 0.7, ease: EASE }}
+//           >
+//             <div className="container-page flex items-center justify-between pt-3">
+//               <span className="flex min-h-11 items-center gap-3">
+//                 {/* The b is terracotta, so on this ground the mark sits on a cream badge in its true colours */}
+//                 <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-cream shadow-[0_6px_16px_-8px_rgba(28,18,22,0.45)]">
+//                   <BrandMark className="h-6 w-auto" />
+//                 </span>
+//                 <Wordmark tone="dark" className="text-[1.375rem] leading-none [&>span:last-child]:text-cream" />
+//               </span>
+//               <button type="button" onClick={() => setOpen(false)} className="min-h-11 rounded-full px-4 label">
+//                 Close
+//               </button>
+//             </div>
+//             <ul className="container-page mt-auto flex flex-col gap-1 pt-10">
+//               {[{ to: '/', label: 'Home' }, ...NAV_LINKS].map((l, i) => (
+//                 <m.li
+//                   key={l.to}
+//                   initial={{ y: 40, opacity: 0 }}
+//                   animate={{ y: 0, opacity: 1 }}
+//                   transition={{ delay: 0.25 + i * 0.06, duration: 0.8, ease: EASE }}
+//                 >
+//                   <a
+//                     ref={i === 0 ? firstLink : undefined}
+//                     href={l.to}
+//                     onClick={(e) => go(e, l.to)}
+//                     aria-current={pathname === l.to ? 'page' : undefined}
+//                     className="flex items-baseline gap-4 py-1 font-display text-[clamp(2.25rem,9vw,3.25rem)] leading-[1.05] aria-[current=page]:italic"
+//                   >
+//                     <span className="label text-cream">0{i + 1}</span>
+//                     {l.label}
+//                   </a>
+//                 </m.li>
+//               ))}
+//             </ul>
+//             <m.div
+//               className="container-page mt-8 flex flex-wrap gap-x-6 gap-y-1"
+//               initial={{ opacity: 0 }}
+//               animate={{ opacity: 1 }}
+//               transition={{ delay: 0.6, duration: 0.6 }}
+//             >
+//               {NAV_TOOLS.map((l) => (
+//                 <a key={l.to} href={l.to} onClick={(e) => go(e, l.to)} className="label inline-flex min-h-11 items-center text-cream">
+//                   {l.label}
+//                 </a>
+//               ))}
+//             </m.div>
+//             <div className="container-page mt-6 mb-8 flex flex-wrap items-center justify-between gap-4 border-t border-line-light pt-5">
+//               <a
+//                 href={NAV_CTA.to}
+//                 onClick={(e) => {
+//                   track('cta_click', { cta: 'menu_start_project', href: NAV_CTA.to })
+//                   go(e, NAV_CTA.to)
+//                 }}
+//                 className="label flex min-h-11 items-center rounded-full bg-cream px-6 text-ink"
+//               >
+//                 {NAV_CTA.label}
+//               </a>
+//               <p className="flex flex-col items-end text-sm text-cream">
+//                 <a href={CONTACT.email.href} className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">
+//                   {CONTACT.email.label}
+//                 </a>
+//                 {CONTACT.phone.href && (
+//                   <a href={CONTACT.phone.href} className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">
+//                     {CONTACT.phone.label}
+//                   </a>
+//                 )}
+//               </p>
+//             </div>
+//           </m.div>
+//         )}
+//       </AnimatePresence>
+//     </>
+//   )
+// }
 import { AnimatePresence, m } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { NavLink, useLocation } from 'react-router'
@@ -77,20 +313,20 @@ export function Navbar() {
           <nav
             aria-label="Primary"
             {...(condensed ? { 'data-theme': 'dark' } : {})}
-            className={`pointer-events-auto flex w-full items-center justify-between gap-4 rounded-full transition-[max-width,background-color,box-shadow,padding] duration-700 ease-(--ease-out-expo) ${
+            className={`pointer-events-auto flex w-full items-center justify-between gap-2 sm:gap-4 rounded-full transition-[max-width,background-color,box-shadow,padding] duration-700 ease-(--ease-out-expo) ${
               condensed
-                ? 'max-w-4xl bg-[#140D10]/95 py-1 pr-1 pl-5 shadow-[0_20px_45px_-22px_rgba(20,13,16,0.7),inset_0_0_0_1px_rgb(244_233_225/0.09)] backdrop-blur-md'
+                ? 'max-w-4xl bg-[#140D10]/95 py-1 pr-1 pl-4 sm:pl-5 shadow-[0_20px_45px_-22px_rgba(20,13,16,0.7),inset_0_0_0_1px_rgb(244_233_225/0.09)] backdrop-blur-md'
                 : 'max-w-[90rem] bg-transparent py-1.5 pr-0 pl-0'
             }`}
           >
             <a
               href="/"
               onClick={(e) => go(e, '/')}
-              className="flex min-h-11 items-center gap-2.5 transition-opacity duration-300 hover:opacity-85"
+              className="flex min-h-11 items-center gap-2 sm:gap-2.5 transition-opacity duration-300 hover:opacity-85"
               aria-label="BrandGap — home"
             >
               <BrandMark tone={condensed ? 'dark' : 'light'} className={`w-auto transition-[height] duration-700 ease-(--ease-out-expo) ${condensed ? 'h-7' : 'h-9'}`} />
-              <Wordmark tone={condensed ? 'dark' : 'light'} className={`leading-none transition-[font-size] duration-700 ease-(--ease-out-expo) ${condensed ? 'text-[1.3125rem] [&>span:last-child]:text-[#D9806F]' : 'text-[1.5rem]'}`} />
+              <Wordmark tone={condensed ? 'dark' : 'light'} className={`leading-none transition-[font-size] duration-700 ease-(--ease-out-expo) ${condensed ? 'text-[1.25rem] sm:text-[1.3125rem] [&>span:last-child]:text-[#D9806F]' : 'text-[1.35rem] sm:text-[1.5rem]'}`} />
             </a>
 
             <ul className="hidden items-center md:flex">
@@ -134,7 +370,7 @@ export function Navbar() {
               onClick={() => setOpen(true)}
               aria-expanded={open}
               aria-controls="site-menu"
-              className={`flex min-h-11 items-center gap-3 rounded-full px-4 label transition-colors duration-500 md:hidden ${condensed ? 'text-cream' : 'text-ink'}`}
+              className={`flex min-h-11 items-center gap-3 rounded-full px-3 sm:px-4 label transition-colors duration-500 md:hidden ${condensed ? 'text-cream' : 'text-ink'}`}
             >
               Menu
               <span aria-hidden className="flex flex-col gap-1.5">
@@ -161,15 +397,15 @@ export function Navbar() {
             exit={{ clipPath: 'inset(0 0 100% 0)' }}
             transition={{ duration: 0.7, ease: EASE }}
           >
-            <div className="container-page flex items-center justify-between pt-3">
-              <span className="flex min-h-11 items-center gap-3">
+            <div className="container-page flex items-center justify-between gap-4 pt-3">
+              <span className="flex min-h-11 min-w-0 items-center gap-2 sm:gap-3">
                 {/* The b is terracotta, so on this ground the mark sits on a cream badge in its true colours */}
-                <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-cream shadow-[0_6px_16px_-8px_rgba(28,18,22,0.45)]">
-                  <BrandMark className="h-6 w-auto" />
+                <span className="flex size-10 sm:size-11 shrink-0 items-center justify-center rounded-full bg-cream shadow-[0_6px_16px_-8px_rgba(28,18,22,0.45)]">
+                  <BrandMark className="h-5 sm:h-6 w-auto" />
                 </span>
-                <Wordmark tone="dark" className="text-[1.375rem] leading-none [&>span:last-child]:text-cream" />
+                <Wordmark tone="dark" className="truncate text-[1.25rem] sm:text-[1.375rem] leading-none [&>span:last-child]:text-cream" />
               </span>
-              <button type="button" onClick={() => setOpen(false)} className="min-h-11 rounded-full px-4 label">
+              <button type="button" onClick={() => setOpen(false)} className="min-h-11 shrink-0 rounded-full px-3 sm:px-4 label">
                 Close
               </button>
             </div>
@@ -186,7 +422,7 @@ export function Navbar() {
                     href={l.to}
                     onClick={(e) => go(e, l.to)}
                     aria-current={pathname === l.to ? 'page' : undefined}
-                    className="flex items-baseline gap-4 py-1 font-display text-[clamp(2.25rem,9vw,3.25rem)] leading-[1.05] aria-[current=page]:italic"
+                    className="flex min-w-0 items-baseline gap-4 py-1 font-display text-[clamp(2.25rem,9vw,3.25rem)] leading-[1.05] aria-[current=page]:italic break-words"
                   >
                     <span className="label text-cream">0{i + 1}</span>
                     {l.label}
@@ -217,12 +453,12 @@ export function Navbar() {
               >
                 {NAV_CTA.label}
               </a>
-              <p className="flex flex-col items-end text-sm text-cream">
-                <a href={CONTACT.email.href} className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">
+              <p className="flex min-w-0 flex-col items-end text-sm text-cream">
+                <a href={CONTACT.email.href} className="inline-flex min-h-11 items-center break-all text-right underline-offset-4 hover:underline">
                   {CONTACT.email.label}
                 </a>
                 {CONTACT.phone.href && (
-                  <a href={CONTACT.phone.href} className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">
+                  <a href={CONTACT.phone.href} className="inline-flex min-h-11 items-center break-all text-right underline-offset-4 hover:underline">
                     {CONTACT.phone.label}
                   </a>
                 )}

@@ -200,6 +200,7 @@
   }
   img, svg, canvas {
     display: block;
+    max-width: 100%;
   }
 }
 
