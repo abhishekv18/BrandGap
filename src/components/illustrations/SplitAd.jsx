@@ -409,9 +409,9 @@ export function SplitAd({ className = '', labelSize = 20, uid = 'splitad' }) {
 
 /** Mobile: the joined ad, labels either side, no movement. */
 export function SplitAdMobile({ className = '' }) {
-  const X = 190
+  const X = 186
   const Y = 64
-  const s = 0.55
+  const s = 0.58
   const p = (lx, ly) => [X + lx * s, Y + ly * s]
   const left = [
     ['Hook', p(20, 124), 128],
@@ -424,33 +424,33 @@ export function SplitAdMobile({ className = '' }) {
     ['Data', p(380, 402), 312],
   ]
   return (
-    <svg viewBox="30 15 540 435" role="img" aria-label={ALT} className={className}>
+    <svg viewBox="15 0 570 460" role="img" aria-label={ALT} className={className}>
       <Halves id="splitad-m" x={X} y={Y} scale={s} />
-      <Note x={172} y={40} size={26} anchor="end" italic fill={C.terra}>
+      <Note x={186} y={40} size={26} anchor="end" italic fill={C.terra}>
         Creative
       </Note>
-      <Note x={428} y={40} size={26}>
+      <Note x={414} y={40} size={26}>
         Performance
       </Note>
       {left.map(([name, from, y], i) => (
         <g key={name}>
-          <path d={`M${from[0]} ${from[1]} L172 ${y}`} stroke={C.ink} strokeWidth={1} vectorEffect="non-scaling-stroke" />
+          <path d={`M${from[0]} ${from[1]} L168 ${y}`} stroke={C.ink} strokeWidth={1} vectorEffect="non-scaling-stroke" />
           <circle cx={from[0]} cy={from[1]} r={4} fill={i ? C.terra : C.paper} stroke={i ? 'none' : C.ink} strokeWidth={1} vectorEffect="non-scaling-stroke" />
-          <Label x={164} y={y + 6} size={18} anchor="end" fill={C.ink}>
+          <Label x={160} y={y + 6} size={18} anchor="end" fill={C.ink}>
             {name}
           </Label>
         </g>
       ))}
       {right.map(([name, from, y]) => (
         <g key={name}>
-          <path d={`M${from[0]} ${from[1]} L428 ${y}`} stroke={C.ink} strokeWidth={1} vectorEffect="non-scaling-stroke" />
+          <path d={`M${from[0]} ${from[1]} L432 ${y}`} stroke={C.ink} strokeWidth={1} vectorEffect="non-scaling-stroke" />
           <circle cx={from[0]} cy={from[1]} r={4} fill={C.terra} />
-          <Label x={436} y={y + 6} size={18} fill={C.ink}>
+          <Label x={440} y={y + 6} size={18} fill={C.ink}>
             {name}
           </Label>
         </g>
       ))}
-      <Stamp cx={300} cy={Y + 322} r={56} size={17} />
+      <Stamp cx={302} cy={Y + 322} r={56} size={17} />
     </svg>
   )
 }
