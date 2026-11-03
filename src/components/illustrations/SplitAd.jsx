@@ -409,48 +409,54 @@ export function SplitAd({ className = '', labelSize = 20, uid = 'splitad' }) {
 
 /** Mobile: the joined ad, labels either side, no movement. */
 export function SplitAdMobile({ className = '' }) {
-  const X = 186
-  const Y = 64
-  const s = 0.58
+  const s = 0.65
+  const X = 170
+  const Y = 40
   const p = (lx, ly) => [X + lx * s, Y + ly * s]
   const left = [
-    ['Hook', p(20, 124), 128],
-    ['Story', p(178, 300), 220],
-    ['Design', p(50, 461), 312],
+    ['Hook', p(20, 124)],
+    ['Story', p(178, 300)],
+    ['Design', p(50, 461)],
   ]
   const right = [
-    ['Audience', p(300, 222), 128],
-    ['Test', p(392, 309), 220],
-    ['Data', p(380, 402), 312],
+    ['Audience', p(300, 222)],
+    ['Test', p(392, 309)],
+    ['Data', p(380, 402)],
   ]
   return (
-    <svg viewBox="15 0 570 460" role="img" aria-label={ALT} className={className}>
+    <svg viewBox="0 0 600 460" role="img" aria-label={ALT} className={className}>
       <Halves id="splitad-m" x={X} y={Y} scale={s} />
-      <Note x={186} y={40} size={26} anchor="end" italic fill={C.terra}>
+      <Note x={160} y={30} size={28} anchor="end" italic fill={C.terra}>
         Creative
       </Note>
-      <Note x={414} y={40} size={26}>
+      <Note x={440} y={30} size={28}>
         Performance
       </Note>
-      {left.map(([name, from, y], i) => (
-        <g key={name}>
-          <path d={`M${from[0]} ${from[1]} L168 ${y}`} stroke={C.ink} strokeWidth={1} vectorEffect="non-scaling-stroke" />
-          <circle cx={from[0]} cy={from[1]} r={4} fill={i ? C.terra : C.paper} stroke={i ? 'none' : C.ink} strokeWidth={1} vectorEffect="non-scaling-stroke" />
-          <Label x={160} y={y + 6} size={18} anchor="end" fill={C.ink}>
-            {name}
-          </Label>
-        </g>
-      ))}
-      {right.map(([name, from, y]) => (
-        <g key={name}>
-          <path d={`M${from[0]} ${from[1]} L432 ${y}`} stroke={C.ink} strokeWidth={1} vectorEffect="non-scaling-stroke" />
-          <circle cx={from[0]} cy={from[1]} r={4} fill={C.terra} />
-          <Label x={440} y={y + 6} size={18} fill={C.ink}>
-            {name}
-          </Label>
-        </g>
-      ))}
-      <Stamp cx={302} cy={Y + 322} r={56} size={17} />
+      {left.map(([name, from], i) => {
+        const y = from[1]
+        return (
+          <g key={name}>
+            <path d={`M${from[0]} ${from[1]} L140 ${y}`} stroke={C.ink} strokeWidth={1} vectorEffect="non-scaling-stroke" />
+            <circle cx={from[0]} cy={from[1]} r={4} fill={i ? C.terra : C.paper} stroke={i ? 'none' : C.ink} strokeWidth={1} vectorEffect="non-scaling-stroke" />
+            <Label x={132} y={y + 6} size={20} anchor="end" fill={C.ink}>
+              {name}
+            </Label>
+          </g>
+        )
+      })}
+      {right.map(([name, from], i) => {
+        const y = from[1]
+        return (
+          <g key={name}>
+            <path d={`M${from[0]} ${from[1]} L460 ${y}`} stroke={C.ink} strokeWidth={1} vectorEffect="non-scaling-stroke" />
+            <circle cx={from[0]} cy={from[1]} r={4} fill={C.terra} />
+            <Label x={468} y={y + 6} size={20} fill={C.ink}>
+              {name}
+            </Label>
+          </g>
+        )
+      })}
+      <Stamp cx={300} cy={Y + 540 * s} r={56 * (s / 0.55)} size={18 * (s / 0.55)} />
     </svg>
   )
 }

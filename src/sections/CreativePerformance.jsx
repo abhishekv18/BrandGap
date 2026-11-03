@@ -89,7 +89,7 @@ export function CreativePerformance() {
   }, [reducedMotion])
 
   return (
-    <section id="creative-performance" ref={root} aria-labelledby="cp-title" className="container-page section-y max-md:pb-6 overflow-hidden text-center md:text-left">
+    <section id="creative-performance" ref={root} aria-labelledby="cp-title" className="container-page max-md:pt-12 max-md:pb-0 md:section-y overflow-hidden text-center md:text-left">
       <div className="grid gap-heading-row lg:grid-cols-12">
         <div className="min-w-0 lg:col-span-8">
           <SectionLabel numeral={numeralOf('creative-performance')} name="Creative × Performance" />
@@ -110,7 +110,7 @@ export function CreativePerformance() {
         <SplitAd labelSize={34} className="mx-auto hidden h-auto w-full max-w-4xl desk:block" />
         <SplitAd labelSize={32} uid="splitad-tab" className="mx-auto hidden h-auto w-full md:block desk:hidden" />
         <Reveal className="mt-8 md:mt-0">
-          <SplitAdMobile className="mx-auto block h-auto w-full max-w-[min(30rem,100%)] md:hidden" />
+          <SplitAdMobile className="mx-auto block h-auto w-full max-w-[min(32rem,100%)] md:hidden" />
         </Reveal>
       </figure>
     </section>
