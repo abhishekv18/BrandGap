@@ -887,7 +887,7 @@ export default function ContactPage() {
                             <Optional />
                           </>
                         }
-                        hint="In a few words — where is the brand right now?"
+                        hint="In a few words where is the brand right now?"
                         className="sm:col-span-2"
                         boxed
                       />
@@ -898,7 +898,7 @@ export default function ContactPage() {
                       legend="Monthly budget range"
                       options={FORM_OPTIONS.budgets}
                       required
-                      hint="This helps us understand the right scope — not to judge the size of your brand."
+                      hint="This helps us understand the right scope not to judge the size of your brand."
                       error={shown.budget}
                     />
                     <TextAreaField
