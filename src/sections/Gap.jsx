@@ -274,6 +274,8 @@
 //     </section>
 //   )
 // }
+
+
 import { useLayoutEffect, useRef } from 'react'
 import { easeInOutCubic, gsap, range } from '../animations/gsap'
 import { Reveal } from '../components/Reveal'
@@ -285,12 +287,12 @@ import { numeralOf } from '../data/navigation'
 
 // Sized so the longest word always fits: stacked below 1024px, side by side above.
 const WORD =
-  'inline-block font-display leading-[0.95] tracking-[-0.03em] whitespace-nowrap text-[clamp(1.75rem,9vw,5rem)] desk:text-[clamp(2.75rem,0.5rem+5vw,6.5rem)]'
+  'inline-block font-display leading-[0.95] tracking-[-0.03em] whitespace-nowrap text-[clamp(1.75rem,9vw,5rem)] desk:text-[clamp(2.75rem,0.5rem+5vw,6.5rem)] 2xl:text-[clamp(3.5rem,0.5rem+6vw,8rem)]'
 
 /** The statement, set once and shared by the scroll and still versions. */
 function Statement({ className = '' }) {
   return (
-    <h2 id="gap-title" className={`mx-auto max-w-[22ch] text-h2 desk:mx-0 ${className}`}>
+    <h2 id="gap-title" className={`mx-auto max-w-[22ch] text-h2 desk:mx-0 2xl:max-w-[26ch] ${className}`}>
       {GAP_STATEMENT.lead} <span className="italic text-terracotta">{GAP_STATEMENT.emphasis}</span>
     </h2>
   )
@@ -299,7 +301,7 @@ function Statement({ className = '' }) {
 /** The four gaps every brand recognises, set as a quiet list under the statement. */
 function Between({ className = '' }) {
   return (
-    <ul className={`mx-auto flex w-full max-w-xl flex-col gap-2 text-ink-soft desk:mx-0 desk:gap-1.5 ${className}`}>
+    <ul className={`mx-auto flex w-full max-w-xl flex-col gap-2 text-ink-soft desk:mx-0 desk:gap-1.5 2xl:max-w-2xl 2xl:text-lg ${className}`}>
       {GAP_BETWEEN.map((line) => (
         <li key={line} className="flex items-baseline justify-center gap-3 desk:justify-start">
           <span aria-hidden className="hidden h-px w-3 shrink-0 -translate-y-1 bg-terracotta desk:block" />
@@ -313,14 +315,14 @@ function Between({ className = '' }) {
 /** BRAND ← THE GAP → GROWTH (brief §4), drawn as a measured hairline. */
 function GapDiagram({ className = '' }) {
   return (
-    <p className={`label flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-ink-muted desk:justify-start ${className}`}>
+    <p className={`label flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-ink-muted desk:justify-start 2xl:text-sm ${className}`}>
       <span className="text-terracotta">Brand</span>
-      <span aria-hidden className="relative block h-px w-10 bg-terracotta/60 md:w-16">
-        <span className="absolute top-1/2 left-0 size-1.5 -translate-y-1/2 rotate-45 border-b border-l border-terracotta" />
+      <span aria-hidden className="relative block h-px w-10 bg-terracotta/60 md:w-16 2xl:w-24">
+        <span className="absolute top-1/2 left-0 size-1.5 -translate-y-1/2 rotate-45 border-b border-l border-terracotta 2xl:size-2" />
       </span>
       <span>The gap</span>
-      <span aria-hidden className="relative block h-px w-10 bg-ink/40 md:w-16">
-        <span className="absolute top-1/2 right-0 size-1.5 -translate-y-1/2 rotate-45 border-t border-r border-ink" />
+      <span aria-hidden className="relative block h-px w-10 bg-ink/40 md:w-16 2xl:w-24">
+        <span className="absolute top-1/2 right-0 size-1.5 -translate-y-1/2 rotate-45 border-t border-r border-ink 2xl:size-2" />
       </span>
       <span className="text-ink">Growth</span>
     </p>
@@ -445,10 +447,10 @@ function GapScroll() {
   return (
     <section id="gap" ref={section} aria-labelledby="gap-title" className="relative h-[300svh] md:h-[310svh] desk:h-[400svh]">
       <div ref={stage} className="sticky top-0 h-svh overflow-hidden">
-        <SectionLabel numeral={numeralOf('gap')} name="The gap" className="container-page absolute inset-x-0 top-20 md:top-28 md:!justify-center desk:!justify-start" />
+        <SectionLabel numeral={numeralOf('gap')} name="The gap" className="container-page 2xl:max-w-[110rem] absolute inset-x-0 top-20 md:top-28 md:!justify-center desk:!justify-start" />
 
         {/* Opening statement */}
-        <div data-statement className="container-page absolute inset-0 flex flex-col justify-start pt-28 text-center sm:pt-32 md:pt-48 desk:justify-center desk:pt-36 desk:pb-8 desk:text-left">
+        <div data-statement className="container-page 2xl:max-w-[110rem] absolute inset-0 flex flex-col justify-start pt-28 text-center sm:pt-32 md:pt-48 desk:justify-center desk:pt-36 desk:pb-8 desk:text-left">
           <Statement />
           <GapDiagram className="mt-6 md:mt-8" />
           <Between className="mt-6 text-sm md:mt-8 md:text-base" />
@@ -457,7 +459,7 @@ function GapScroll() {
             <GapStrip className="h-auto w-full" />
           </div>
           {/* Desktop: the measured drawing beside the statement */}
-          <div data-gap-figure className="pointer-events-none absolute top-1/2 right-[var(--gap-fig-inset)] hidden w-[min(40%,34rem)] -translate-y-1/2 [--gap-fig-inset:1.25rem] md:[--gap-fig-inset:2rem] xl:[--gap-fig-inset:3rem] desk:block">
+          <div data-gap-figure className="pointer-events-none absolute top-1/2 right-[var(--gap-fig-inset)] hidden w-[min(40%,34rem)] -translate-y-1/2 2xl:w-[min(45%,42rem)] [--gap-fig-inset:1.25rem] md:[--gap-fig-inset:2rem] xl:[--gap-fig-inset:3rem] 2xl:[--gap-fig-inset:6rem] desk:block">
             <GapFigure className="h-auto w-full" />
           </div>
         </div>
@@ -489,15 +491,15 @@ function GapScroll() {
               </div>
             </div>
 
-            <div className="container-page flex flex-col items-center gap-2 pt-6 text-center md:gap-3">
+            <div className="container-page 2xl:max-w-[110rem] flex flex-col items-center gap-2 pt-6 text-center md:gap-3 2xl:gap-4">
               <span className="flex items-baseline gap-2">
-                <span className="label text-[0.6875rem] text-ink-muted">The gap</span>
-                <span data-readout className="font-display text-lg tabular-nums text-terracotta">
+                <span className="label text-[0.6875rem] text-ink-muted 2xl:text-sm">The gap</span>
+                <span data-readout className="font-display text-lg tabular-nums text-terracotta 2xl:text-3xl">
                   100
                 </span>
               </span>
               <p
-                className="max-w-[26ch] font-display text-h3 italic text-ink-soft md:max-w-[34ch]"
+                className="max-w-[26ch] font-display text-h3 italic text-ink-soft md:max-w-[34ch] 2xl:max-w-[40ch] 2xl:text-4xl"
               >
                 {pair.note}
               </p>
@@ -505,7 +507,7 @@ function GapScroll() {
           </div>
         ))}
 
-        <p data-counter aria-hidden className="container-page absolute inset-x-0 bottom-[max(1.25rem,env(safe-area-inset-bottom))] label text-center text-ink-muted opacity-0 md:text-left">
+        <p data-counter aria-hidden className="container-page 2xl:max-w-[110rem] absolute inset-x-0 bottom-[max(1.25rem,env(safe-area-inset-bottom))] label text-center text-ink-muted opacity-0 md:text-left">
           <span ref={counter} className="text-terracotta">01</span> / 0{GAP_PAIRS.length}
         </p>
 
@@ -524,9 +526,9 @@ function GapScroll() {
 /** Reduced motion: the same story, set as a still editorial list. */
 function GapStatic() {
   return (
-    <section id="gap" aria-labelledby="gap-title" className="container-page section-y text-center md:text-left">
+    <section id="gap" aria-labelledby="gap-title" className="container-page 2xl:max-w-[110rem] section-y text-center md:text-left">
       <SectionLabel numeral={numeralOf('gap')} name="The gap" />
-      <div className="desk:grid desk:grid-cols-12 desk:items-center desk:gap-8">
+      <div className="desk:grid desk:grid-cols-12 desk:items-center desk:gap-8 2xl:gap-16">
         <div className="desk:col-span-7">
           <Statement className="mt-8 md:mt-10" />
           <GapDiagram className="mt-8" />

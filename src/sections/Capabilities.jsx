@@ -125,11 +125,11 @@ export function Capabilities() {
               {group.name}
               <span className="text-terracotta">.</span>
             </h3>
-            {/* Centred as a block on phones, so the rules line up down the left */}
-            <ul className="mx-auto mt-4 flex w-fit max-w-full flex-col items-start gap-1.5 text-left text-sm text-ink-soft md:mx-0">
+            {/* Centred as a block on phones, in two columns for density, then a single column on desktop */}
+            <ul className="mx-auto mt-4 grid w-fit max-w-full grid-cols-2 gap-x-4 gap-y-2 text-left text-sm text-ink-soft sm:mx-0 sm:flex sm:w-auto sm:flex-col sm:gap-1.5">
               {group.items.map((item) => (
-                <li key={item} className="flex min-w-0 items-start gap-3">
-                  <span aria-hidden className="mt-2 h-px w-3 shrink-0 bg-terracotta" />
+                <li key={item} className="flex min-w-0 items-start gap-2 sm:gap-3">
+                  <span aria-hidden className="mt-[0.4em] h-px w-3 shrink-0 bg-terracotta" />
                   <span className="min-w-0 break-words">{item}</span>
                 </li>
               ))}
@@ -170,29 +170,5 @@ function ToolsMarquee() {
       </li>
     ))
 
-  // return (
-  //   <Reveal className="space-subblock border-y border-line py-5 md:py-6">
-  //     {/* <div className="flex flex-col items-center gap-4 md:flex-row md:gap-8">
-  //       <h3 id="tools-title" className="label shrink-0 font-sans text-ink-muted">
-  //         Tools we work in
-  //       </h3>
-  //       <div
-  //         ref={root}
-  //         data-running="true"
-  //         className="marquee w-full min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] select-none"
-  //       >
-  //         <ul
-  //           aria-labelledby="tools-title"
-  //           className="marquee-track flex w-max items-center"
-  //           style={{ animationDuration: '56s', animationDirection: 'reverse' }}
-  //         >
-  //           {run(0)}
-  //           {run(1)}
-  //         </ul>
-  //       </div>
-  //     </div> */}
-  //   </Reveal>
-  // )
-  
   return null
 }

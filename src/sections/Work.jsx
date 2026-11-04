@@ -400,11 +400,13 @@ export function Work() {
       <header className="container-page grid gap-heading-row text-center md:text-left lg:grid-cols-12">
         <div className="min-w-0 lg:col-span-8">
           <SectionLabel numeral={numeralOf('work')} name="Case studies" />
-          <h2 id="work-title" className="mt-5 text-h2 md:mt-7">
+          <h2 id="work-title" className="mt-6 text-h2 sm:mt-7 md:mt-8 max-md:leading-[1.15]">
             <MaskReveal>{WORK_INTRO.title}</MaskReveal>
-            <MaskReveal delay={0.08} className="italic text-terracotta">
-              {WORK_INTRO.emphasis}
-            </MaskReveal>
+            <span className="block mt-1 md:mt-0">
+              <MaskReveal delay={0.08} className="italic text-terracotta">
+                {WORK_INTRO.emphasis}
+              </MaskReveal>
+            </span>
           </h2>
         </div>
         {WORK_INTRO.intro && (
@@ -476,7 +478,7 @@ export function Work() {
               {...PLATES[i % PLATES.length]}
             />
           ))}
-          <AllWorkCard count={PUBLISHED_PROJECTS.length} className="min-h-[10rem] md:min-h-48" />
+          <AllWorkCard count={PUBLISHED_PROJECTS.length} className="min-h-[8rem] md:min-h-48" />
         </div>
       )}
 
@@ -530,19 +532,19 @@ function AllWorkLink({ count, className = '' }) {
       href="/portfolio"
       onClick={(e) => hrefClick(e, '/portfolio')}
       data-cursor="explore"
-      className={`group flex items-center justify-between gap-6 border-y border-line py-6 transition-colors duration-500 hover:border-terracotta ${className}`}
+      className={`group flex items-center justify-between gap-2 border-y border-line py-6 transition-colors duration-500 hover:border-terracotta sm:gap-6 ${className}`}
     >
-      <span className="label text-ink-muted">
+      <span className="label shrink-0 text-ink-muted">
         Index <span className="text-terracotta">—</span> {String(count).padStart(2, '0')} cases
       </span>
-      <span className="flex min-w-0 items-center gap-5">
+      <span className="flex min-w-0 items-center gap-2 sm:gap-5">
         <span className="font-display text-h3 leading-none">
           All <span className="italic text-terracotta">portfolio</span>
         </span>
         <ArrowRight
           aria-hidden
           strokeWidth={1.25}
-          className="size-7 shrink-0 transition-transform duration-700 ease-(--ease-out-expo) group-hover:translate-x-2"
+          className="size-5 shrink-0 transition-transform duration-700 ease-(--ease-out-expo) group-hover:translate-x-2 sm:size-7"
         />
       </span>
     </a>
@@ -561,14 +563,14 @@ function AllWorkCard({ count, className = '' }) {
       <span className="label text-ink-muted">
         Index <span className="text-terracotta">—</span> {String(count).padStart(2, '0')} cases
       </span>
-      <span className="mt-6 flex flex-wrap items-end justify-between gap-x-4 gap-y-5 md:mt-10">
+      <span className="mt-2 flex flex-wrap items-end justify-between gap-x-4 gap-y-2 md:mt-10 md:gap-y-5">
         <span className="font-display text-h2 leading-none">
           All <span className="italic text-terracotta">portfolio</span>
         </span>
         <ArrowRight
           aria-hidden
           strokeWidth={1.25}
-          className="size-8 shrink-0 transition-transform duration-700 ease-(--ease-out-expo) group-hover:translate-x-2"
+          className="size-6 shrink-0 transition-transform duration-700 ease-(--ease-out-expo) group-hover:translate-x-2 md:size-8"
         />
       </span>
     </a>
